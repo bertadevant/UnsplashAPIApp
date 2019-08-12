@@ -24,7 +24,6 @@
 		0E134EF72300D0F000810484 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EF62300D0F000810484 /* ImageViewModel.swift */; };
 		0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EF82300D14200810484 /* UIColor+HexInit.swift */; };
 		0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */; };
-		0E134EFE2300DB8B00810484 /* ImageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFD2300DB8B00810484 /* ImageCollectionViewLayout.swift */; };
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
 		0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605BD22FAE77200125CDB /* AppDelegate.swift */; };
@@ -62,7 +61,6 @@
 		0E134EF62300D0F000810484 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		0E134EF82300D14200810484 /* UIColor+HexInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexInit.swift"; sourceTree = "<group>"; };
 		0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+AsyncDownload.swift"; sourceTree = "<group>"; };
-		0E134EFD2300DB8B00810484 /* ImageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewLayout.swift; sourceTree = "<group>"; };
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		0E7605BA22FAE77200125CDB /* UnsplashApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				0E134EF02300CF3200810484 /* ImageCollectionViewCell.swift */,
-				0E134EFD2300DB8B00810484 /* ImageCollectionViewLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,7 +349,6 @@
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
 				0E134EDB22FC620300810484 /* Dependencies.swift in Sources */,
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
-				0E134EFE2300DB8B00810484 /* ImageCollectionViewLayout.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
 				0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */,
 				0E134ECF22FAFE9A00810484 /* Image.swift in Sources */,
