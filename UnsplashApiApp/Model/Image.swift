@@ -13,6 +13,7 @@ struct Image: Codable, Equatable {
     let color: String
     let width: Int
     let height: Int
+    let description: String?
     let urls: ImageURL
 }
 

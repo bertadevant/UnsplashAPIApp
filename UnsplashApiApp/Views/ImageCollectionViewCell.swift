@@ -23,10 +23,26 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     private var authorLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.font = Fonts.regular
+        label.textColor = .white
+        label.lineBreakMode = .byTruncatingHead
+        label.textAlignment = .left
         return label
     }()
+    
+    private var hoverView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.alpha = 0.35
+        return view
+    }()
+    
+    override var isHighlighted: Bool {
+        didSet {
+            showDescriptionIfHighlighted(isHighlighted)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,10 +56,15 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func update(with image: ImageViewModel) {
         imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.color ?? .white
+        authorLabel.text = image.description
+        hoverView.backgroundColor = image.color ?? .white
+        showDescriptionIfHighlighted(isHighlighted)
     }
     
     private func setup() {
+        clipsToBounds = true
         addSubview(imageView)
+        addSubview(hoverView)
         addSubview(authorLabel)
         setupLayout()
         backgroundColor = .white
@@ -51,5 +72,14 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         imageView.pinToSuperviewEdges()
+        hoverView.pinToSuperviewEdges()
+        authorLabel.pinToSuperviewBottom(withConstant: 8)
+        authorLabel.pinToSuperviewRight(withConstant: -8)
+        authorLabel.pinToSuperviewLeft(withConstant: 16, relatedBy: .greaterThanOrEqual)
+    }
+    
+    private func showDescriptionIfHighlighted(_ isHighlighted: Bool) {
+        authorLabel.isHidden = !isHighlighted
+        hoverView.isHidden = !isHighlighted
     }
 }

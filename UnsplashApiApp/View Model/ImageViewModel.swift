@@ -12,6 +12,7 @@ struct ImageViewModel {
     let id: String
     let color: UIColor?
     let size: CGSize
+    let description: String?
     let imageSmall: URL
     let imageFull: URL
 }
@@ -25,6 +26,7 @@ extension ImageViewModel {
         self.id = image.id
         self.color = UIColor(hexString: image.color)
         self.size = CGSize(width: image.width, height: image.height)
+        self.description = image.description
         self.imageFull = imageFull
         self.imageSmall = imageSmall
     }

@@ -29,6 +29,7 @@ class ImageListViewController: UIViewController {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.reuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isUserInteractionEnabled = true
         collectionView.backgroundColor = .white
         self.view.addSubview(collectionView)
         collectionView.pinToSuperviewEdges()
