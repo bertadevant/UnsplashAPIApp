@@ -15,10 +15,11 @@ struct ImageViewModel {
     let description: String?
     let imageSmall: URL
     let imageFull: URL
+    let actions: [Actions]?
 }
 
 extension ImageViewModel {
-    init?(image: Image) {
+    init?(image: Image, actions: [Actions]?) {
         guard let imageFull = URL(string: image.urls.full),
             let imageSmall = URL(string: image.urls.small) else {
                 return nil
@@ -29,6 +30,16 @@ extension ImageViewModel {
         self.description = image.description
         self.imageFull = imageFull
         self.imageSmall = imageSmall
+        self.actions = actions
     }
 }
 
+struct Actions {
+    let actionType: ActionType
+    let actionHandler: () -> Void
+}
+
+enum ActionType {
+    case button
+    case userInteraction
+}
