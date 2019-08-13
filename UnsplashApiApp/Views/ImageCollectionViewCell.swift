@@ -21,13 +21,13 @@ class ImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private var authorLabel: UILabel = {
+    private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = Fonts.regular
         label.textColor = .white
         label.lineBreakMode = .byTruncatingHead
-        label.textAlignment = .left
+        label.textAlignment = .right
         return label
     }()
     
@@ -56,7 +56,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func update(with image: ImageViewModel) {
         imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.color ?? .white
-        authorLabel.text = image.description
+        descriptionLabel.text = image.description
         hoverView.backgroundColor = image.color ?? .white
         showDescriptionIfHighlighted(isHighlighted)
     }
@@ -65,7 +65,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         clipsToBounds = true
         addSubview(imageView)
         addSubview(hoverView)
-        addSubview(authorLabel)
+        addSubview(descriptionLabel)
         setupLayout()
         backgroundColor = .white
     }
@@ -73,13 +73,13 @@ class ImageCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         imageView.pinToSuperviewEdges()
         hoverView.pinToSuperviewEdges()
-        authorLabel.pinToSuperviewBottom(withConstant: 8)
-        authorLabel.pinToSuperviewRight(withConstant: -8)
-        authorLabel.pinToSuperviewLeft(withConstant: 16, relatedBy: .greaterThanOrEqual)
+        descriptionLabel.pinToSuperviewBottom(withConstant: 8)
+        descriptionLabel.pinToSuperviewRight(withConstant: -8)
+        descriptionLabel.pinToSuperviewLeft(withConstant: 16, relatedBy: .greaterThanOrEqual)
     }
     
     private func showDescriptionIfHighlighted(_ isHighlighted: Bool) {
-        authorLabel.isHidden = !isHighlighted
+        descriptionLabel.isHidden = !isHighlighted
         hoverView.isHidden = !isHighlighted
     }
 }
