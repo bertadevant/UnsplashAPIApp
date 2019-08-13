@@ -31,6 +31,7 @@
 		0E7605D322FAE77500125CDB /* URLSessionLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */; };
 		0EDA9292230184920044F35A /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA9291230184920044F35A /* ImageListTests.swift */; };
 		0EDA9294230184AD0044F35A /* imageList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA9293230184AD0044F35A /* imageList.json */; };
+		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		0E7605D422FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EDA9291230184920044F35A /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
 		0EDA9293230184AD0044F35A /* imageList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = imageList.json; sourceTree = "<group>"; };
+		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				0E134EF02300CF3200810484 /* ImageCollectionViewCell.swift */,
+				0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				0E134F002300E0DC00810484 /* CellStyle.swift in Sources */,
 				0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */,
 				0E134EF12300CF3200810484 /* ImageCollectionViewCell.swift in Sources */,
+				0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */,
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
 				0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewModel.swift in Sources */,
