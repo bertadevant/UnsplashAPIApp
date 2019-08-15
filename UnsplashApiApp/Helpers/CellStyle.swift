@@ -16,7 +16,7 @@ struct CellStyle {
 }
 
 struct Fonts {
-    static var regular = UIFont(name: "HelveticaNeue", size: 14)
+    static var regular = UIFont(name: "HelveticaNeue", size: 16)
 }
 
 extension Image {
