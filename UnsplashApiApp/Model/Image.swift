@@ -15,11 +15,18 @@ struct Image: Codable, Equatable {
     let height: Int
     let description: String?
     let urls: ImageURL
+    let user: Author
 }
 
 struct ImageURL: Codable, Equatable {
     let small: String
-    let full: String
+    let regular: String
+}
+
+struct Author: Codable, Equatable {
+    let id: String
+    let name: String
+//    let profile_image: ImageURL
 }
 
 struct Pagination: Codable {
