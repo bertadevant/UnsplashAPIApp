@@ -26,15 +26,15 @@ extension UIView {
     func pinToSuperview(edges: [Edge], constant: CGFloat = 0, priority: UILayoutPriority = UILayoutPriority.required) {
         for edge in edges {
             switch edge {
-            case .top: pinToSuperviewTop(withConstant: constant, priority: priority)
-            case .left: pinToSuperviewLeft(withConstant: constant, priority: priority)
-            case .bottom: pinToSuperviewBottom(withConstant: constant, priority: priority)
-            case .right: pinToSuperviewRight(withConstant: constant, priority: priority)
+            case .top: pinToSuperviewTop(constant: constant, priority: priority)
+            case .left: pinToSuperviewLeft(constant: constant, priority: priority)
+            case .bottom: pinToSuperviewBottom(constant: constant, priority: priority)
+            case .right: pinToSuperviewRight(constant: constant, priority: priority)
             }
         }
     }
     
-    @discardableResult func pinToSuperviewTop(withConstant constant: CGFloat = 0,
+    @discardableResult func pinToSuperviewTop(constant: CGFloat = 0,
                                               priority: UILayoutPriority = UILayoutPriority.required,
                                               relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
@@ -44,7 +44,7 @@ extension UIView {
         return pinTop(to: superview, constant: constant, priority: priority, relatedBy: relation)
     }
     
-    @discardableResult func pinToSuperviewLeft(withConstant constant: CGFloat = 0,
+    @discardableResult func pinToSuperviewLeft(constant: CGFloat = 0,
                                                priority: UILayoutPriority = UILayoutPriority.required,
                                                relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
@@ -54,7 +54,7 @@ extension UIView {
         return pinLeft(to: superview, constant: constant, priority: priority, relatedBy: relation)
     }
     
-    @discardableResult func pinToSuperviewRight(withConstant constant: CGFloat = 0,
+    @discardableResult func pinToSuperviewRight(constant: CGFloat = 0,
                                                 priority: UILayoutPriority = UILayoutPriority.required,
                                                 relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
@@ -64,7 +64,7 @@ extension UIView {
         return pinRight(to: superview, constant: constant, priority: priority, relatedBy: relation)
     }
     
-    @discardableResult func pinToSuperviewBottom(withConstant constant: CGFloat = 0,
+    @discardableResult func pinToSuperviewBottom(constant: CGFloat = 0,
                                                  priority: UILayoutPriority = UILayoutPriority.required,
                                                  relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
@@ -100,15 +100,15 @@ extension UIView {
         return constraint
     }
     
-    func pinToSuperviewEdges(withConstant constant: CGFloat = 0) {
+    func pinToSuperviewEdges(constant: CGFloat = 0) {
         guard let superview = self.superview else {
             preconditionFailure("view has no superview")
         }
         
         pinTop(to: superview, constant: constant)
-        pinBottom(to: superview, constant: constant)
+        pinBottom(to: superview, constant: -constant)
         pinLeft(to: superview, constant: constant)
-        pinRight(to: superview, constant: constant)
+        pinRight(to: superview, constant: -constant)
     }
 }
 
@@ -234,7 +234,7 @@ extension UIView {
 // MARK: Center superview
 extension UIView {
     
-    @discardableResult func centerYToSuperview(withConstant constant: CGFloat = 0,
+    @discardableResult func centerYToSuperview(constant: CGFloat = 0,
                                                priority: UILayoutPriority = UILayoutPriority.required,
                                                relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
@@ -255,7 +255,7 @@ extension UIView {
         return constraint
     }
     
-    @discardableResult func centerXToSuperview(withConstant constant: CGFloat = 0,
+    @discardableResult func centerXToSuperview(constant: CGFloat = 0,
                                                priority: UILayoutPriority = UILayoutPriority.required,
                                                relatedBy relation: NSLayoutConstraint.Relation = .equal) -> NSLayoutConstraint {
         guard let superview = self.superview else {
