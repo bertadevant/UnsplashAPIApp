@@ -34,17 +34,15 @@ class ImageFullScreenView: UIView {
         return label
     }()
     
-    private var containerView: UIView = {
+    private var backgroundView: UIView = {
         let view = UIView()
-        view.alpha = 0.40
-        view.backgroundColor = .clear
+        view.alpha = 0.65
         return view
     }()
     
-    private var backgroundColorView: UIView = {
+    private var containerView: UIView = {
         let view = UIView()
-        view.alpha = 0.5
-        view.backgroundColor = .white
+        view.alpha = 0.40
         return view
     }()
     
@@ -69,8 +67,7 @@ class ImageFullScreenView: UIView {
     private var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "close-icon"), for: .normal)
-        button.tintColor = .gray
-        button.alpha = 0.40
+        button.alpha = 0.20
         button.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
@@ -88,19 +85,20 @@ class ImageFullScreenView: UIView {
     func bind(_ image: ImageViewModel) {
         self.image = image
         imageView.imageFromServerURL(image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
-        backgroundColor = image.colors.imageColor
+        backgroundColor = image.colors.textColor
+        backgroundView.backgroundColor = image.colors.imageColor
+        containerView.backgroundColor = image.colors.containerColor
         authorLabel.textColor = image.colors.textColor
         authorLabel.text = image.author.name
         shareButton.tintColor = image.colors.textColor
         downloadButton.tintColor = image.colors.textColor
-        closeButton.tintColor = image.colors.textColor
+        closeButton.tintColor = image.colors.containerColor
     }
     
     private func setup() {
-        shareButton.setImage(#imageLiteral(resourceName: "share-icon"), for: .normal)
+        addSubview(backgroundView)
         addSubview(imageView)
         addSubview(closeButton)
-        containerView.addSubview(backgroundColorView)
         containerView.addSubview(authorLabel)
         containerView.addSubview(shareButton)
         containerView.addSubview(downloadButton)
@@ -109,15 +107,15 @@ class ImageFullScreenView: UIView {
     }
     
     private func setupLayout() {
-        imageView.pinToSuperviewLeft(constant: 8)
-        imageView.pinToSuperviewRight(constant: -8)
+        backgroundView.pinToSuperviewEdges()
+        
+        imageView.pinToSuperview(edges: [.top, .left], constant: 8)
+        imageView.pinToSuperview(edges: [.right, .bottom], constant: -8)
         
         closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
         closeButton.pinToSuperviewLeft(constant: 16)
         closeButton.addWidthConstraint(with: 35)
         closeButton.addHeightConstraint(with: 35)
-        
-        backgroundColorView.pinToSuperviewEdges()
         
         containerView.pinToSuperview(edges: [.left, .right, .bottom])
         containerView.addHeightConstraint(with: 35 + screenSafeAreaInsets.bottom)

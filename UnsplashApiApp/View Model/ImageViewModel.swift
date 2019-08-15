@@ -39,6 +39,7 @@ extension ImageViewModel {
 struct Colors {
     let imageColor: UIColor
     let textColor: UIColor
+    let containerColor: UIColor
 }
 
 extension Colors {
@@ -46,10 +47,12 @@ extension Colors {
         guard let imageColor = imageColor else {
             self.imageColor = .white
             self.textColor = .gray
+            self.containerColor = .white
             return
         }
         self.imageColor = imageColor
         self.textColor = imageColor.isLight() ? .gray : .white
+        self.containerColor = imageColor.isLight() ? .white : .gray
     }
 }
 
