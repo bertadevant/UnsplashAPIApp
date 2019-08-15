@@ -20,6 +20,7 @@ class ImageListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchImageList(search: SearchParameters.initialParameters)
     }
     
@@ -67,6 +68,14 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         cell.update(with: viewModel)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let image = imageList?[indexPath.row] else {
+            return
+        }
+        let imageFullController = ImageFullViewController(image: image)
+        present(imageFullController, animated: true, completion: nil)
     }
 }
 
