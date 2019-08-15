@@ -354,6 +354,7 @@
 				0E134EDB22FC620300810484 /* Dependencies.swift in Sources */,
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
+				0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */,
 				0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */,
 				0E134ECF22FAFE9A00810484 /* Image.swift in Sources */,
 			);
