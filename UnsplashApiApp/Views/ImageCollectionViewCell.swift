@@ -55,9 +55,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     func update(with image: ImageViewModel) {
         imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
-        backgroundColor = image.color ?? .white
+        backgroundColor = image.colors.imageColor
         descriptionLabel.text = image.description
-        hoverView.backgroundColor = image.color ?? .white
+        hoverView.backgroundColor = image.colors.imageColor
         showDescriptionIfHighlighted(isHighlighted)
     }
     
@@ -73,9 +73,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         imageView.pinToSuperviewEdges()
         hoverView.pinToSuperviewEdges()
-        descriptionLabel.pinToSuperviewBottom(withConstant: 8)
-        descriptionLabel.pinToSuperviewRight(withConstant: -8)
-        descriptionLabel.pinToSuperviewLeft(withConstant: 16, relatedBy: .greaterThanOrEqual)
+        descriptionLabel.pinToSuperviewBottom(constant: 8)
+        descriptionLabel.pinToSuperviewRight(constant: -8)
+        descriptionLabel.pinToSuperviewLeft(constant: 16, relatedBy: .greaterThanOrEqual)
     }
     
     private func showDescriptionIfHighlighted(_ isHighlighted: Bool) {
