@@ -67,7 +67,7 @@ class ImageFullScreenView: UIView {
     private var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "close-icon"), for: .normal)
-        button.alpha = 0.20
+        button.alpha = 0.5
         button.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button

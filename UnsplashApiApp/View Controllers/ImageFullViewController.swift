@@ -52,7 +52,9 @@ class ImageFullViewController: UIViewController {
     }
     
     func shareImage(_ image: Image) {
-        print("👾 share")
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func download(_ image: Image) {
