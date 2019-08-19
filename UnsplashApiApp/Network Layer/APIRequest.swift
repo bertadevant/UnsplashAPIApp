@@ -33,13 +33,7 @@ private extension APIRequest {
 }
 
 final class ImageAPIRequest: APIRequest {
-    
     let searchParameters: SearchParameters
-    
-    init(search: SearchParameters) {
-        self.searchParameters = search
-    }
-    
     var queryItems: [URLQueryItem] {
         return setQueryItems()
     }
@@ -51,6 +45,10 @@ final class ImageAPIRequest: APIRequest {
         component.path = searchParameters.searchType.rawValue
         component.queryItems = self.queryItems
         return component
+    }
+    
+    init(search: SearchParameters) {
+        self.searchParameters = search
     }
     
     private func setQueryItems() -> [URLQueryItem] {
