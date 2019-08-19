@@ -10,18 +10,20 @@ import UIKit
 
 class ImageListViewController: UIViewController {
     private var collectionView: UICollectionView!
-    private var imageList: ImageList?
     private var imageCellStyle: CellStyle?
+    private let viewModel = ImageListViewModel()
+    private var searchParameters: SearchParameters = .initialParameters
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         setupCollectionView()
         imageCellStyle = CellStyle(insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16), defaultSize: CGSize(width: view.bounds.width, height: 300))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchImageList(search: SearchParameters.initialParameters)
+        viewModel.fetchImageList(searchParameters: searchParameters)
     }
     
     private func setupCollectionView() {
@@ -36,16 +38,7 @@ class ImageListViewController: UIViewController {
         collectionView.pinToSuperviewEdges()
     }
     
-    private func fetchImageList(search: SearchParameters) {
-        let request = ImageAPIRequest(search: search)
-        let resource = Resource<Pagination>(get: request)
-        Dependencies.dependencies.session.load(resource, completion: { [weak self] response in
-            self?.imageList = response?.results
-            self?.reloadData()
-        })
-    }
-    
-    private func reloadData() {
+    private func reloadData(on pathsToReload: [IndexPath]?) {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -54,7 +47,7 @@ class ImageListViewController: UIViewController {
 
 extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageList?.count ?? 0
+        return viewModel.currentCount
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -62,28 +55,31 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath)
         }
-        guard let image = imageList?[indexPath.row] else {
-            return cell
-        }
-        let viewModel = ImageViewModel(image: image, actions: nil)
+        let image = viewModel.image(at: indexPath.row)
+        let viewModel = ImageViewState(image: image, actions: nil)
         cell.update(with: viewModel)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let image = imageList?[indexPath.row] else {
-            return
-        }
+        let image = viewModel.image(at: indexPath.row)
         let imageFullController = ImageFullViewController(image: image)
         present(imageFullController, animated: true, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard collectionView.isNearBottomEdge(padding: 50) else {
+            return
+        }
+        print("👾 isNearBottomEdge")
+        self.searchParameters = searchParameters.nextPage()
+        viewModel.fetchImageList(searchParameters: searchParameters)
     }
 }
 
 extension ImageListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let image = imageList?[indexPath.row] else {
-            return imageCellStyle?.defaultSize ?? .zero
-        }
+        let image = viewModel.image(at: indexPath.row)
         return image.sizeFor(collectionWidth: collectionView.bounds.width, insets: imageCellStyle?.insets)
     }
     
@@ -96,10 +92,26 @@ extension ImageListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ImageListViewController: ImageListViewModelDelegate {
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        reloadData(on: newIndexPathsToReload)
+    }
+    
+    func onFetchFailed(with reason: String) { }
+    
+    
+}
+
 private extension SearchParameters {
     static var initialParameters: SearchParameters {
         return SearchParameters(searchType: .photos,
                                 query: "barcelona",
                                 page: 1)
+    }
+}
+
+private extension UICollectionView {
+    func isNearBottomEdge(padding: CGFloat) -> Bool {
+        return self.contentOffset.y >= (self.contentSize.height - self.frame.height - padding)
     }
 }

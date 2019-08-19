@@ -14,6 +14,12 @@ struct SearchParameters {
     let page: Int
 }
 
+extension SearchParameters {
+    func nextPage() -> SearchParameters {
+        return SearchParameters(searchType: searchType, query: query, page: page + 1)
+    }
+}
+
 
 enum SearchType: String {
     case curated = "/photos/curated"
