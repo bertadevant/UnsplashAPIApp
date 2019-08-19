@@ -10,6 +10,7 @@ import Foundation
 
 protocol Session {
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ())
+    func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ())
 }
 
 extension URLSession: Session {
@@ -17,10 +18,20 @@ extension URLSession: Session {
         print("👾 resource URL \(resource.apiRequest.urlRequest.url?.absoluteString)")
         dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
             if let error = error {
-                print("👾 error while fetching data \(error)")
+                print("error while fetching data \(error)")
                 completion(nil)
             }
             completion(data.flatMap(resource.parse))
+            }.resume()
+    }
+    
+    func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
+        dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
+            if let error = error {
+                print("error while fetching data \(error)")
+                completion(nil, error)
+            }
+            completion(data, nil)
             }.resume()
     }
 }
