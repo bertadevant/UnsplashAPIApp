@@ -67,7 +67,7 @@ class ImageFullScreenView: UIView {
     private var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "close-icon"), for: .normal)
-        button.alpha = 0.5
+        button.alpha = 0.35
         button.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
@@ -93,6 +93,10 @@ class ImageFullScreenView: UIView {
         shareButton.tintColor = image.colors.textColor
         downloadButton.tintColor = image.colors.textColor
         closeButton.tintColor = image.colors.containerColor
+    }
+    
+    func downloadButton(isLoading: Bool) {
+        downloadButton.loadingIndicator(isLoading)
     }
     
     private func setup() {

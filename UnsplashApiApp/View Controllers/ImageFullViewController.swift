@@ -56,9 +56,11 @@ class ImageFullViewController: UIViewController {
     func download(_ image: Image) {
         let downloader = ImageDownloader(imageSavedClosure: imageSaved)
         downloader.download(image)
+        imageView.downloadButton(isLoading: true)
     }
     
     @objc private func imageSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+        imageView.downloadButton(isLoading: false)
         guard let error = error else {
             return
         }
