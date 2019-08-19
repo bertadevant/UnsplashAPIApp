@@ -113,8 +113,9 @@ class ImageFullScreenView: UIView {
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
         
-        imageView.pinToSuperview(edges: [.top, .left], constant: 8)
-        imageView.pinToSuperview(edges: [.right, .bottom], constant: -8)
+        imageView.pinToSuperview(edges: [.left, .right])
+        imageView.pinToSuperviewTop(constant: 8)
+        imageView.pinToSuperviewBottom(constant: -8)
         
         closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
         closeButton.pinToSuperviewLeft(constant: 16)
