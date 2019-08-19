@@ -33,13 +33,9 @@ class ImageFullViewController: UIViewController {
         setupImageView()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imageView.pinToSuperviewEdges()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        imageView.pinToSuperviewEdges()
         guard let image = imageModel else {
             return
         }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ImageDownloader {
+class ImageDownloader: NSObject {
     
     private let imageSavedClosure: (_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) -> ()
     

@@ -24,7 +24,7 @@ extension UIImageView {
         self.image = nil
         let request = LoadAPIRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
-        Dependencies.dependencies.session.download(resource) { imageData in
+        Dependencies.dependencies.session.download(resource) { imageData, _ in
             guard let data = imageData,
                 let image = UIImage(data: data) else {
                 setPlaceHolder()
