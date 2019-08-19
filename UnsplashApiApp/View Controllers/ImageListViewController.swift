@@ -62,10 +62,10 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath)
         }
-        guard let image = imageList?[indexPath.row],
-            let viewModel = ImageViewModel(image: image, actions: nil) else {
+        guard let image = imageList?[indexPath.row] else {
             return cell
         }
+        let viewModel = ImageViewModel(image: image, actions: nil)
         cell.update(with: viewModel)
         return cell
     }
