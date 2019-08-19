@@ -53,7 +53,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("This view is not designed to be used with xib or storyboard files")
     }
     
-    func update(with image: ImageViewModel) {
+    func update(with image: ImageViewState) {
         imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.colors.imageColor
         descriptionLabel.text = image.description

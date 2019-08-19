@@ -10,7 +10,7 @@ import UIKit
 
 class ImageFullViewController: UIViewController {
     private let imageView = ImageFullScreenView()
-    private var imageModel: ImageViewModel?
+    private var imageModel: ImageViewState?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -29,7 +29,7 @@ class ImageFullViewController: UIViewController {
                 self?.dismiss()
             })
         ]
-        self.imageModel = ImageViewModel(image: image, actions: actions)
+        self.imageModel = ImageViewState(image: image, actions: actions)
         setupImageView()
     }
     

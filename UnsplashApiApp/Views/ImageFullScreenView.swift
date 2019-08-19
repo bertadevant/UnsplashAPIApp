@@ -10,7 +10,7 @@ import UIKit
 
 class ImageFullScreenView: UIView {
     
-    private var image: ImageViewModel?
+    private var image: ImageViewState?
     
     private var screenSafeAreaInsets: UIEdgeInsets {
         return UIApplication.shared.keyWindow?.safeAreaInsets ??
@@ -82,7 +82,7 @@ class ImageFullScreenView: UIView {
         fatalError("This view is not designed to be used with xib or storyboard files")
     }
     
-    func bind(_ image: ImageViewModel) {
+    func bind(_ image: ImageViewState) {
         self.image = image
         imageView.imageFromServerURL(image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.colors.textColor

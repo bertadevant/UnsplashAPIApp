@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ImageViewModel {
+struct ImageViewState {
     let id: String
     let colors: Colors
     let size: CGSize
@@ -20,7 +20,7 @@ struct ImageViewModel {
     let author: AuthorViewModel
 }
 
-extension ImageViewModel {
+extension ImageViewState {
     init(image: Image, actions: [Actions]?) {
         self.id = image.id
         self.colors = Colors(imageColor: UIColor(hexString: image.color))
