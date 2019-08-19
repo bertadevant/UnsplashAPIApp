@@ -84,10 +84,20 @@ final class DownloadAPIRequest: APIRequest {
     }
 }
 
-
-enum SearchType: String {
-    case curated = "/photos/curated"
-    case random = "random"
-    case photos = "/search/photos"
-    case collections = "collections"
+//Each Image parsed from the API comes with the urls for downloading the images, we use this request to get the proper URL for downloading for each image
+final class LoadAPIRequest: APIRequest {
+    var components: URLComponents {
+        var component = URLComponents()
+        component.scheme = "https"
+        component.host = "images.unsplash.com"
+        component.path = "\(imageURL)"
+        component.queryItems = self.queryItems
+        return component
+    }
+    var queryItems: [URLQueryItem] = []
+    private let imageURL: String
+    
+    init(imageURL: String) {
+        self.imageURL = imageURL.replacingOccurrences(of: "https://images.unsplash.com", with: "")
+    }
 }
