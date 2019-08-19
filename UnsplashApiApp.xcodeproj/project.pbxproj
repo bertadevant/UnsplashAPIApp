@@ -27,6 +27,7 @@
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
 		0E74359523060C47007C1EA5 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359423060C47007C1EA5 /* ImageDownloader.swift */; };
+		0E743599230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743598230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift */; };
 		0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605BD22FAE77200125CDB /* AppDelegate.swift */; };
 		0E7605C522FAE77500125CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E7605C422FAE77500125CDB /* Assets.xcassets */; };
 		0E7605D322FAE77500125CDB /* URLSessionLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */; };
@@ -67,6 +68,7 @@
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		0E74359423060C47007C1EA5 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		0E743598230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+LoadingIndicator.swift"; sourceTree = "<group>"; };
 		0E7605BA22FAE77200125CDB /* UnsplashApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E7605BD22FAE77200125CDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E7605C422FAE77500125CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				0E134EF82300D14200810484 /* UIColor+HexInit.swift */,
 				0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */,
 				0E134EFF2300E0DC00810484 /* CellStyle.swift */,
+				0E743598230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				0E134F002300E0DC00810484 /* CellStyle.swift in Sources */,
 				0E74359523060C47007C1EA5 /* ImageDownloader.swift in Sources */,
 				0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */,
+				0E743599230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift in Sources */,
 				0E134EF12300CF3200810484 /* ImageCollectionViewCell.swift in Sources */,
 				0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */,
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
