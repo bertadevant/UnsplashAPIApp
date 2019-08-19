@@ -21,6 +21,7 @@ struct Image: Codable, Equatable {
 struct ImageURL: Codable, Equatable {
     let small: String
     let regular: String
+    let full: String
 }
 
 struct Author: Codable, Equatable {
