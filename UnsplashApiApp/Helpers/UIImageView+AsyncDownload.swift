@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 extension UIImageView {
-    func imageFromServerURL(_ url: URL?, placeHolder: UIImage?) {
+    func imageFromServerURL(_ imageURL: String, placeHolder: UIImage?) {
         func setPlaceHolder() {
             DispatchQueue.main.async {
                 self.image = placeHolder
@@ -21,20 +21,20 @@ extension UIImageView {
                 self.image = downloadedImage
             }
         }
-        guard let url = url else {
-            setPlaceHolder()
-            return
-        }
         self.image = nil
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            guard let data = data,
-                let downloadedImage = UIImage(data: data) else {
+        let request = LoadAPIRequest(imageURL: imageURL)
+        let resource = Resource<Data>(get: request)
+        Dependencies.dependencies.session.download(resource) { imageData in
+            guard let data = imageData,
+                let image = UIImage(data: data) else {
                 setPlaceHolder()
-                return
+                    return
             }
-            setImage(downloadedImage)
-        }).resume()
+            setImage(image)
+        }
         
         
     }
 }
+
+
