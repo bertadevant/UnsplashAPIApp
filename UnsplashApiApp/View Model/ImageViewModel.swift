@@ -13,24 +13,22 @@ struct ImageViewModel {
     let colors: Colors
     let size: CGSize
     let description: String?
-    let imageSmall: URL
-    let imageRegular: URL
+    let imageSmall: String
+    let imageRegular: String
+    let imageFull: String
     let actions: [Actions]?
     let author: AuthorViewModel
 }
 
 extension ImageViewModel {
-    init?(image: Image, actions: [Actions]?) {
-        guard let imageRegular = URL(string: image.urls.regular),
-            let imageSmall = URL(string: image.urls.small) else {
-                return nil
-        }
+    init(image: Image, actions: [Actions]?) {
         self.id = image.id
         self.colors = Colors(imageColor: UIColor(hexString: image.color))
         self.size = CGSize(width: image.width, height: image.height)
         self.description = image.description
-        self.imageRegular = imageRegular
-        self.imageSmall = imageSmall
+        self.imageRegular = image.urls.regular
+        self.imageSmall = image.urls.small
+        self.imageFull = image.urls.full
         self.actions = actions
         self.author = image.user.viewModel()
     }
