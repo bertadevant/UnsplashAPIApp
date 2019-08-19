@@ -15,6 +15,20 @@ struct SearchParameters {
 }
 
 extension SearchParameters {
+    init(query: String) {
+        self.query = query
+        self.searchType = .photos
+        self.page = 1
+    }
+    
+    init(type: SearchType) {
+        self.query = ""
+        self.searchType = type
+        self.page = 1
+    }
+}
+
+extension SearchParameters {
     func nextPage() -> SearchParameters {
         return SearchParameters(searchType: searchType, query: query, page: page + 1)
     }
