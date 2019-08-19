@@ -26,6 +26,7 @@
 		0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */; };
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
+		0E74359523060C47007C1EA5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359423060C47007C1EA5 /* ImageSaver.swift */; };
 		0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605BD22FAE77200125CDB /* AppDelegate.swift */; };
 		0E7605C522FAE77500125CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E7605C422FAE77500125CDB /* Assets.xcassets */; };
 		0E7605D322FAE77500125CDB /* URLSessionLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */; };
@@ -65,6 +66,7 @@
 		0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+AsyncDownload.swift"; sourceTree = "<group>"; };
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		0E74359423060C47007C1EA5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		0E7605BA22FAE77200125CDB /* UnsplashApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E7605BD22FAE77200125CDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E7605C422FAE77500125CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		0EDA9291230184920044F35A /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
 		0EDA9293230184AD0044F35A /* imageList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = imageList.json; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
+		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				0E134EEB2300CDEA00810484 /* ImageListViewController.swift */,
+				0EDA92972304874A0044F35A /* ImageFullViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -211,6 +215,7 @@
 				0E134EF32300CF8F00810484 /* Helpers */,
 				0E134ED922FC61F700810484 /* Global */,
 				0E57708322FAFA1E004F78DE /* Network Layer */,
+				0E74359323060BAD007C1EA5 /* Documents Layer */,
 				0E134ECD22FAFE8D00810484 /* Model */,
 				0E134EFA2300D56D00810484 /* View Model */,
 				0E134EE92300CD4700810484 /* View Controllers */,
@@ -345,6 +350,7 @@
 				0E134ED122FAFEC400810484 /* URLSessionExtension+Load.swift in Sources */,
 				0E134EF52300CFBD00810484 /* UIView+AutoLayout.swift in Sources */,
 				0E134F002300E0DC00810484 /* CellStyle.swift in Sources */,
+				0E74359523060C47007C1EA5 /* ImageSaver.swift in Sources */,
 				0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */,
 				0E134EF12300CF3200810484 /* ImageCollectionViewCell.swift in Sources */,
 				0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */,

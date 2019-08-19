@@ -12,6 +12,10 @@ class ImageFullViewController: UIViewController {
     private let imageView = ImageFullScreenView()
     private var imageModel: ImageViewModel?
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     init(image: Image) {
         super.init(nibName: nil, bundle: nil)
         let actions: [Actions] = [
@@ -29,17 +33,13 @@ class ImageFullViewController: UIViewController {
         setupImageView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.pinToSuperviewEdges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imageView.pinToSuperviewEdges()
         guard let image = imageModel else {
             return
         }
@@ -58,20 +58,8 @@ class ImageFullViewController: UIViewController {
     }
     
     func download(_ image: Image) {
-        downloadImageFile(image)
-        sendDownloadEndPointToAPI(image)
-    }
-    
-    private func downloadImageFile(_ image: Image) {
-        let imageRequest = LoadAPIRequest(imageURL: image.urls.full)
-        let imageResource = Resource<Data>(get: imageRequest)
-        Dependencies.dependencies.session.download(imageResource) { [weak self] imageData in
-            guard let data = imageData,
-                let imageFile = UIImage(data: data) else {
-                    return
-            }
-            UIImageWriteToSavedPhotosAlbum(imageFile, self, #selector(self?.imageSaved), nil)
-        }
+        let downloader = ImageDownloader(imageSavedClosure: imageSaved)
+        downloader.download(image)
     }
     
     @objc private func imageSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
@@ -79,12 +67,6 @@ class ImageFullViewController: UIViewController {
             return
         }
         print("error while saving image \(error)")
-    }
-    
-    private func sendDownloadEndPointToAPI(_ image: Image) {
-        let downloadRequest = DownloadAPIRequest(imageID: image.id)
-        let downloadResource = Resource<Data>(get: downloadRequest)
-        Dependencies.dependencies.session.download(downloadResource) { _ in }
     }
     
     func dismiss() {
