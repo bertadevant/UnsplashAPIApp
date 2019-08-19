@@ -32,6 +32,7 @@
 		0EDA9292230184920044F35A /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA9291230184920044F35A /* ImageListTests.swift */; };
 		0EDA9294230184AD0044F35A /* imageList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA9293230184AD0044F35A /* imageList.json */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
+		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

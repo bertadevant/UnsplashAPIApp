@@ -58,11 +58,36 @@ class ImageFullViewController: UIViewController {
     }
     
     func download(_ image: Image) {
-        print("👾 download")
+        downloadImageFile(image)
+        sendDownloadEndPointToAPI(image)
+    }
+    
+    private func downloadImageFile(_ image: Image) {
+        let imageRequest = LoadAPIRequest(imageURL: image.urls.full)
+        let imageResource = Resource<Data>(get: imageRequest)
+        Dependencies.dependencies.session.download(imageResource) { [weak self] imageData in
+            guard let data = imageData,
+                let imageFile = UIImage(data: data) else {
+                    return
+            }
+            UIImageWriteToSavedPhotosAlbum(imageFile, self, #selector(self?.imageSaved), nil)
+        }
+    }
+    
+    @objc private func imageSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+        guard let error = error else {
+            return
+        }
+        print("error while saving image \(error)")
+    }
+    
+    private func sendDownloadEndPointToAPI(_ image: Image) {
+        let downloadRequest = DownloadAPIRequest(imageID: image.id)
+        let downloadResource = Resource<Data>(get: downloadRequest)
+        Dependencies.dependencies.session.download(downloadResource) { _ in }
     }
     
     func dismiss() {
-        print("👾 dismiss")
         self.dismiss(animated: true, completion: nil)
     }
 }
