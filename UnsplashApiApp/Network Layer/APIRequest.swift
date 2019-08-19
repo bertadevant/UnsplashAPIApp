@@ -64,10 +64,24 @@ final class ImageAPIRequest: APIRequest {
     }
 }
 
-struct SearchParameters {
-    let searchType: SearchType
-    let query: String
-    let page: Int
+//Unsplash API demands that we trigger a download count when downloading a picture, this request is created to handle that
+// https://unsplash.com/documentation#track-a-photo-download
+final class DownloadAPIRequest: APIRequest {
+    var components: URLComponents {
+        var component = URLComponents()
+        component.scheme = "https"
+        component.host = "api.unsplash.com"
+        component.path = "/photos/\(imageId)/download"
+        component.queryItems = self.queryItems
+        return component
+    }
+    
+    private let imageId: String
+    var queryItems: [URLQueryItem] = []
+    
+    init(imageID: String) {
+        self.imageId = imageID
+    }
 }
 
 
