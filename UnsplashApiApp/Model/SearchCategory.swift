@@ -10,10 +10,13 @@ import Foundation
 
 struct SearchCategory {
     let name: String
+    let query: String
 }
 
 extension SearchCategory {
-    static var barcelona = SearchCategory(name: "Barcelona")
-    static var wallpaper = SearchCategory(name: "Wallpaper")
-    static var architecture = SearchCategory(name: "Architecture")
+    static var barcelona = SearchCategory(name: "Barcelona", query: "barcelona")
+    static var wallpaper = SearchCategory(name: "Wallpaper", query: "wallpaper")
+    static var architecture = SearchCategory(name: "Architecture", query: "architecture")
+    static var experimental = SearchCategory(name: "Experimental", query: "experimental")
+    static var textures = SearchCategory(name: "Textures & Patterns", query: "textures-patterns")
 }

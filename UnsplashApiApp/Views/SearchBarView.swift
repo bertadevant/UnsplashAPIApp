@@ -14,6 +14,7 @@ protocol SearchDelegate: class {
 
 class SearchBarView: UIView {
     weak var delegate: SearchDelegate?
+    private var searchCategories: [SearchCategory] = []
     
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -24,6 +25,17 @@ class SearchBarView: UIView {
         bar.textField?.backgroundColor = Color.lightGray
         bar.textField?.textColor = Color.darkGray
         return bar
+    }()
+    
+    private var categoryView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private var categoryScrollView: UIScrollView = {
+        let view = UIScrollView()
+        return view
     }()
     
     private var stackView: UIStackView = {
@@ -44,6 +56,7 @@ class SearchBarView: UIView {
     }
     
     func setSearchBar(with categories: [SearchCategory]) {
+        self.searchCategories = categories
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
@@ -57,25 +70,35 @@ class SearchBarView: UIView {
         guard let searchText = sender.currentTitle else {
             return
         }
-        delegate?.searchQuery(searchText)
+        let categories = searchCategories.filter{ $0.name == searchText }
+        guard let category = categories.first else {
+            return
+        }
+        delegate?.searchQuery(category.query)
     }
     
     private func setup() {
         backgroundColor = .clear
         searchBar.delegate = self
         addSubview(searchBar)
-        addSubview(stackView)
+        categoryScrollView.addSubview(stackView)
+        categoryView.addSubview(categoryScrollView)
+        addSubview(categoryView)
         setupLayout()
-        stackView.setShadowForView()
+        categoryView.setBorder()
         searchBar.setBorder()
         self.setBorder()
     }
     
     private func setupLayout() {
         searchBar.pinToSuperview(edges: [.top, .left, .right], constant: 8)
-        stackView.pinToSuperview(edges: [.left, .right], constant: 8)
-        stackView.pinToSuperviewBottom(constant: 8)
-        stackView.pin(edge: .top, to: .bottom, of: searchBar, constant: 8)
+        stackView.pinToSuperviewEdges()
+        categoryScrollView.pinToSuperviewEdges(constant: 8)
+        categoryView.pinToSuperview(edges: [.left, .right])
+        categoryView.pinToSuperviewBottom()
+        let estimatedHeight = "testText".estimateHeightForText(width: 50)
+        categoryView.addHeightConstraint(with: estimatedHeight + 16)
+        categoryView.pin(edge: .top, to: .bottom, of: searchBar, constant: 8)
     }
 }
 
@@ -110,3 +133,15 @@ private extension UISearchBar {
         return subviews.first?.subviews.first(where: { $0.isKind(of: UITextField.self) }) as? UITextField
     }
 }
+
+private extension String {
+    func estimateHeightForText(width: CGFloat, font: UIFont? = Fonts.regular) -> CGFloat {
+        let height: CGFloat = 50
+        let size = CGSize(width: width, height: height)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let attributes = [NSAttributedString.Key.font: font]
+        return NSString(string: self).boundingRect(with: size, options: options, attributes: attributes, context: nil).height
+    }
+
+}
+
