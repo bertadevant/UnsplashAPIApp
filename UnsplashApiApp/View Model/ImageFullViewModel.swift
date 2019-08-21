@@ -12,13 +12,48 @@ import UIKit
 class ImageFullViewModel {
     
     let image: ImageViewState
+    var imageSavedDelegate: ((_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) -> ())?
     
     init(image: ImageViewState) {
         self.image = image
     }
     
-    func download(imageSavedClosure: @escaping (_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) -> ()) {
-        let downloader = ImageDownloader(imageSavedClosure: imageSavedClosure)
-        downloader.download(image)
+    func download() {
+        downloadImageFile() { image, error in
+            guard let image = image else {
+                return
+            }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
+        }
+        sendDownloadEndPointToAPI()
+    }
+    
+    func share(completion: @escaping (UIImage?, Error?) -> ()) {
+        downloadImageFile(){ image, error in
+            completion(image, error)
+        }
+    }
+    
+    private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
+        let imageRequest = LoadAPIRequest(imageURL: image.imageFull)
+        let imageResource = Resource<Data>(get: imageRequest)
+        Dependencies.dependencies.session.download(imageResource) { imageData, error in
+            guard let data = imageData,
+                let image = UIImage(data: data) else {
+                    completion(nil, error)
+                    return
+            }
+            completion(image, nil)
+        }
+    }
+    
+    @objc private func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
+        imageSavedDelegate?(image, error, context)
+    }
+    
+    private func sendDownloadEndPointToAPI() {
+        let downloadRequest = DownloadAPIRequest(imageID: image.id)
+        let downloadResource = Resource<Data>(get: downloadRequest)
+        Dependencies.dependencies.session.download(downloadResource) { _, _ in }
     }
 }
