@@ -47,7 +47,7 @@ class ImageFullScreenView: UIView {
         return view
     }()
     
-    private var shareButton: UIButton = {
+    var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "share-icon"), for: .normal)
         button.tintColor = .gray

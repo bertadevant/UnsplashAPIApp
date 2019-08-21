@@ -10,7 +10,7 @@ import UIKit
 
 class ImageListViewController: UIViewController {
     private var collectionView: UICollectionView!
-    private var imageCellStyle: CellStyle?
+    private var imageCellStyle: CellStyle = .iphone
     private let viewModel = ImageListViewModel()
     private let searchBarView = SearchBarView()
     
@@ -19,15 +19,26 @@ class ImageListViewController: UIViewController {
         viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
-        imageCellStyle = CellStyle(insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16), defaultSize: CGSize(width: view.bounds.width, height: 300))
         viewModel.fetchImageList(query: "barcelona")
         self.view.backgroundColor = .white
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let horizontal = self.traitCollection.horizontalSizeClass
+        let vertical = self.traitCollection.verticalSizeClass
+        if horizontal == .regular {
+            self.imageCellStyle = .ipad
+        } else {
+            self.imageCellStyle = .iphone
+        }
+        collectionView.layoutIfNeeded()
     }
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.reuseIdentifier)
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: imageCellStyle.reuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isUserInteractionEnabled = true
@@ -42,7 +53,7 @@ class ImageListViewController: UIViewController {
         self.view.addSubview(searchBarView)
         searchBarView.pinToSuperviewTop(constant: UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 30)
         searchBarView.pinToSuperview(edges: [.left, .right])
-        searchBarView.setSearchBar(with: [.barcelona, .architecture, .wallpaper])
+        searchBarView.setSearchBar(with: [.barcelona, .architecture, .wallpaper, .experimental, .textures])
     }
     
     private func reloadData(on pathsToReload: [IndexPath]?) {
@@ -59,8 +70,8 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellStyle.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: imageCellStyle.reuseIdentifier, for: indexPath)
         }
         let image = viewModel.image(at: indexPath.row)
         cell.update(with: image)
@@ -74,7 +85,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard collectionView.isNearBottomEdge(padding: imageCellStyle?.insets.bottom ?? 20) else {
+        guard collectionView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) else {
             return
         }
         viewModel.fetchNextPage()
@@ -84,15 +95,15 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
 extension ImageListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let image = viewModel.image(at: indexPath.row)
-        return image.sizeFor(collectionWidth: collectionView.bounds.width, insets: imageCellStyle?.insets)
+        return image.sizeFor(collectionWidth: collectionView.bounds.width, cellStyle: imageCellStyle)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return imageCellStyle?.insets ?? .zero
+        return imageCellStyle.insets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return imageCellStyle?.insets.left ?? 0
+        return imageCellStyle.insets.left
     }
 }
 

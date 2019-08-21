@@ -10,10 +10,6 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
-    static var reuseIdentifier: String {
-        return "ImageCell"
-    }
-    
     private var imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
