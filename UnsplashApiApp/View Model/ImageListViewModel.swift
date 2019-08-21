@@ -40,7 +40,9 @@ final class ImageListViewModel {
     }
     
     func fetchImageList(query: String) {
-        fetchImageList(searchParameters: searchParameters) { [weak self] response in
+        let parameters = SearchParameters(query: query)
+        self.searchParameters = parameters
+        fetchImageList(searchParameters: parameters) { [weak self] response in
             self?.pagination = response
             self?.delegate?.onFetchCompleted(with: [])
         }
