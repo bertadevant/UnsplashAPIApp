@@ -116,6 +116,7 @@
 		0E134ECD22FAFE8D00810484 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E743596230AEE1C007C1EA5 /* SearchParameters.swift */,
 				0E134EF62300D0F000810484 /* ImageViewState.swift */,
 				0E134ECE22FAFE9A00810484 /* Image.swift */,
 				0E7435A0230B5889007C1EA5 /* SearchCategory.swift */,
@@ -208,7 +209,6 @@
 				0E134ECB22FAFE7600810484 /* HttpMethod.swift */,
 				0E134ED022FAFEC400810484 /* URLSessionExtension+Load.swift */,
 				0E134ED222FAFF2300810484 /* APIRequest.swift */,
-				0E743596230AEE1C007C1EA5 /* SearchParameters.swift */,
 			);
 			path = "Network Layer";
 			sourceTree = "<group>";

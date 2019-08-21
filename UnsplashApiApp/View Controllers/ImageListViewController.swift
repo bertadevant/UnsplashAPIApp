@@ -77,7 +77,6 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         guard collectionView.isNearBottomEdge(padding: imageCellStyle?.insets.bottom ?? 20) else {
             return
         }
-        print("👾 isNearBottomEdge")
         viewModel.fetchNextPage()
     }
 }
