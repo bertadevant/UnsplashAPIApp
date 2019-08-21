@@ -27,7 +27,6 @@ struct ImageURL: Codable, Equatable {
 struct Author: Codable, Equatable {
     let id: String
     let name: String
-//    let profile_image: ImageURL
 }
 
 struct Pagination: Codable {
