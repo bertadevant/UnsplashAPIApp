@@ -28,8 +28,8 @@ extension UIView {
             switch edge {
             case .top: pinToSuperviewTop(constant: constant, priority: priority)
             case .left: pinToSuperviewLeft(constant: constant, priority: priority)
-            case .bottom: pinToSuperviewBottom(constant: constant, priority: priority)
-            case .right: pinToSuperviewRight(constant: constant, priority: priority)
+            case .bottom: pinToSuperviewBottom(constant: -constant, priority: priority)
+            case .right: pinToSuperviewRight(constant: -constant, priority: priority)
             }
         }
     }
