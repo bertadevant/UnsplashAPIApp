@@ -17,13 +17,13 @@ class ImageDownloader: NSObject {
         self.imageSavedClosure = imageSavedClosure
     }
     
-    func download(_ image: Image) {
+    func download(_ image: ImageViewState) {
         downloadImageFile(image)
         sendDownloadEndPointToAPI(image)
     }
     
-    private func downloadImageFile(_ image: Image) {
-        let imageRequest = LoadAPIRequest(imageURL: image.urls.full)
+    private func downloadImageFile(_ image: ImageViewState) {
+        let imageRequest = LoadAPIRequest(imageURL: image.imageFull)
         let imageResource = Resource<Data>(get: imageRequest)
         Dependencies.dependencies.session.download(imageResource) { imageData, error in
             guard let data = imageData,
@@ -38,7 +38,7 @@ class ImageDownloader: NSObject {
         self.imageSavedClosure(image, error, context)
     }
     
-    private func sendDownloadEndPointToAPI(_ image: Image) {
+    private func sendDownloadEndPointToAPI(_ image: ImageViewState) {
         let downloadRequest = DownloadAPIRequest(imageID: image.id)
         let downloadResource = Resource<Data>(get: downloadRequest)
         Dependencies.dependencies.session.download(downloadResource) { _, _ in }
