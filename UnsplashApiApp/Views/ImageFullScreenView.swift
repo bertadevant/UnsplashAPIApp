@@ -93,7 +93,7 @@ class ImageFullScreenView: UIView {
         authorLabel.text = image.author.name
         shareButton.tintColor = image.colors.textColor
         downloadButton.tintColor = image.colors.textColor
-        closeButton.tintColor = image.colors.containerColor
+        closeButton.tintColor = image.colors.textColor
     }
     
     func downloadButton(isLoading: Bool) {
