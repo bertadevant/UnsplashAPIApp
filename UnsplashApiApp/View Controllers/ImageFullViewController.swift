@@ -48,7 +48,7 @@ extension ImageFullViewController: ImageActionsDelegate {
                 return
             }
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
+            activityViewController.popoverPresentationController?.sourceView = self.imageView.shareButton
             self.present(activityViewController, animated: true, completion: nil)
         }
     }
