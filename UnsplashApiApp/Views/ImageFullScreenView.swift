@@ -11,6 +11,7 @@ import UIKit
 class ImageFullScreenView: UIView {
     
     private var image: ImageViewState?
+    weak var delegate: ImageActionsDelegate?
     
     private var screenSafeAreaInsets: UIEdgeInsets {
         return UIApplication.shared.keyWindow?.safeAreaInsets ??
@@ -141,26 +142,14 @@ class ImageFullScreenView: UIView {
     }
     
     @objc func shareButtonTapped(_ sender: UIButton) {
-        let actions = image?.actions?.filter{ $0.name == "shareAction" }
-        guard let shareAction = actions?.first else {
-            return
-        }
-        shareAction.handler()
+        delegate?.shareImage()
     }
     
     @objc func downloadButtonTapped(_ sender: UIButton) {
-        let actions = image?.actions?.filter{ $0.name == "downloadAction" }
-        guard let downloadAction = actions?.first else {
-            return
-        }
-        downloadAction.handler()
+        delegate?.download()
     }
     
     @objc func closeButtonTapped(_ sender: UIButton) {
-        let actions = image?.actions?.filter{ $0.name == "closeAction" }
-        guard let closeAction = actions?.first else {
-            return
-        }
-        closeAction.handler()
+        delegate?.dismiss()
     }
 }

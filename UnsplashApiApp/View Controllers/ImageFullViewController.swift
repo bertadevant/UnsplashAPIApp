@@ -8,54 +8,48 @@
 
 import UIKit
 
+protocol ImageActionsDelegate: class {
+    func shareImage()
+    func download()
+    func dismiss()
+}
+
 class ImageFullViewController: UIViewController {
     private let imageView = ImageFullScreenView()
-    private var imageModel: ImageViewState?
+    private let imageFullViewModel: ImageFullViewModel
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(image: Image) {
+    init(image: ImageViewState) {
+        self.imageFullViewModel = ImageFullViewModel(image: image)
         super.init(nibName: nil, bundle: nil)
-        let actions: [Actions] = [
-            Actions(type: .button, name: "shareAction", handler: { [weak self] in
-                self?.shareImage(image)
-            }),
-            Actions(type: .button, name: "downloadAction", handler: { [weak self] in
-                self?.download(image)
-            }),
-            Actions(type: .button, name: "closeAction", handler: { [weak self] in
-                self?.dismiss()
-            })
-        ]
-        self.imageModel = ImageViewState(image: image, actions: actions)
         setupImageView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.pinToSuperviewEdges()
-        guard let image = imageModel else {
-            return
-        }
-        imageView.bind(image)
+        imageView.bind(imageFullViewModel.image)
     }
     
     private func setupImageView() {
+        imageView.delegate = self
         view.addSubview(imageView)
         imageView.pinToSuperviewEdges()
     }
-    
-    func shareImage(_ image: Image) {
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+}
+
+extension ImageFullViewController: ImageActionsDelegate {
+    func shareImage() {
+        let activityViewController = UIActivityViewController(activityItems: [imageFullViewModel.image], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func download(_ image: Image) {
-        let downloader = ImageDownloader(imageSavedClosure: imageSaved)
-        downloader.download(image)
+    func download() {
+        imageFullViewModel.download(imageSavedClosure: imageSaved)
         imageView.downloadButton(isLoading: true)
     }
     
