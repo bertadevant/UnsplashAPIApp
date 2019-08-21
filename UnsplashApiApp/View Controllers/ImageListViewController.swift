@@ -12,18 +12,16 @@ class ImageListViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var imageCellStyle: CellStyle?
     private let viewModel = ImageListViewModel()
-    private var searchParameters: SearchParameters = .initialParameters
+    private let searchBarView = SearchBarView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
+        setupSearchBar()
         setupCollectionView()
         imageCellStyle = CellStyle(insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16), defaultSize: CGSize(width: view.bounds.width, height: 300))
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.fetchImageList(searchParameters: searchParameters)
+        viewModel.fetchImageList(query: "barcelona")
+        self.view.backgroundColor = .white
     }
     
     private func setupCollectionView() {
@@ -35,7 +33,16 @@ class ImageListViewController: UIViewController {
         collectionView.isUserInteractionEnabled = true
         collectionView.backgroundColor = .white
         self.view.addSubview(collectionView)
-        collectionView.pinToSuperviewEdges()
+        collectionView.pinToSuperview(edges: [.bottom, .left, .right])
+        collectionView.pin(edge: .top, to: .bottom, of: searchBarView)
+    }
+    
+    private func setupSearchBar() {
+        searchBarView.delegate = self
+        self.view.addSubview(searchBarView)
+        searchBarView.pinToSuperviewTop(constant: UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 30)
+        searchBarView.pinToSuperview(edges: [.left, .right])
+        searchBarView.setSearchBar(with: [.barcelona, .architecture, .wallpaper])
     }
     
     private func reloadData(on pathsToReload: [IndexPath]?) {
@@ -56,8 +63,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath)
         }
         let image = viewModel.image(at: indexPath.row)
-        let viewModel = ImageViewState(image: image, actions: nil)
-        cell.update(with: viewModel)
+        cell.update(with: image)
         return cell
     }
     
@@ -67,13 +73,12 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         present(imageFullController, animated: true, completion: nil)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard collectionView.isNearBottomEdge(padding: 50) else {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard collectionView.isNearBottomEdge(padding: imageCellStyle?.insets.bottom ?? 20) else {
             return
         }
         print("👾 isNearBottomEdge")
-        self.searchParameters = searchParameters.nextPage()
-        viewModel.fetchImageList(searchParameters: searchParameters)
+        viewModel.fetchNextPage()
     }
 }
 
@@ -98,15 +103,11 @@ extension ImageListViewController: ImageListViewModelDelegate {
     }
     
     func onFetchFailed(with reason: String) { }
-    
-    
 }
 
-private extension SearchParameters {
-    static var initialParameters: SearchParameters {
-        return SearchParameters(searchType: .photos,
-                                query: "barcelona",
-                                page: 1)
+extension ImageListViewController: SearchDelegate {
+    func searchQuery(_ query: String) {
+        viewModel.fetchImageList(query: query.lowercased())
     }
 }
 

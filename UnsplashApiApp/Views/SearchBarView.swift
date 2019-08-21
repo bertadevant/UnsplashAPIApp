@@ -17,8 +17,8 @@ class SearchBarView: UIView {
     
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
-        bar.barStyle = UIBarStyle.default
-        bar.barTintColor = .white
+        bar.barStyle = .default
+        bar.backgroundImage = UIImage()
         return bar
     }()
     
@@ -43,7 +43,7 @@ class SearchBarView: UIView {
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
-            button.tintColor = .gray
+            button.tintColor = Color.darkGray
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
             stackView.addArrangedSubview(button)
         }
@@ -57,6 +57,8 @@ class SearchBarView: UIView {
     }
     
     private func setup() {
+        searchBar.delegate = self
+        searchBar.barTintColor = Color.lightGray
         addSubview(searchBar)
         addSubview(stackView)
         setupLayout()
