@@ -43,7 +43,7 @@ class ImageFullScreenView: UIView {
     
     private var containerView: UIView = {
         let view = UIView()
-        view.alpha = 0.40
+        view.alpha = 0.35
         return view
     }()
     
@@ -102,6 +102,9 @@ class ImageFullScreenView: UIView {
     
     private func setup() {
         addSubview(backgroundView)
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+        imageView.addGestureRecognizer(pinch)
+        imageView.isUserInteractionEnabled = true
         addSubview(imageView)
         addSubview(closeButton)
         containerView.addSubview(authorLabel)
@@ -151,5 +154,11 @@ class ImageFullScreenView: UIView {
     
     @objc func closeButtonTapped(_ sender: UIButton) {
         delegate?.dismiss()
+    }
+    
+    @objc func pinchGesture(_ sender: UIPinchGestureRecognizer) {
+        print("👾 tap")
+        sender.view?.transform = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale) ?? CGAffineTransform(scaleX: 1, y: 1)
+        sender.scale = 1.0
     }
 }
