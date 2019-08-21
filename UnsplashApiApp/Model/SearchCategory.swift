@@ -14,4 +14,6 @@ struct SearchCategory {
 
 extension SearchCategory {
     static var barcelona = SearchCategory(name: "Barcelona")
+    static var wallpaper = SearchCategory(name: "Wallpaper")
+    static var architecture = SearchCategory(name: "Architecture")
 }
