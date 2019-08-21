@@ -15,11 +15,11 @@ protocol ImageListViewModelDelegate: class {
 
 final class ImageListViewModel {
     weak var delegate: ImageListViewModelDelegate?
-    private var results: Pagination = .initalResults
+    private var pagination: Pagination = .initalResults
+    private var searchParameters: SearchParameters = .initialParameters
     private var currentPage: Int = 0
     private var isFetchInProgress = false
     
-    var totalCount: Int {
     var currentCount: Int {
         return pagination.results.count
     }
@@ -27,28 +27,47 @@ final class ImageListViewModel {
     func image(at index: Int) -> ImageViewState {
         return pagination.results[index].viewState()
     }
+    
+    func fetchNextPage() {
+        let searchParameters = self.searchParameters.nextPage()
+        let currentImages = pagination.results
+        fetchImageList(searchParameters: searchParameters) { [weak self] response in
+            self?.pagination = Pagination(total_pages: response.total_pages,
+                                          total: response.total,
+                                          results: currentImages + response.results)
+            self?.delegate?.onFetchCompleted(with: [])
+        }
     }
     
+    func fetchImageList(query: String) {
+        fetchImageList(searchParameters: searchParameters) { [weak self] response in
+            self?.pagination = response
+            self?.delegate?.onFetchCompleted(with: [])
+        }
     }
 
-    func fetchImageList(searchParameters: SearchParameters) {
+    private func fetchImageList(searchParameters: SearchParameters, completion: @escaping (Pagination) -> ()) {
         let request = ImageAPIRequest(search: searchParameters)
         let resource = Resource<Pagination>(get: request)
-        let currentImages = results.results
-        Dependencies.dependencies.session.load(resource, completion: { [weak self] response in
+        Dependencies.dependencies.session.load(resource) { [weak self] response in
             guard let response = response,
                 !response.results.isEmpty else {
                 self?.delegate?.onFetchFailed(with: "No response found")
                 return
             }
-            self?.results = Pagination(total_pages: response.total_pages,
-                                       total: response.total,
-                                       results: currentImages + response.results)
-            self?.delegate?.onFetchCompleted(with: [])
-        })
+            completion(response)
+        }
     }
 }
 
 private extension Pagination {
     static var initalResults = Pagination(total_pages: 1, total: 1, results: [])
+}
+
+private extension SearchParameters {
+    static var initialParameters: SearchParameters {
+        return SearchParameters(searchType: .photos,
+                                query: "barcelona",
+                                page: 1)
+    }
 }
