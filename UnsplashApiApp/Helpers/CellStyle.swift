@@ -19,12 +19,11 @@ struct Fonts {
     static var regular = UIFont(name: "HelveticaNeue", size: 16)
 }
 
-extension Image {
+extension ImageViewState {
     func sizeFor(collectionWidth: CGFloat, insets: UIEdgeInsets?) -> CGSize {
         let padding: CGFloat = (insets?.left ?? 16 ) * 2
-        let imageWidth = CGFloat(integerLiteral: self.width)
-        let imageAspect = collectionWidth / imageWidth
-        let height = CGFloat(integerLiteral: self.height) * imageAspect - padding
+        let imageAspect = collectionWidth /  self.size.width
+        let height = self.size.height * imageAspect - padding
         return CGSize(width: collectionWidth - padding, height: height)
     }
 }

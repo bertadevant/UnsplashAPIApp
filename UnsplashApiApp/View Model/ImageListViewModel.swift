@@ -20,15 +20,15 @@ final class ImageListViewModel {
     private var isFetchInProgress = false
     
     var totalCount: Int {
-        return results.total
-    }
-    
     var currentCount: Int {
-        return results.results.count
+        return pagination.results.count
     }
     
-    func image(at index: Int) -> Image {
-        return results.results[index]
+    func image(at index: Int) -> ImageViewState {
+        return pagination.results[index].viewState()
+    }
+    }
+    
     }
 
     func fetchImageList(searchParameters: SearchParameters) {

@@ -16,21 +16,19 @@ struct ImageViewState {
     let imageSmall: String
     let imageRegular: String
     let imageFull: String
-    let actions: [Actions]?
-    let author: AuthorViewModel
+    let author: AuthorViewState
 }
 
-extension ImageViewState {
-    init(image: Image, actions: [Actions]?) {
-        self.id = image.id
-        self.colors = Colors(imageColor: UIColor(hexString: image.color))
-        self.size = CGSize(width: image.width, height: image.height)
-        self.description = image.description
-        self.imageRegular = image.urls.regular
-        self.imageSmall = image.urls.small
-        self.imageFull = image.urls.full
-        self.actions = actions
-        self.author = image.user.viewModel()
+extension Image {
+    func viewState() -> ImageViewState {
+        return ImageViewState(id: self.id,
+                              colors: Colors(imageColor: UIColor(hexString: self.color)),
+                              size: CGSize(width: self.width, height: self.height),
+                              description: self.description,
+                              imageSmall: self.urls.small,
+                              imageRegular: self.urls.regular,
+                              imageFull: self.urls.full,
+                              author: self.user.viewModel())
     }
 }
 
@@ -54,23 +52,12 @@ extension Colors {
     }
 }
 
-struct Actions {
-    let type: ActionType
-    let name: String
-    let handler: () -> Void
-}
-
-enum ActionType {
-    case button
-    case userInteraction
-}
-
-struct AuthorViewModel {
+struct AuthorViewState {
     let name: String
 }
 
 extension Author {
-    func viewModel() -> AuthorViewModel {
-        return AuthorViewModel(name: self.name)
+    func viewModel() -> AuthorViewState {
+        return AuthorViewState(name: self.name)
     }
 }
