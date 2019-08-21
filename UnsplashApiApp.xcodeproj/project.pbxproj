@@ -26,6 +26,8 @@
 		0E134EFC2300D69F00810484 /* UIImageView+AsyncDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */; };
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
+		0E6432A1230B677000B2A027 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A0230B677000B2A027 /* Colors.swift */; };
+		0E6432A3230D614C00B2A027 /* ImageFullViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */; };
 		0E74359523060C47007C1EA5 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359423060C47007C1EA5 /* ImageDownloader.swift */; };
 		0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743596230AEE1C007C1EA5 /* SearchParameters.swift */; };
 		0E743599230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743598230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift */; };
@@ -71,6 +73,8 @@
 		0E134EFB2300D69F00810484 /* UIImageView+AsyncDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+AsyncDownload.swift"; sourceTree = "<group>"; };
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		0E6432A0230B677000B2A027 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewModel.swift; sourceTree = "<group>"; };
 		0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensionsTests.swift; sourceTree = "<group>"; };
 		0E74359423060C47007C1EA5 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		0E743596230AEE1C007C1EA5 /* SearchParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParameters.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				0E134EDA22FC620300810484 /* Dependencies.swift */,
+				0E6432A0230B677000B2A027 /* Colors.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */,
+				0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
 				0E74359F230B5621007C1EA5 /* SearchBarView.swift in Sources */,
 				0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */,
+				0E6432A1230B677000B2A027 /* Colors.swift in Sources */,
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewState.swift in Sources */,
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
@@ -391,6 +398,7 @@
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
 				0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */,
+				0E6432A3230D614C00B2A027 /* ImageFullViewModel.swift in Sources */,
 				0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */,
 				0E134ECF22FAFE9A00810484 /* Image.swift in Sources */,
 			);
