@@ -18,7 +18,11 @@ class SearchBarView: UIView {
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.barStyle = .default
+        bar.barTintColor = Color.darkGray
+        bar.tintColor = Color.lightGray
         bar.backgroundImage = UIImage()
+        bar.textField?.backgroundColor = Color.lightGray
+        bar.textField?.textColor = Color.darkGray
         return bar
     }()
     
@@ -43,7 +47,7 @@ class SearchBarView: UIView {
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
-            button.tintColor = Color.darkGray
+            button.setTitleColor(Color.darkGray, for: .normal)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
             stackView.addArrangedSubview(button)
         }
@@ -57,16 +61,20 @@ class SearchBarView: UIView {
     }
     
     private func setup() {
+        backgroundColor = .clear
         searchBar.delegate = self
-        searchBar.barTintColor = Color.lightGray
         addSubview(searchBar)
         addSubview(stackView)
         setupLayout()
+        stackView.setShadowForView()
+        searchBar.setBorder()
+        self.setBorder()
     }
     
     private func setupLayout() {
-        searchBar.pinToSuperview(edges: [.top, .left, .right])
-        stackView.pinToSuperview(edges: [ .bottom, .left, .right])
+        searchBar.pinToSuperview(edges: [.top, .left, .right], constant: 8)
+        stackView.pinToSuperview(edges: [.left, .right], constant: 8)
+        stackView.pinToSuperviewBottom(constant: 8)
         stackView.pin(edge: .top, to: .bottom, of: searchBar, constant: 8)
     }
 }
@@ -77,5 +85,27 @@ extension SearchBarView: UISearchBarDelegate {
             return
         }
         delegate?.searchQuery(searchText)
+    }
+}
+
+private extension UIView {
+    func setShadowForView() {
+        self.layer.shadowColor = Color.darkGray.cgColor
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = 10
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+    }
+    
+    func setBorder() {
+        self.layer.borderColor = Color.lightGray.cgColor
+        self.layer.borderWidth = 0.2
+    }
+}
+
+private extension UISearchBar {
+    var textField: UITextField? {
+        return subviews.first?.subviews.first(where: { $0.isKind(of: UITextField.self) }) as? UITextField
     }
 }
