@@ -19,7 +19,7 @@ class SearchBarView: UIView {
         let bar = UISearchBar()
         bar.barStyle = .default
         bar.barTintColor = Color.darkGray
-        bar.tintColor = Color.lightGray
+        bar.tintColor = Color.darkGray
         bar.backgroundImage = UIImage()
         bar.textField?.backgroundColor = Color.lightGray
         bar.textField?.textColor = Color.darkGray
@@ -84,6 +84,7 @@ extension SearchBarView: UISearchBarDelegate {
         guard let searchText = searchBar.text else {
             return
         }
+        searchBar.endEditing(true)
         delegate?.searchQuery(searchText)
     }
 }
