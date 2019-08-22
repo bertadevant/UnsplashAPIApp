@@ -1,12 +1,8 @@
 # Unsplash API App
 
-![unsplash logo](/Header_unsplash__1_.png)
-
 Create an app to show the images from Unsplash App.  
 
 - [x] Show images on a collection View
-
-![unsplash logo](/Header_unsplash__1_.png)
 
 - [x] Show description of the image on hover 
 - [x] Open the image on full screen 
