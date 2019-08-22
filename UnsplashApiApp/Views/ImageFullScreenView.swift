@@ -156,7 +156,6 @@ class ImageFullScreenView: UIView {
     }
     
     @objc func pinchGesture(_ sender: UIPinchGestureRecognizer) {
-        print("👾 tap")
         sender.view?.transform = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale) ?? CGAffineTransform(scaleX: 1, y: 1)
         sender.scale = 1.0
     }
