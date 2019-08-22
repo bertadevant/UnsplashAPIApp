@@ -69,7 +69,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         imageView.pinToSuperviewEdges()
         hoverView.pinToSuperviewEdges()
-        descriptionLabel.pinToSuperviewBottom(constant: 8)
+        descriptionLabel.pinToSuperviewBottom(constant: -8)
         descriptionLabel.pinToSuperviewRight(constant: -8)
         descriptionLabel.pinToSuperviewLeft(constant: 16, relatedBy: .greaterThanOrEqual)
     }

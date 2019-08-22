@@ -71,7 +71,7 @@ extension UIView {
             preconditionFailure("view has no superview")
         }
         
-        return pinBottom(to: superview, constant: -constant, priority: priority, relatedBy: relation)
+        return pinBottom(to: superview, constant: constant, priority: priority, relatedBy: relation)
     }
     
     @discardableResult func limitFromSuperviewBottom(withMinimumConstant constant: CGFloat = 0,

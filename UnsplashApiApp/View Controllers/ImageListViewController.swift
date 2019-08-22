@@ -23,6 +23,11 @@ class ImageListViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.layoutSubviews()
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let horizontal = self.traitCollection.horizontalSizeClass

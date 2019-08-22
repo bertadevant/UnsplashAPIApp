@@ -85,9 +85,8 @@ class SearchBarView: UIView {
         categoryView.addSubview(categoryScrollView)
         addSubview(categoryView)
         setupLayout()
-        categoryView.setBorder()
+        categoryScrollView.setBorder()
         searchBar.setBorder()
-        self.setBorder()
     }
     
     private func setupLayout() {

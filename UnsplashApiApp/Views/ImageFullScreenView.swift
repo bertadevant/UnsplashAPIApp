@@ -117,9 +117,8 @@ class ImageFullScreenView: UIView {
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
         
-        imageView.pinToSuperview(edges: [.left, .right])
-        imageView.pinToSuperviewTop(constant: 8)
-        imageView.pinToSuperviewBottom(constant: -8)
+        imageView.pinToSuperview(edges: [.left, .right], constant: 8)
+        imageView.pinToSuperview(edges: [.top, .bottom], constant: 8 + screenSafeAreaInsets.top)
         
         closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
         closeButton.pinToSuperviewLeft(constant: 16)
@@ -127,18 +126,18 @@ class ImageFullScreenView: UIView {
         closeButton.addHeightConstraint(with: 35)
         
         containerView.pinToSuperview(edges: [.left, .right, .bottom])
-        containerView.addHeightConstraint(with: 35 + screenSafeAreaInsets.bottom)
+        containerView.addHeightConstraint(with: 50 + screenSafeAreaInsets.bottom)
         
         authorLabel.pinToSuperviewLeft(constant: 16)
         authorLabel.pinToSuperviewTop(constant: 8)
         authorLabel.pin(edge: .right, to: .left, of: downloadButton, constant: 16, relatedBy: .greaterThanOrEqual)
         
-        shareButton.pinToSuperviewTop(constant: 8)
+        shareButton.pinToSuperview(edges: [.top, .bottom], constant: 8)
         shareButton.pinToSuperviewRight(constant: -16)
         shareButton.addHeightConstraint(with: 35)
         shareButton.addWidthConstraint(with: 35)
         
-        downloadButton.pinToSuperviewTop(constant: 8)
+        downloadButton.pinToSuperview(edges: [.top, .bottom], constant: 8)
         downloadButton.pin(edge: .right, to: .left, of: shareButton, constant: -16)
         downloadButton.addHeightConstraint(with: 35)
         downloadButton.addWidthConstraint(with: 35)
