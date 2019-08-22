@@ -31,7 +31,6 @@ class ImageListViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let horizontal = self.traitCollection.horizontalSizeClass
-        let vertical = self.traitCollection.verticalSizeClass
         if horizontal == .regular {
             self.imageCellStyle = .ipad
         } else {
