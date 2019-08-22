@@ -132,12 +132,12 @@ class ImageFullScreenView: UIView {
         authorLabel.pinToSuperviewTop(constant: 8)
         authorLabel.pin(edge: .right, to: .left, of: downloadButton, constant: 16, relatedBy: .greaterThanOrEqual)
         
-        shareButton.pinToSuperview(edges: [.top, .bottom], constant: 8)
+        shareButton.pinToSuperview(edges: [.top], constant: 8)
         shareButton.pinToSuperviewRight(constant: -16)
         shareButton.addHeightConstraint(with: 35)
         shareButton.addWidthConstraint(with: 35)
         
-        downloadButton.pinToSuperview(edges: [.top, .bottom], constant: 8)
+        downloadButton.pinToSuperview(edges: [.top], constant: 8)
         downloadButton.pin(edge: .right, to: .left, of: shareButton, constant: -16)
         downloadButton.addHeightConstraint(with: 35)
         downloadButton.addWidthConstraint(with: 35)
