@@ -9,6 +9,42 @@
 import UIKit
 
 struct Color {
-    static var darkGray: UIColor = UIColor(hexString: "#999999") ?? .gray
-    static var lightGray: UIColor = UIColor(hexString: "#EEEEEE") ?? .gray
+    static var darkGray: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray
+        } else {
+            return .darkGray
+        }
+    }
+    static var lightGray: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray4
+        } else {
+            return .lightGray
+        }
+    }
+    
+    static var background: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
+    }
+    
+    static var label: UIColor {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .white
+        }
+    }
+    
+    static var secondaryLabel: UIColor {
+        if #available(iOS 13.0, *) {
+            return .secondaryLabel
+        } else {
+            return .white
+        }
+    }
 }
