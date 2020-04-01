@@ -24,9 +24,17 @@ class APIRequestTests: XCTestCase {
     }
     
     func testURLRquestIsCorrectForPage() {
-        let searchParameters = SearchParameters.testData(pagination: Pagination.testData(page: 5))
+        let searchParameters = SearchParameters.testData(page: 5)
         let apiRequest = ImageAPIRequest(search: searchParameters)
         XCTAssertEqual(apiRequest.urlRequest.url?.description, "https://api.unsplash.com/curated?page=5")
+    }
+    
+    func testURLRequestIsCorrectForLoading() {
+        
+    }
+    
+    func testURLRequestIsCorrectForDownloading() {
+        
     }
 
 }
