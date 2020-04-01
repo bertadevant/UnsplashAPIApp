@@ -30,9 +30,11 @@ struct Author: Codable, Equatable {
 }
 
 struct Pagination: Codable {
+    //number of pages for the search
     let total_pages: Int
+    //total results
     let total: Int
-    let results: ImageList
+    var results: ImageList
 }
 
 typealias ImageList = [Image]

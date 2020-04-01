@@ -9,10 +9,10 @@
 import Foundation
 
 struct Dependencies {
-    let session: Session
-    static var dependencies = Dependencies()
+    var session: Session
+    static var enviroment = Dependencies()
     
-    init(session: Session = URLSession.shared) {
+    init(session: Session = NetworkSession()) {
         self.session = session
     }
 }

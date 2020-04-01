@@ -13,25 +13,26 @@ protocol Session {
     func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ())
 }
 
-extension URLSession: Session {
+class NetworkSession: URLSession, Session {
+    
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
         print("👾 resource URL \(resource.apiRequest.urlRequest.url?.absoluteString)")
-        dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
+        URLSession.shared.dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
             if let error = error {
                 print("error while fetching data \(error)")
                 completion(nil)
             }
             completion(data.flatMap(resource.parse))
-            }.resume()
+        }.resume()
     }
     
     func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
-        dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
+        URLSession.shared.dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
             if let error = error {
                 print("error while fetching data \(error)")
                 completion(nil, error)
             }
             completion(data, nil)
-            }.resume()
+        }.resume()
     }
 }

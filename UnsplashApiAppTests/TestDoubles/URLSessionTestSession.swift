@@ -9,25 +9,26 @@
 import Foundation
 @testable import UnsplashApiApp
 
-class TestSession: Session {
-    private var responses: [ResourceAndResponse]
-    
-    init(responses: [ResourceAndResponse]) {
-        self.responses = responses
+class URLSessionSpy: URLSession, Session, TestSpy {
+    enum Method {
+        case load
+        case download
     }
+    
+    var recordedMethods: [URLSessionSpy.Method] = []
+    var recordedParameters: [AnyHashable] = []
+
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
-        let resourceUrlRequest = resource.apiRequest.urlRequest
-        guard let responseIndex = responses.firstIndex(where: { $0.resource.apiRequest.urlRequest == resourceUrlRequest }) else {
-            fatalError("No index on responses: \(resource.apiRequest.urlRequest.url)")
+        record(.load)
+        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
+          recordParameters(urlString)
         }
-        guard let response = responses[responseIndex].response as! A? else {
-            fatalError("No such response: \(responses[responseIndex].response)")
-        }
-        responses.remove(at: responseIndex)
-        completion(response)
     }
     
-    func verify() -> Bool {
-        return responses.isEmpty
+    func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
+        record(.download)
+        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
+          recordParameters(urlString)
+        }
     }
 }
