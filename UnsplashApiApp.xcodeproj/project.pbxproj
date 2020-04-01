@@ -28,6 +28,7 @@
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
 		0E6432A1230B677000B2A027 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A0230B677000B2A027 /* Colors.swift */; };
 		0E6432A3230D614C00B2A027 /* ImageFullViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */; };
+		0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */; };
 		0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743596230AEE1C007C1EA5 /* SearchParameters.swift */; };
 		0E743599230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743598230B2AEE007C1EA5 /* UIButton+LoadingIndicator.swift */; };
 		0E74359D230B3D8F007C1EA5 /* ImageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */; };
@@ -35,8 +36,9 @@
 		0E7435A1230B5889007C1EA5 /* SearchCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7435A0230B5889007C1EA5 /* SearchCategory.swift */; };
 		0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605BD22FAE77200125CDB /* AppDelegate.swift */; };
 		0E7605C522FAE77500125CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E7605C422FAE77500125CDB /* Assets.xcassets */; };
-		0E7605D322FAE77500125CDB /* URLSessionLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */; };
-		0EDA9292230184920044F35A /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA9291230184920044F35A /* ImageListTests.swift */; };
+		0ED746382432541100E8E625 /* ImageListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746372432541100E8E625 /* ImageListViewModelTests.swift */; };
+		0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */; };
+		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
 		0EDA9294230184AD0044F35A /* imageList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA9293230184AD0044F35A /* imageList.json */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
@@ -85,9 +87,10 @@
 		0E7605C422FAE77500125CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E7605C922FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E7605CE22FAE77500125CDB /* UnsplashApiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashApiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionLoaderTests.swift; sourceTree = "<group>"; };
 		0E7605D422FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0EDA9291230184920044F35A /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
+		0ED746372432541100E8E625 /* ImageListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelTests.swift; sourceTree = "<group>"; };
+		0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelDelegateTestDouble.swift; sourceTree = "<group>"; };
+		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
 		0EDA9293230184AD0044F35A /* imageList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = imageList.json; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +128,6 @@
 		0E134ED422FC5D6B00810484 /* Network Layer */ = {
 			isa = PBXGroup;
 			children = (
-				0E7605D222FAE77500125CDB /* URLSessionLoaderTests.swift */,
 				0E134EE22300AA7A00810484 /* APIRequestTests.swift */,
 			);
 			path = "Network Layer";
@@ -147,6 +149,7 @@
 			children = (
 				0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */,
 				0E134EDC22FC670000810484 /* URLSessionTestSession.swift */,
+				0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */,
 			);
 			path = TestDoubles;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 		0E7605D122FAE77500125CDB /* UnsplashApiAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				0ED74636243253F500E8E625 /* ImageList */,
 				0EDA92992305FB780044F35A /* Helpers */,
 				0EDA9290230184810044F35A /* Model */,
 				0E134ED422FC5D6B00810484 /* Network Layer */,
@@ -259,11 +263,28 @@
 			path = UnsplashApiAppTests;
 			sourceTree = "<group>";
 		};
+		0ED74636243253F500E8E625 /* ImageList */ = {
+			isa = PBXGroup;
+			children = (
+				0ED746372432541100E8E625 /* ImageListViewModelTests.swift */,
+			);
+			path = ImageList;
+			sourceTree = "<group>";
+		};
 		0EDA9290230184810044F35A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0EDA92992305FB780044F35A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */,
+				0ED7463B243255A300E8E625 /* TestSpy.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,14 +417,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */,
 				0E134EE52300AB3600810484 /* SearchParameters+TestData.swift in Sources */,
-				0EDA9292230184920044F35A /* ImageListTests.swift in Sources */,
 				0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */,
-				0E7605D322FAE77500125CDB /* URLSessionLoaderTests.swift in Sources */,
 				0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */,
+				0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */,
 				0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */,
+				0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */,
 				0E134EE32300AA7A00810484 /* APIRequestTests.swift in Sources */,
 				0E134EE122FC6AFF00810484 /* Image+TestData.swift in Sources */,
+				0ED746382432541100E8E625 /* ImageListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +562,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q9RB95L675;
 				INFOPLIST_FILE = UnsplashApiApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -556,6 +580,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q9RB95L675;
 				INFOPLIST_FILE = UnsplashApiApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -574,6 +599,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q9RB95L675;
 				INFOPLIST_FILE = UnsplashApiAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -594,6 +620,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q9RB95L675;
 				INFOPLIST_FILE = UnsplashApiAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
