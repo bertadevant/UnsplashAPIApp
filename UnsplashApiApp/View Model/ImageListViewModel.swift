@@ -9,53 +9,50 @@
 import Foundation
 
 protocol ImageListViewModelDelegate: class {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func onFetchFailed(with reason: String)
+    func onFetchCompleted(reloadIndexPaths: [IndexPath]?)
+    func onFetchFailed(error: String)
 }
 
 final class ImageListViewModel {
     weak var delegate: ImageListViewModelDelegate?
-    private var pagination: Pagination = .initalResults
-    private var searchParameters: SearchParameters = .initialParameters
-    private var currentPage: Int = 0
-    private var isFetchInProgress = false
+    private var response: Pagination = .initalResults
+    private var loading: Bool = false
     
     var currentCount: Int {
-        return pagination.results.count
+        return response.results.count
+    }
+    
+    var isFetchingresults: Bool {
+        return loading
     }
     
     func image(at index: Int) -> ImageViewState {
-        return pagination.results[index].viewState()
+        return response.results[index].viewState()
     }
     
-    func fetchNextPage() {
-        let searchParameters = self.searchParameters.nextPage()
-        let currentImages = pagination.results
+    func fetchNextPage(_ searchParameters: SearchParameters) {
         fetchImageList(searchParameters: searchParameters) { [weak self] response in
-            self?.pagination = Pagination(total_pages: response.total_pages,
-                                          total: response.total,
-                                          results: currentImages + response.results)
-            self?.delegate?.onFetchCompleted(with: [])
+            self?.response.results += response.results
+            self?.delegate?.onFetchCompleted(reloadIndexPaths: [])
         }
     }
     
-    func fetchImageList(query: String) {
-        let parameters = SearchParameters(query: query)
-        self.searchParameters = parameters
-        fetchImageList(searchParameters: parameters) { [weak self] response in
-            self?.pagination = response
-            self?.delegate?.onFetchCompleted(with: [])
+    func fetchNewQuery(_ searchParameters: SearchParameters) {
+        fetchImageList(searchParameters: searchParameters) { [weak self] response in
+            self?.response = response
+            self?.delegate?.onFetchCompleted(reloadIndexPaths: [])
         }
     }
-
+    
     private func fetchImageList(searchParameters: SearchParameters, completion: @escaping (Pagination) -> ()) {
         let request = ImageAPIRequest(search: searchParameters)
         let resource = Resource<Pagination>(get: request)
-        Dependencies.dependencies.session.load(resource) { [weak self] response in
-            guard let response = response,
-                !response.results.isEmpty else {
-                self?.delegate?.onFetchFailed(with: "No response found")
-                return
+        loading = true
+        Dependencies.enviroment.session.load(resource) { [weak self] response in
+            self?.loading = false
+            guard let response = response, !response.results.isEmpty else {
+                    self?.delegate?.onFetchFailed(error: "No response found")
+                    return
             }
             completion(response)
         }
@@ -64,12 +61,4 @@ final class ImageListViewModel {
 
 private extension Pagination {
     static var initalResults = Pagination(total_pages: 1, total: 1, results: [])
-}
-
-private extension SearchParameters {
-    static var initialParameters: SearchParameters {
-        return SearchParameters(searchType: .photos,
-                                query: "barcelona",
-                                page: 1)
-    }
 }

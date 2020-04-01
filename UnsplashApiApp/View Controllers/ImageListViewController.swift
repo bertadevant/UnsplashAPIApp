@@ -13,14 +13,15 @@ class ImageListViewController: UIViewController {
     private var imageCellStyle: CellStyle = .iphone
     private let viewModel = ImageListViewModel()
     private let searchBarView = SearchBarView()
+    private var searchParameters: SearchParameters = .initialParameters
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
-        viewModel.fetchImageList(query: "barcelona")
         self.view.backgroundColor = .white
+        viewModel.fetchNewQuery(searchParameters)
     }
     
     override func viewWillLayoutSubviews() {
@@ -89,10 +90,16 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard collectionView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) else {
+        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingresults else {
             return
         }
-        viewModel.fetchNextPage()
+        fetchNextPage()
+    }
+    
+    private func fetchNextPage() {
+        let nextPageSearch = searchParameters.nextPage()
+        viewModel.fetchNextPage(nextPageSearch)
+        self.searchParameters = nextPageSearch
     }
 }
 
@@ -112,21 +119,31 @@ extension ImageListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ImageListViewController: ImageListViewModelDelegate {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+    func onFetchCompleted(reloadIndexPaths newIndexPathsToReload: [IndexPath]?) {
         reloadData(on: newIndexPathsToReload)
     }
     
-    func onFetchFailed(with reason: String) { }
+    func onFetchFailed(error reason: String) { }
 }
 
 extension ImageListViewController: SearchDelegate {
     func searchQuery(_ query: String) {
-        viewModel.fetchImageList(query: query.lowercased())
+        let newSearch = SearchParameters(query: query.lowercased())
+        viewModel.fetchNewQuery(newSearch)
+        self.searchParameters = newSearch
     }
 }
 
-private extension UICollectionView {
+private extension UIScrollView {
     func isNearBottomEdge(padding: CGFloat) -> Bool {
         return self.contentOffset.y >= (self.contentSize.height - self.frame.height - padding)
+    }
+}
+
+private extension SearchParameters {
+    static var initialParameters: SearchParameters {
+        return SearchParameters(searchType: .photos,
+                                query: "barcelona",
+                                page: 1)
     }
 }
