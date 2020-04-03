@@ -22,7 +22,7 @@ final class ImageListViewModel {
         return response.results.count
     }
     
-    var isFetchingresults: Bool {
+    var isFetchingResults: Bool {
         return loading
     }
     
