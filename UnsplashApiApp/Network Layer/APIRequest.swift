@@ -8,10 +8,18 @@
 
 import Foundation
 
+private func makeUnsplashComponent(path: String, queryItems: [URLQueryItem] = []) -> URLComponents {
+     var component = URLComponents()
+     component.scheme = "https"
+     component.host = "api.unsplash.com"
+     component.path = path
+     component.queryItems = queryItems
+     return component
+}
+
+
 protocol APIRequest {
     var components: URLComponents { get }
-    var queryItems: [URLQueryItem] { get }
-    var urlRequest: URLRequest { get }
 }
 
 extension APIRequest {
@@ -30,58 +38,37 @@ final class ImageAPIRequest: APIRequest {
     let searchParameters: SearchParameters
 
     var components: URLComponents {
-        var component = URLComponents()
-        component.scheme = "https"
-        component.host = "api.unsplash.com"
-        component.path = searchParameters.searchType.rawValue
-        component.queryItems = self.queryItems
-        return component
-    }
-    
-    init(search: SearchParameters) {
-        self.searchParameters = search
-    }
-    
-    var queryItems: [URLQueryItem] {
         var queryItems: [URLQueryItem] = []
         let page: String = searchParameters.page == 0 ? "1" : searchParameters.page.description
         queryItems.append(URLQueryItem(name: "page", value: page))
         if !searchParameters.query.isEmpty {
             queryItems.append(URLQueryItem(name: "query", value: searchParameters.query))
         }
-        return queryItems
+        return makeUnsplashComponent(path: searchParameters.searchType.rawValue, queryItems: queryItems)
+    }
+    
+    init(search: SearchParameters) {
+        self.searchParameters = search
     }
 }
 
 //Unsplash API demands that we trigger a download count when downloading a picture, this request is created to handle that
 // https://unsplash.com/documentation#track-a-photo-download
 final class DownloadAPIRequest: APIRequest {
-    var components: URLComponents {
-        var component = URLComponents()
-        component.scheme = "https"
-        component.host = "api.unsplash.com"
-        component.path = "/photos/\(imageId)/download"
-        component.queryItems = self.queryItems
-        return component
-    }
-    
-    private let imageId: String
-    var queryItems: [URLQueryItem] = []
-    
+    let components: URLComponents
+
     init(imageID: String) {
-        self.imageId = imageID
+        self.components = makeUnsplashComponent(path: "/photos/\(imageID)/download")
     }
 }
 
 //Each Image parsed from the API comes with the urls for downloading the images, we use this request to get the proper URL for downloading for each image
 final class LoadAPIRequest: APIRequest {
-
     let components: URLComponents
-    let queryItems: [URLQueryItem] = []
 
     init(imageURL: String) {
         var components = URLComponents(string: imageURL)
-        components?.queryItems = self.queryItems
+        components?.queryItems = []
         self.components = components ?? URLComponents()
     }
 }
