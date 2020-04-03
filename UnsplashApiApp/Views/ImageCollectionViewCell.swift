@@ -50,7 +50,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func update(with image: ImageViewState) {
-        imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
+        imageView.setImage(fromURL: image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.colors.imageColor
         descriptionLabel.text = image.description
         hoverView.backgroundColor = image.colors.imageColor

@@ -84,18 +84,13 @@ final class DownloadAPIRequest: APIRequest {
 
 //Each Image parsed from the API comes with the urls for downloading the images, we use this request to get the proper URL for downloading for each image
 final class LoadAPIRequest: APIRequest {
-    var components: URLComponents {
-        var component = URLComponents()
-        component.scheme = "https"
-        component.host = "images.unsplash.com"
-        component.path = "\(imageURL)"
-        component.queryItems = self.queryItems
-        return component
-    }
-    var queryItems: [URLQueryItem] = []
-    private let imageURL: String
-    
+
+    let components: URLComponents
+    let queryItems: [URLQueryItem] = []
+
     init(imageURL: String) {
-        self.imageURL = imageURL.replacingOccurrences(of: "https://images.unsplash.com", with: "")
+        var components = URLComponents(string: imageURL)
+        components?.queryItems = self.queryItems
+        self.components = components ?? URLComponents()
     }
 }
