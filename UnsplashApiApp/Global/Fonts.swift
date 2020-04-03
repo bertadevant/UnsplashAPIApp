@@ -8,6 +8,6 @@
 
 import UIKit
 
-struct Fonts {
-    static var regular = UIFont(name: "HelveticaNeue", size: 16) ?? UIFont.systemFont(ofSize: 16)
+enum Fonts {
+    static let regular = UIFont(name: "HelveticaNeue", size: 16) ?? UIFont.systemFont(ofSize: 16)
 }

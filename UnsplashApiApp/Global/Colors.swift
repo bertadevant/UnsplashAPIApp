@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Color {
-    static var darkGray: UIColor = UIColor(hexString: "#999999") ?? .gray
-    static var lightGray: UIColor = UIColor(hexString: "#EEEEEE") ?? .gray
+enum Colors {
+    static let darkGray: UIColor = UIColor(hexString: "#999999") ?? .gray
+    static let lightGray: UIColor = UIColor(hexString: "#EEEEEE") ?? .gray
 }
