@@ -9,6 +9,12 @@
 import UIKit
 
 struct ImageViewState {
+    struct Colors {
+        let imageColor: UIColor
+        let textColor: UIColor
+        let containerColor: UIColor
+    }
+
     let id: String
     let colors: Colors
     let size: CGSize
@@ -19,26 +25,23 @@ struct ImageViewState {
     let author: AuthorViewState
 }
 
-extension Image {
-    func viewState() -> ImageViewState {
-        return ImageViewState(id: self.id,
-                              colors: Colors(imageColor: UIColor(hexString: self.color)),
-                              size: CGSize(width: self.width, height: self.height),
-                              description: self.description,
-                              imageSmall: self.urls.small,
-                              imageRegular: self.urls.regular,
-                              imageFull: self.urls.full,
-                              author: self.user.viewModel())
+extension ImageViewState {
+    init(image: Image) {
+        self.init(
+            id: image.id,
+            colors: .init(imageColor: UIColor(hexString: image.color)),
+            size: CGSize(width: image.width, height: image.height),
+            description: image.description,
+            imageSmall: image.urls.small,
+            imageRegular: image.urls.regular,
+            imageFull: image.urls.full,
+            author: .init(author: image.user)
+        )
     }
 }
 
-struct Colors {
-    let imageColor: UIColor
-    let textColor: UIColor
-    let containerColor: UIColor
-}
 
-extension Colors {
+extension ImageViewState.Colors {
     init(imageColor: UIColor?) {
         guard let imageColor = imageColor else {
             self.imageColor = .white
@@ -56,8 +59,8 @@ struct AuthorViewState {
     let name: String
 }
 
-extension Author {
-    func viewModel() -> AuthorViewState {
-        return AuthorViewState(name: self.name)
+extension AuthorViewState {
+    init(author: Author) {
+        self.init(name: author.name)
     }
 }
