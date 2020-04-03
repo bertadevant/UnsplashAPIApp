@@ -41,6 +41,7 @@
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
+		380BAFD12437CB0000C8ABE9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380BAFD02437CB0000C8ABE9 /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
+		380BAFD02437CB0000C8ABE9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			children = (
 				0E134EDA22FC620300810484 /* Dependencies.swift */,
 				0E6432A0230B677000B2A027 /* Colors.swift */,
+				380BAFD02437CB0000C8ABE9 /* Fonts.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewState.swift in Sources */,
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
+				380BAFD12437CB0000C8ABE9 /* Fonts.swift in Sources */,
 				0E134EDB22FC620300810484 /* Dependencies.swift in Sources */,
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
