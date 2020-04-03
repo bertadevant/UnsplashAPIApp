@@ -21,23 +21,14 @@ extension APIRequest {
                 preconditionFailure("We should have a valid URL \(components.url?.absoluteString.removingPercentEncoding ?? "nil")")
         }
         var request = URLRequest(url: url)
-        request.setValue(accessKey, forHTTPHeaderField: "Authorization")
+        request.setValue("Client-ID \(Dependencies.enviroment.apiKey)", forHTTPHeaderField: "Authorization")
         return request
-    }
-}
-
-private extension APIRequest {
-    var accessKey: String {
-        return "Client-ID 40c9db0853526d8cf7d3338a9b6a14722de5ae8adb7efb83e5ea7954d4809dce"
     }
 }
 
 final class ImageAPIRequest: APIRequest {
     let searchParameters: SearchParameters
-    var queryItems: [URLQueryItem] {
-        return setQueryItems()
-    }
-    
+
     var components: URLComponents {
         var component = URLComponents()
         component.scheme = "https"
@@ -51,7 +42,7 @@ final class ImageAPIRequest: APIRequest {
         self.searchParameters = search
     }
     
-    private func setQueryItems() -> [URLQueryItem] {
+    var queryItems: [URLQueryItem] {
         var queryItems: [URLQueryItem] = []
         let page: String = searchParameters.page == 0 ? "1" : searchParameters.page.description
         queryItems.append(URLQueryItem(name: "page", value: page))
