@@ -25,7 +25,7 @@ class ImageListViewModelTests: XCTestCase {
         let urlString = ImageAPIRequest(search: search).urlRequest.url?.absoluteString
         
         viewModel.delegate = delegate
-        viewModel.fetch(search)
+        viewModel.fetchNewQuery(search)
         
         session.assertEqual(.load)
         session.assertParameterEqual(urlString!)
