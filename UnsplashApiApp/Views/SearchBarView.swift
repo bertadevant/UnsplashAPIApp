@@ -134,11 +134,11 @@ private extension UISearchBar {
 }
 
 private extension String {
-    func estimateHeightForText(width: CGFloat, font: UIFont? = Fonts.regular) -> CGFloat {
+    func estimateHeightForText(width: CGFloat, font: UIFont = Fonts.regular) -> CGFloat {
         let height: CGFloat = 50
         let size = CGSize(width: width, height: height)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let attributes = [NSAttributedString.Key.font: font]
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
         return NSString(string: self).boundingRect(with: size, options: options, attributes: attributes, context: nil).height
     }
 

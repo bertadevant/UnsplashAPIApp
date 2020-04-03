@@ -16,7 +16,7 @@ protocol Session {
 class NetworkSession: URLSession, Session {
     
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
-        print("👾 resource URL \(resource.apiRequest.urlRequest.url?.absoluteString)")
+        print("👾 resource URL \(resource.apiRequest.urlRequest.url?.absoluteString ?? "nil")")
         URLSession.shared.dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
             if let error = error {
                 print("error while fetching data \(error)")

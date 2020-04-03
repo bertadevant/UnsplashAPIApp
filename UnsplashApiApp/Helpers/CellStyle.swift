@@ -29,7 +29,7 @@ extension CellStyle {
 }
 
 struct Fonts {
-    static var regular = UIFont(name: "HelveticaNeue", size: 16)
+    static var regular = UIFont(name: "HelveticaNeue", size: 16) ?? UIFont.systemFont(ofSize: 16)
 }
 
 extension ImageViewState {
