@@ -102,9 +102,9 @@ Besides repeating the scheme and host twice (in `var components` and in the `ini
 
 ### `APIRequest`
 
-Not a good look to have your API key hardcoded here, not only for security reasons but also because keys like that should not be defined deep inside the code as they would be hard to find later. I suggest you use your `Dependencies` object for that instead at least to inject it there. Or to create a dedicated file for constants like that in your `Globals/` folder and put it here.
+Not a good look to have your API key hardcoded here, not only for security reasons but also because keys like that should not be defined deep inside the network layer code, as they would be hard to find later and don't make your layer independant. 
 
-This is also because your `NetworkLayer` should be agnostic of who is using it. It should be a client that works for anyone willing to use the Unspalsh API. Hard-coding a Client-ID inside the NetworkLayer itself is not a good separation of concern there.
+This is also because your `NetworkLayer` should be agnostic of who is using it. It should be a client that works for anyone willing to use the Unspalsh API. Hard-coding a Client-ID inside the NetworkLayer itself is not a good separation of concern there. The best solution is to inject that key when instantiating your `NetworkSession`
 
 As for the security part of things, that's less trivial to fix: ideally you should not commit your API keys to GitHub. You could for example have your keys in some `plist` file that you include in your project and read at runtime, but never commit that `plist` and document in the README that the user is supposed to create it with their own APIKey.
 
