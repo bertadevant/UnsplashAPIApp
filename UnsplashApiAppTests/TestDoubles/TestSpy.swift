@@ -83,10 +83,11 @@ extension TestSpy {
         }
     }
     
-    func assertParameterEqual(_ parameter: AnyHashable,
+    func assertParameterEqual<T: Equatable>(_ parameter: T,
+                              transform: (AnyHashable) -> T,
                               file: StaticString = #file,
                               line: UInt = #line) {
-        guard recordedParameters == [parameter] else {
+        guard recordedParameters.map(transform) == [parameter] else {
             XCTFail("Spy was expecting \(parameter) but found: \(recordedParameters) ",
                 file: file,
                 line: line)

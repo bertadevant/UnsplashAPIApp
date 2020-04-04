@@ -13,7 +13,7 @@
 		0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED222FAFF2300810484 /* APIRequest.swift */; };
 		0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */; };
 		0E134EDB22FC620300810484 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDA22FC620300810484 /* Dependencies.swift */; };
-		0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDC22FC670000810484 /* URLSessionTestSession.swift */; };
+		0E134EDD22FC670000810484 /* SessionSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDC22FC670000810484 /* SessionSpy.swift */; };
 		0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */; };
 		0E134EE122FC6AFF00810484 /* Image+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EE022FC6AFF00810484 /* Image+TestData.swift */; };
 		0E134EE32300AA7A00810484 /* APIRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EE22300AA7A00810484 /* APIRequestTests.swift */; };
@@ -61,7 +61,7 @@
 		0E134ED222FAFF2300810484 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestsTestDoubles.swift; sourceTree = "<group>"; };
 		0E134EDA22FC620300810484 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
-		0E134EDC22FC670000810484 /* URLSessionTestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTestSession.swift; sourceTree = "<group>"; };
+		0E134EDC22FC670000810484 /* SessionSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSpy.swift; sourceTree = "<group>"; };
 		0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAndResponse.swift; sourceTree = "<group>"; };
 		0E134EE022FC6AFF00810484 /* Image+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+TestData.swift"; sourceTree = "<group>"; };
 		0E134EE22300AA7A00810484 /* APIRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestTests.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 			children = (
 				0ED7463B243255A300E8E625 /* TestSpy.swift */,
 				0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */,
-				0E134EDC22FC670000810484 /* URLSessionTestSession.swift */,
+				0E134EDC22FC670000810484 /* SessionSpy.swift */,
 				0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */,
 			);
 			path = TestDoubles;
@@ -422,7 +422,7 @@
 				0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */,
 				0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */,
 				0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */,
-				0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */,
+				0E134EDD22FC670000810484 /* SessionSpy.swift in Sources */,
 				0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */,
 				0E134EE32300AA7A00810484 /* APIRequestTests.swift in Sources */,
 				0E134EE122FC6AFF00810484 /* Image+TestData.swift in Sources */,

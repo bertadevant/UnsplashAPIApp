@@ -11,14 +11,14 @@ import XCTest
 
 class UIColorExtensionsTests: XCTestCase {
 
-    func testIsLIghtReturnsTrueWhenLightColor() {
+    func testIsLightReturnsTrueWhenLightColor() {
         let image = Image.testData(color: "#d68787")
         let viewModel = ImageViewState(image: image)
         XCTAssertTrue(UIColor(hexString: "#d68787")!.isLight())
         XCTAssertTrue(viewModel.colors.textColor == UIColor.gray)
     }
     
-    func testIsLIghtReturnsFalseWhenDarkColor() {
+    func testIsLightReturnsFalseWhenDarkColor() {
         let image = Image.testData(color: "#040124")
         let viewModel = ImageViewState(image: image)
         XCTAssertFalse(UIColor(hexString: "#040124")!.isLight())
