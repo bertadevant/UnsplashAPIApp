@@ -10,30 +10,40 @@ import UIKit
 import Foundation
 
 extension UIImageView {
-    func imageFromServerURL(_ imageURL: String, placeHolder: UIImage?) {
-        func setPlaceHolder() {
-            DispatchQueue.main.async {
-                self.image = placeHolder
-            }
-        }
-        func setImage(_ downloadedImage: UIImage) {
-            DispatchQueue.main.async {
-                self.image = downloadedImage
-            }
-        }
+    func setImage(fromURL imageURL: String, placeHolder: UIImage?) {
         self.image = nil
         let request = LoadAPIRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
+        let indicator = addLoadingIndicator()
         Dependencies.enviroment.session.download(resource) { imageData, _ in
-            guard let data = imageData,
-                let image = UIImage(data: data) else {
-                setPlaceHolder()
-                    return
+            let image = imageData.map(UIImage.init(data:))
+            DispatchQueue.main.async {
+                self.image = image ?? placeHolder
+                indicator.removeFromSuperview()
             }
-            setImage(image)
         }
-        
-        
+    }
+
+    private func addLoadingIndicator() -> UIView {
+        let roundedSquare = UIView()
+        roundedSquare.backgroundColor = Colors.darkGray.withAlphaComponent(0.3)
+        roundedSquare.layer.cornerRadius = 20.0
+        roundedSquare.layer.masksToBounds = true
+        self.addSubview(roundedSquare)
+        roundedSquare.addWidthConstraint(with: 80)
+        roundedSquare.addHeightConstraint(with: 80)
+        roundedSquare.centerXToSuperview()
+        roundedSquare.centerYToSuperview()
+
+        let indicator = UIActivityIndicatorView(style: .whiteLarge)
+        roundedSquare.addSubview(indicator)
+        indicator.sizeToFit()
+        indicator.centerXToSuperview()
+        indicator.centerYToSuperview()
+
+        indicator.startAnimating()
+
+        return roundedSquare
     }
 }
 

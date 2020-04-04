@@ -9,26 +9,27 @@
 import Foundation
 @testable import UnsplashApiApp
 
-class URLSessionSpy: URLSession, Session, TestSpy {
+class SessionSpy: Session, TestSpy {
     enum Method {
         case load
         case download
     }
-    
-    var recordedMethods: [URLSessionSpy.Method] = []
+
+    private var buildURLRequest: (APIRequest) -> URLRequest = NetworkSession(apiKey: "testkey").urlRequest(from:)
+    var recordedMethods: [SessionSpy.Method] = []
     var recordedParameters: [AnyHashable] = []
 
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
         record(.load)
-        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
-          recordParameters(urlString)
+        if let params = resource.apiRequest.components.queryItems {
+          recordParameters(params)
         }
     }
     
     func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
         record(.download)
-        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
-          recordParameters(urlString)
+        if let params = resource.apiRequest.components.queryItems {
+          recordParameters(params)
         }
     }
 }

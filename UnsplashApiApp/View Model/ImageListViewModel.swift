@@ -22,12 +22,12 @@ final class ImageListViewModel {
         return response.results.count
     }
     
-    var isFetchingresults: Bool {
+    var isFetchingResults: Bool {
         return loading
     }
     
     func image(at index: Int) -> ImageViewState {
-        return response.results[index].viewState()
+        return ImageViewState(image: response.results[index])
     }
     
     func fetchNextPage(_ searchParameters: SearchParameters) {

@@ -85,7 +85,7 @@ class ImageFullScreenView: UIView {
     
     func bind(_ image: ImageViewState) {
         self.image = image
-        imageView.imageFromServerURL(image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
+        imageView.setImage(fromURL: image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.colors.textColor
         backgroundView.backgroundColor = image.colors.imageColor
         containerView.backgroundColor = image.colors.containerColor

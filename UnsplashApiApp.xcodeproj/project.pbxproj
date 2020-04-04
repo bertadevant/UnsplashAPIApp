@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ECB22FAFE7600810484 /* HttpMethod.swift */; };
 		0E134ECF22FAFE9A00810484 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ECE22FAFE9A00810484 /* Image.swift */; };
-		0E134ED122FAFEC400810484 /* URLSessionExtension+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED022FAFEC400810484 /* URLSessionExtension+Load.swift */; };
+		0E134ED122FAFEC400810484 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED022FAFEC400810484 /* NetworkSession.swift */; };
 		0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED222FAFF2300810484 /* APIRequest.swift */; };
 		0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */; };
 		0E134EDB22FC620300810484 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDA22FC620300810484 /* Dependencies.swift */; };
-		0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDC22FC670000810484 /* URLSessionTestSession.swift */; };
+		0E134EDD22FC670000810484 /* SessionSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDC22FC670000810484 /* SessionSpy.swift */; };
 		0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */; };
 		0E134EE122FC6AFF00810484 /* Image+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EE022FC6AFF00810484 /* Image+TestData.swift */; };
 		0E134EE32300AA7A00810484 /* APIRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EE22300AA7A00810484 /* APIRequestTests.swift */; };
@@ -41,6 +41,7 @@
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
+		380BAFD12437CB0000C8ABE9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380BAFD02437CB0000C8ABE9 /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,11 +57,11 @@
 /* Begin PBXFileReference section */
 		0E134ECB22FAFE7600810484 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		0E134ECE22FAFE9A00810484 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		0E134ED022FAFEC400810484 /* URLSessionExtension+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionExtension+Load.swift"; sourceTree = "<group>"; };
+		0E134ED022FAFEC400810484 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		0E134ED222FAFF2300810484 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestsTestDoubles.swift; sourceTree = "<group>"; };
 		0E134EDA22FC620300810484 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
-		0E134EDC22FC670000810484 /* URLSessionTestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTestSession.swift; sourceTree = "<group>"; };
+		0E134EDC22FC670000810484 /* SessionSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSpy.swift; sourceTree = "<group>"; };
 		0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAndResponse.swift; sourceTree = "<group>"; };
 		0E134EE022FC6AFF00810484 /* Image+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+TestData.swift"; sourceTree = "<group>"; };
 		0E134EE22300AA7A00810484 /* APIRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestTests.swift; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
+		380BAFD02437CB0000C8ABE9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +148,7 @@
 			children = (
 				0ED7463B243255A300E8E625 /* TestSpy.swift */,
 				0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */,
-				0E134EDC22FC670000810484 /* URLSessionTestSession.swift */,
+				0E134EDC22FC670000810484 /* SessionSpy.swift */,
 				0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */,
 			);
 			path = TestDoubles;
@@ -157,6 +159,7 @@
 			children = (
 				0E134EDA22FC620300810484 /* Dependencies.swift */,
 				0E6432A0230B677000B2A027 /* Colors.swift */,
+				380BAFD02437CB0000C8ABE9 /* Fonts.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -206,7 +209,7 @@
 			children = (
 				0E57708422FAFA2F004F78DE /* Resource.swift */,
 				0E134ECB22FAFE7600810484 /* HttpMethod.swift */,
-				0E134ED022FAFEC400810484 /* URLSessionExtension+Load.swift */,
+				0E134ED022FAFEC400810484 /* NetworkSession.swift */,
 				0E134ED222FAFF2300810484 /* APIRequest.swift */,
 			);
 			path = "Network Layer";
@@ -383,7 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E134ED122FAFEC400810484 /* URLSessionExtension+Load.swift in Sources */,
+				0E134ED122FAFEC400810484 /* NetworkSession.swift in Sources */,
 				0E134EF52300CFBD00810484 /* UIView+AutoLayout.swift in Sources */,
 				0E134F002300E0DC00810484 /* CellStyle.swift in Sources */,
 				0E7435A1230B5889007C1EA5 /* SearchCategory.swift in Sources */,
@@ -399,6 +402,7 @@
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewState.swift in Sources */,
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
+				380BAFD12437CB0000C8ABE9 /* Fonts.swift in Sources */,
 				0E134EDB22FC620300810484 /* Dependencies.swift in Sources */,
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
@@ -418,7 +422,7 @@
 				0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */,
 				0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */,
 				0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */,
-				0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */,
+				0E134EDD22FC670000810484 /* SessionSpy.swift in Sources */,
 				0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */,
 				0E134EE32300AA7A00810484 /* APIRequestTests.swift in Sources */,
 				0E134EE122FC6AFF00810484 /* Image+TestData.swift in Sources */,

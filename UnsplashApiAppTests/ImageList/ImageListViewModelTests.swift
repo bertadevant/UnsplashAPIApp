@@ -18,16 +18,19 @@ class ImageListViewModelTests: XCTestCase {
     }
     
     private func fetchForSearch(search: SearchParameters, file: StaticString = #file, line: UInt = #line) {
-        let session = URLSessionSpy()
+        let session = SessionSpy()
         Dependencies.enviroment.session = session
         let delegate = ImageListViewModelDelegateSpy()
         let viewModel = ImageListViewModel()
-        let urlString = ImageAPIRequest(search: search).urlRequest.url?.absoluteString
+        let queryParams = ImageAPIRequest(search: search).components.queryItems
         
         viewModel.delegate = delegate
-        viewModel.fetch(search)
+        viewModel.fetchNewQuery(search)
         
         session.assertEqual(.load)
-        session.assertParameterEqual(urlString!)
+        // order of queryParams should not matter, so let's convert them to Sets
+        session.assertParameterEqual(Set(queryParams!), transform: {
+            Set($0 as? [URLQueryItem] ?? [])
+        })
     }
 }

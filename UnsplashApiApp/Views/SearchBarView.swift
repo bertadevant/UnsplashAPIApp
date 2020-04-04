@@ -19,11 +19,11 @@ class SearchBarView: UIView {
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.barStyle = .default
-        bar.barTintColor = Color.darkGray
-        bar.tintColor = Color.darkGray
+        bar.barTintColor = Colors.darkGray
+        bar.tintColor = Colors.darkGray
         bar.backgroundImage = UIImage()
-        bar.textField?.backgroundColor = Color.lightGray
-        bar.textField?.textColor = Color.darkGray
+        bar.textField?.backgroundColor = Colors.lightGray
+        bar.textField?.textColor = Colors.darkGray
         return bar
     }()
     
@@ -60,7 +60,7 @@ class SearchBarView: UIView {
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
-            button.setTitleColor(Color.darkGray, for: .normal)
+            button.setTitleColor(Colors.darkGray, for: .normal)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
             stackView.addArrangedSubview(button)
         }
@@ -113,7 +113,7 @@ extension SearchBarView: UISearchBarDelegate {
 
 private extension UIView {
     func setShadowForView() {
-        self.layer.shadowColor = Color.darkGray.cgColor
+        self.layer.shadowColor = Colors.darkGray.cgColor
         self.layer.shadowOpacity = 1
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 10
@@ -122,7 +122,7 @@ private extension UIView {
     }
     
     func setBorder() {
-        self.layer.borderColor = Color.lightGray.cgColor
+        self.layer.borderColor = Colors.lightGray.cgColor
         self.layer.borderWidth = 0.2
     }
 }
@@ -134,11 +134,11 @@ private extension UISearchBar {
 }
 
 private extension String {
-    func estimateHeightForText(width: CGFloat, font: UIFont? = Fonts.regular) -> CGFloat {
+    func estimateHeightForText(width: CGFloat, font: UIFont = Fonts.regular) -> CGFloat {
         let height: CGFloat = 50
         let size = CGSize(width: width, height: height)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let attributes = [NSAttributedString.Key.font: font]
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
         return NSString(string: self).boundingRect(with: size, options: options, attributes: attributes, context: nil).height
     }
 
