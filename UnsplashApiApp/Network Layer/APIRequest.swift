@@ -66,6 +66,6 @@ final class LoadAPIRequest: APIRequest {
     let components: URLComponents
     
     init(imageURL: String) {
-        self.components = unsplashComponent(path: "\(imageURL)")
+        self.components = URLComponents(string: imageURL) ?? URLComponents()
     }
 }
