@@ -8,13 +8,22 @@
 
 import UIKit
 
-class LoadingButton: UIButton {
+class LoadingButton: UIView {
     private var isLoading: Bool = false
-    private var loadingIndicator = UIActivityIndicatorView()
+    private let loadingIndicator = UIActivityIndicatorView()
+    private var button: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "download-icon"), for: .normal)
+        button.addTarget(self, action: #selector(downloadButtonTapped(_:)), for: .touchUpInside)
+        button.contentMode = .scaleAspectFit
+        return button
+    }()
+    var downloadButtonAction: (() -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(loadingIndicator)
+        addSubview(button)
+        addSubview(loadingIndicator)
     }
     
     required init?(coder: NSCoder) {
@@ -26,25 +35,31 @@ class LoadingButton: UIButton {
         let buttonHeight = self.bounds.size.height
         let buttonWidth = self.bounds.size.width
         loadingIndicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+        button.pinToSuperviewEdges()
     }
     
     func load(_ load: Bool) {
-        guard !isLoading else {
+        guard load else {
             stopLoading()
             return
         }
         startLoading()
-      }
+    }
+    
+    @objc func downloadButtonTapped(_ sender: UIButton) {
+        downloadButtonAction?()
+    }
     
     private func startLoading() {
-        isEnabled = false
-        alpha = 0.5
+        guard !isLoading else { return }
+        button.isEnabled = false
+        isLoading = true
         loadingIndicator.startAnimating()
     }
     
     private func stopLoading() {
-        isEnabled = true
-        alpha = 1.0
+        button.isEnabled = true
+        isLoading = false
         loadingIndicator.stopAnimating()
     }
 }
