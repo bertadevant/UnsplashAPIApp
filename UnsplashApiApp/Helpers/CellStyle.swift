@@ -28,10 +28,6 @@ extension CellStyle {
                                 itemsPerRow: 2)
 }
 
-struct Fonts {
-    static var regular = UIFont(name: "HelveticaNeue", size: 16)
-}
-
 extension ImageViewState {
     func sizeFor(collectionWidth: CGFloat, cellStyle: CellStyle) -> CGSize {
         let padding: CGFloat = cellStyle.insets.left + cellStyle.insets.right
