@@ -15,10 +15,16 @@ protocol Session {
 
 class NetworkSession: Session {
     private let urlSession: URLSession = .shared
+    private let authorizationKey: String
+    
+    init(apiKey: String) {
+        self.authorizationKey = apiKey
+    }
     
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
-        print("👾 resource URL \(resource.apiRequest.urlRequest.url?.absoluteString)")
-        urlSession.dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
+        let request = urlRequest(apiRequest: resource.apiRequest)
+        print("👾 resource URL \(request.url?.absoluteString ?? "nil")")
+        urlSession.dataTask(with: request) { data, _, error in
             if let error = error {
                 print("error while fetching data \(error)")
                 completion(nil)
@@ -28,12 +34,23 @@ class NetworkSession: Session {
     }
     
     func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
-        urlSession.dataTask(with: resource.apiRequest.urlRequest) { data, _, error in
+        let request = urlRequest(apiRequest: resource.apiRequest)
+        urlSession.dataTask(with: request) { data, _, error in
             if let error = error {
                 print("error while fetching data \(error)")
                 completion(nil, error)
             }
             completion(data, nil)
         }.resume()
+    }
+    
+    private func urlRequest(apiRequest: APIRequest) -> URLRequest {
+        guard let urlString = apiRequest.components.url?.absoluteString.removingPercentEncoding,
+            let url = URL(string: urlString) else {
+                preconditionFailure("We should have a valid URL \(apiRequest.components.url?.absoluteString.removingPercentEncoding ?? "nil"))")
+        }
+        var request = URLRequest(url: url)
+        request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
+        return request
     }
 }

@@ -21,18 +21,6 @@ protocol APIRequest {
     var components: URLComponents { get }
 }
 
-extension APIRequest {
-    var urlRequest: URLRequest {
-        guard let urlString = components.url?.absoluteString.removingPercentEncoding,
-            let url = URL(string: urlString) else {
-                preconditionFailure("We should have a valid URL \(String(describing: components.url?.absoluteString.removingPercentEncoding ?? nil))")
-        }
-        var request = URLRequest(url: url)
-        request.setValue(Constants.apiAccessKey, forHTTPHeaderField: "Authorization")
-        return request
-    }
-}
-
 final class ImageAPIRequest: APIRequest {
     let searchParameters: SearchParameters
     
