@@ -90,7 +90,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingresults else {
+        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingResults else {
             return
         }
         fetchNextPage()
