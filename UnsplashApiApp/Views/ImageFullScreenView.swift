@@ -56,8 +56,8 @@ class ImageFullScreenView: UIView {
         return button
     }()
     
-    private var downloadButton: UIButton = {
-        let button = UIButton()
+    private var downloadButton: LoadingButton = {
+        let button = LoadingButton()
         button.setImage(#imageLiteral(resourceName: "download-icon"), for: .normal)
         button.tintColor = .gray
         button.addTarget(self, action: #selector(downloadButtonTapped(_:)), for: .touchUpInside)
@@ -97,7 +97,7 @@ class ImageFullScreenView: UIView {
     }
     
     func downloadButton(isLoading: Bool) {
-        downloadButton.loadingIndicator(isLoading)
+        downloadButton.load(isLoading)
     }
     
     private func setup() {
