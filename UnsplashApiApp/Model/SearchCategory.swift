@@ -14,9 +14,9 @@ struct SearchCategory {
 }
 
 extension SearchCategory {
-    static var barcelona = SearchCategory(name: "Barcelona", query: "barcelona")
-    static var wallpaper = SearchCategory(name: "Wallpaper", query: "wallpaper")
-    static var architecture = SearchCategory(name: "Architecture", query: "architecture")
-    static var experimental = SearchCategory(name: "Experimental", query: "experimental")
-    static var textures = SearchCategory(name: "Textures & Patterns", query: "textures-patterns")
+    static let barcelona = SearchCategory(name: "Barcelona", query: "barcelona")
+    static let wallpaper = SearchCategory(name: "Wallpaper", query: "wallpaper")
+    static let architecture = SearchCategory(name: "Architecture", query: "architecture")
+    static let experimental = SearchCategory(name: "Experimental", query: "experimental")
+    static let textures = SearchCategory(name: "Textures & Patterns", query: "textures-patterns")
 }
