@@ -28,14 +28,8 @@ extension APIRequest {
                 preconditionFailure("We should have a valid URL \(String(describing: components.url?.absoluteString.removingPercentEncoding ?? nil))")
         }
         var request = URLRequest(url: url)
-        request.setValue(accessKey, forHTTPHeaderField: "Authorization")
+        request.setValue(Constants.apiAccessKey, forHTTPHeaderField: "Authorization")
         return request
-    }
-}
-
-private extension APIRequest {
-    var accessKey: String {
-        return "Client-ID 40c9db0853526d8cf7d3338a9b6a14722de5ae8adb7efb83e5ea7954d4809dce"
     }
 }
 
@@ -61,8 +55,10 @@ final class ImageAPIRequest: APIRequest {
 // https://unsplash.com/documentation#track-a-photo-download
 final class DownloadAPIRequest: APIRequest {
     let components: URLComponents
+    
     init(imageID: String) {
         self.components = unsplashComponent(path: "/photos/\(imageID)/download")
+        self.authorizationKey = authorizationKey
     }
 }
 
@@ -72,6 +68,5 @@ final class LoadAPIRequest: APIRequest {
     
     init(imageURL: String) {
         self.components = unsplashComponent(path: "\(imageURL)")
-            
     }
 }
