@@ -58,7 +58,6 @@ final class DownloadAPIRequest: APIRequest {
     
     init(imageID: String) {
         self.components = unsplashComponent(path: "/photos/\(imageID)/download")
-        self.authorizationKey = authorizationKey
     }
 }
 
