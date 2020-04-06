@@ -9,24 +9,6 @@
 import UIKit
 
 struct ImageViewState {
-    struct Colors {
-        let imageColor: UIColor
-        let textColor: UIColor
-        let containerColor: UIColor
-        
-        init(imageColor: UIColor?) {
-            guard let imageColor = imageColor else {
-                self.imageColor = .white
-                self.textColor = .gray
-                self.containerColor = .white
-                return
-            }
-            self.imageColor = imageColor
-            self.textColor = imageColor.isLight() ? .gray : .white
-            self.containerColor = imageColor.isLight() ? .white : .gray
-        }
-    }
-    
     let id: String
     let colors: Colors
     let size: CGSize
@@ -45,6 +27,26 @@ struct ImageViewState {
         self.imageRegular = image.urls.regular
         self.imageFull = image.urls.full
         self.author = AuthorViewState(author: image.user)
+    }
+}
+
+extension ImageViewState {
+    struct Colors {
+        let imageColor: UIColor
+        let textColor: UIColor
+        let containerColor: UIColor
+        
+        init(imageColor: UIColor?) {
+            guard let imageColor = imageColor else {
+                self.imageColor = .white
+                self.textColor = .gray
+                self.containerColor = .white
+                return
+            }
+            self.imageColor = imageColor
+            self.textColor = imageColor.isLight() ? .gray : .white
+            self.containerColor = imageColor.isLight() ? .white : .gray
+        }
     }
 }
 
