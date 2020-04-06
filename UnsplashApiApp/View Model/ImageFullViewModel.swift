@@ -35,7 +35,7 @@ class ImageFullViewModel: NSObject {
     }
     
     private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
-        let imageRequest = LoadAPIRequest(imageURL: image.imageFull)
+        let imageRequest = APIRequest.loadRequest(imageURL: image.imageFull)
         let imageResource = Resource<Data>(get: imageRequest)
         Dependencies.enviroment.session.download(imageResource) { imageData, error in
             guard let data = imageData,
@@ -52,7 +52,7 @@ class ImageFullViewModel: NSObject {
     }
     
     private func sendDownloadEndPointToAPI() {
-        let downloadRequest = DownloadAPIRequest(imageID: image.id)
+        let downloadRequest = APIRequest.downloadRequest(imageID: image.id)
         let downloadResource = Resource<Data>(get: downloadRequest)
         Dependencies.enviroment.session.download(downloadResource) { _, _ in }
     }

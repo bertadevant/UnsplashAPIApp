@@ -45,7 +45,7 @@ final class ImageListViewModel {
     }
     
     private func fetchImageList(searchParameters: SearchParameters, completion: @escaping (Pagination) -> ()) {
-        let request = ImageAPIRequest(search: searchParameters)
+        let request = APIRequest.imageRequest(searchParameters: searchParameters)
         let resource = Resource<Pagination>(get: request)
         loading = true
         Dependencies.enviroment.session.load(resource) { [weak self] response in
