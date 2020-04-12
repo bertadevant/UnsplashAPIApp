@@ -37,6 +37,7 @@
 		0E7605C522FAE77500125CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E7605C422FAE77500125CDB /* Assets.xcassets */; };
 		0E8DE0E9243A694C00986DA4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DE0E8243A694B00986DA4 /* Constants.swift */; };
 		0E8DE0EB243A6A6B00986DA4 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DE0EA243A6A6B00986DA4 /* LoadingButton.swift */; };
+		0EB1B4C724432E20006F55E6 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1B4C624432E20006F55E6 /* ImageViewModel.swift */; };
 		0ED746382432541100E8E625 /* ImageListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746372432541100E8E625 /* ImageListViewModelTests.swift */; };
 		0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */; };
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
@@ -89,6 +90,7 @@
 		0E7605D422FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E8DE0E8243A694B00986DA4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0E8DE0EA243A6A6B00986DA4 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		0EB1B4C624432E20006F55E6 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		0ED746372432541100E8E625 /* ImageListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelTests.swift; sourceTree = "<group>"; };
 		0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelDelegateTestDouble.swift; sourceTree = "<group>"; };
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */,
 				0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */,
+				0EB1B4C624432E20006F55E6 /* ImageViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */,
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
 				0E74359F230B5621007C1EA5 /* SearchBarView.swift in Sources */,
+				0EB1B4C724432E20006F55E6 /* ImageViewModel.swift in Sources */,
 				0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */,
 				0E6432A1230B677000B2A027 /* Style.swift in Sources */,
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
