@@ -22,10 +22,10 @@ class ImageListViewModelTests: XCTestCase {
         Dependencies.enviroment.session = session
         let delegate = ImageListViewModelDelegateSpy()
         let viewModel = ImageListViewModel()
-        let urlString = ImageAPIRequest(search: search).urlRequest.url?.absoluteString
+        let urlString = APIRequest.imageRequest(searchParameters: search).components.url?.absoluteString
         
         viewModel.delegate = delegate
-        viewModel.fetch(search)
+        viewModel.fetchNewQuery(search)
         
         session.assertEqual(.load)
         session.assertParameterEqual(urlString!)
