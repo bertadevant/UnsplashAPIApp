@@ -26,8 +26,8 @@ final class ImageListViewModel {
         return loading
     }
     
-    func image(at index: Int) -> ImageViewState {
-        return ImageViewState(image: response.results[index])
+    func image(at index: Int) -> ImageViewModel {
+        return ImageViewModel(image: response.results[index])
     }
     
     func fetchNextPage(_ searchParameters: SearchParameters) {
