@@ -9,29 +9,50 @@
 import Foundation
 import UIKit
 
+protocol ImageDelegate: class {
+    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?)
+    func imageState(_ state: ImageState)
+}
+
+enum ImageSize {
+    case small
+    case regular
+    case full
+}
+
 class ImageViewModel {
     let image: Image
-    var imageDelegate: ((ImageState) -> ())?
     var imageViewState: ImageViewState?
+    var delegate: ImageDelegate?
     
     init(image: Image) {
         self.image = image
     }
     
-    func requestImage() {
-        imageDelegate?(.loading)
-        fetchImage(image) { imageViewState in
-            self.imageViewState = imageViewState
-            self.imageDelegate?(.image(imageViewState))
+    func fetchImage(ofSize size: ImageSize) {
+        let imageURL = (size == .small) ? image.urls.small : image.urls.regular
+        delegate?.imageState(.loading)
+        fetchImage(imageURL) { [weak self] uiimage in
+            guard let self = self else { return }
+            let viewState = ImageViewState(image: self.image, downloadedImage: uiimage)
+            self.imageViewState = viewState
+            self.delegate?.imageState(.image(viewState))
         }
     }
     
-    private func fetchImage(_ image: Image, completion: @escaping (ImageViewState) -> ()) {
-        let request = APIRequest.loadRequest(imageURL: image.urls.small)
-        let resource = Resource<Data>(get: request)
-        Dependencies.enviroment.session.download(resource) { imageData, _ in
-            let imageSmall = imageData.map(UIImage.init(data:))!!
-            completion(ImageViewState(image: image, downloadedImage: imageSmall))
+    func download() {
+        downloadImageFile() { image, error in
+            guard let image = image else {
+                return
+            }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
+        }
+        sendDownloadEndPointToAPI()
+    }
+    
+    func share(completion: @escaping (UIImage?, Error?) -> ()) {
+        downloadImageFile(){ image, error in
+            completion(image, error)
         }
     }
     
@@ -41,5 +62,39 @@ class ImageViewModel {
         let imageAspect = width /  CGFloat(image.width)
         let height = CGFloat(image.height) * imageAspect
         return CGSize(width: width - padding, height: height - padding)
+    }
+    
+    private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
+        let imageRequest = APIRequest.loadRequest(imageURL: image.urls.full)
+        let imageResource = Resource<Data>(get: imageRequest)
+        Dependencies.enviroment.session.download(imageResource) { imageData, error in
+            guard let data = imageData,
+                let image = UIImage(data: data) else {
+                    completion(nil, error)
+                    return
+            }
+            completion(image, nil)
+        }
+    }
+    
+    @objc private func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
+        delegate?.imageSaved(image, error, context)
+    }
+    
+    private func sendDownloadEndPointToAPI() {
+        let downloadRequest = APIRequest.downloadRequest(imageID: image.id)
+        let downloadResource = Resource<Data>(get: downloadRequest)
+        Dependencies.enviroment.session.download(downloadResource) { _, _ in }
+    }
+    
+    private func fetchImage(_ imageURL: String, completion: @escaping (UIImage) -> ()) {
+        let request = APIRequest.loadRequest(imageURL: imageURL)
+        let resource = Resource<Data>(get: request)
+        Dependencies.enviroment.session.download(resource) { (data, _) in
+            //TODO: Error handeling
+            guard let imageData = data else { return }
+            guard let image = UIImage(data: imageData) else { return }
+            completion(image)
+        }
     }
 }

@@ -11,7 +11,6 @@
 		0E134ECF22FAFE9A00810484 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ECE22FAFE9A00810484 /* Image.swift */; };
 		0E134ED122FAFEC400810484 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED022FAFEC400810484 /* Session.swift */; };
 		0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED222FAFF2300810484 /* APIRequest.swift */; };
-		0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */; };
 		0E134EDB22FC620300810484 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDA22FC620300810484 /* Dependencies.swift */; };
 		0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDC22FC670000810484 /* URLSessionTestSession.swift */; };
 		0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */; };
@@ -27,7 +26,6 @@
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
 		0E6432A1230B677000B2A027 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A0230B677000B2A027 /* Style.swift */; };
-		0E6432A3230D614C00B2A027 /* ImageFullViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */; };
 		0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */; };
 		0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743596230AEE1C007C1EA5 /* SearchParameters.swift */; };
 		0E74359D230B3D8F007C1EA5 /* ImageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */; };
@@ -43,6 +41,7 @@
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
+		0EFBA8DF244394E900161CAE /* ImageViewState+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFBA8DE244394E900161CAE /* ImageViewState+TestData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		0E134ECE22FAFE9A00810484 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		0E134ED022FAFEC400810484 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		0E134ED222FAFF2300810484 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
-		0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestsTestDoubles.swift; sourceTree = "<group>"; };
 		0E134EDA22FC620300810484 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		0E134EDC22FC670000810484 /* URLSessionTestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTestSession.swift; sourceTree = "<group>"; };
 		0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAndResponse.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		0E6432A0230B677000B2A027 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewModel.swift; sourceTree = "<group>"; };
 		0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensionsTests.swift; sourceTree = "<group>"; };
 		0E743596230AEE1C007C1EA5 /* SearchParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParameters.swift; sourceTree = "<group>"; };
 		0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModel.swift; sourceTree = "<group>"; };
@@ -96,6 +93,7 @@
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
+		0EFBA8DE244394E900161CAE /* ImageViewState+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageViewState+TestData.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +139,7 @@
 				0E134EDE22FC691E00810484 /* ResourceAndResponse.swift */,
 				0E134EE022FC6AFF00810484 /* Image+TestData.swift */,
 				0E134EE42300AB3600810484 /* SearchParameters+TestData.swift */,
+				0EFBA8DE244394E900161CAE /* ImageViewState+TestData.swift */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -149,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				0ED7463B243255A300E8E625 /* TestSpy.swift */,
-				0E134ED522FC5DAC00810484 /* APIRequestsTestDoubles.swift */,
 				0E134EDC22FC670000810484 /* URLSessionTestSession.swift */,
 				0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */,
 			);
@@ -201,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */,
-				0E6432A2230D614C00B2A027 /* ImageFullViewModel.swift */,
 				0EB1B4C624432E20006F55E6 /* ImageViewModel.swift */,
 			);
 			path = "View Model";
@@ -410,7 +407,6 @@
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
 				0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */,
-				0E6432A3230D614C00B2A027 /* ImageFullViewModel.swift in Sources */,
 				0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */,
 				0E134ECF22FAFE9A00810484 /* Image.swift in Sources */,
 				0E8DE0E9243A694C00986DA4 /* Constants.swift in Sources */,
@@ -421,10 +417,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFBA8DF244394E900161CAE /* ImageViewState+TestData.swift in Sources */,
 				0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */,
 				0E134EE52300AB3600810484 /* SearchParameters+TestData.swift in Sources */,
 				0E134EDF22FC691E00810484 /* ResourceAndResponse.swift in Sources */,
-				0E134ED622FC5DAC00810484 /* APIRequestsTestDoubles.swift in Sources */,
 				0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */,
 				0E134EDD22FC670000810484 /* URLSessionTestSession.swift in Sources */,
 				0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */,

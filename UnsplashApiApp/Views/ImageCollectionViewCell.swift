@@ -34,6 +34,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private var viewModel: ImageViewModel?
+    
     override var isHighlighted: Bool {
         didSet {
             showDescriptionIfHighlighted(isHighlighted)
@@ -54,16 +56,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func update(with image: ImageViewModel) {
-        image.imageDelegate = { [weak self] imageState in
-            DispatchQueue.main.async {
-                switch imageState {
-                case .loading: self?.setLoadingPlaceHolder()
-                case .image(let image): self?.setupImage(image)
-                default: return
-                }
-            }
-        }
-        image.requestImage()
+        self.viewModel = image
+        image.fetchImage(ofSize: .small)
     }
     
     private func setup() {
@@ -97,6 +91,21 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLoadingPlaceHolder() {
-        
+        //TODO: loading
     }
+}
+
+extension ImageCollectionViewCell: ImageDelegate {
+    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {}
+    
+    func imageState(_ state: ImageState) {
+        switch state {
+        case .loading: self.setLoadingPlaceHolder()
+        case .image(let imageViewState): setupImage(imageViewState)
+            //TODO: error handeling
+        case .error: break
+        }
+    }
+    
+    
 }

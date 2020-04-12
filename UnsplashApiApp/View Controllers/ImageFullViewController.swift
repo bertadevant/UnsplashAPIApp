@@ -16,17 +16,18 @@ protocol ImageActionsDelegate: class {
 
 class ImageFullViewController: UIViewController {
     private let imageView = ImageFullScreenView()
-    private let viewModel: ImageFullViewModel
+    private let viewModel: ImageViewModel
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init(image: Image) {
-        self.viewModel = ImageFullViewModel(image: image)
+        self.viewModel = ImageViewModel(image: image)
         super.init(nibName: nil, bundle: nil)
         setupImageView()
-        fetchImage()
+        viewModel.delegate = self
+        viewModel.fetchImage(ofSize: .regular)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,10 +40,27 @@ class ImageFullViewController: UIViewController {
         view.addSubview(imageView)
         imageView.pinToSuperviewEdges()
     }
+}
+
+extension ImageFullViewController: ImageDelegate {
+    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
+        imageView.downloadButton(isLoading: false)
+        guard let error = error else {
+            return
+        }
+        //TODO: Error handeling
+        print("error while saving image \(error)")
+    }
     
-    private func fetchImage() {
-        viewModel.fetchImage() { [weak self] viewState in
-            self?.imageView.bind(viewState)
+    func imageState(_ state: ImageState) {
+        switch state {
+        case .loading:
+            break
+            //TODO: Placeholder
+        case .image(let imageViewState): self.imageView.bind(imageViewState)
+        case .error:
+            break
+            //TODO: Error handeling
         }
     }
 }
@@ -62,13 +80,6 @@ extension ImageFullViewController: ImageActionsDelegate {
     func download() {
         viewModel.download()
         imageView.downloadButton(isLoading: true)
-        viewModel.imageSavedDelegate = { [weak self] _, error, _ in
-            self?.imageView.downloadButton(isLoading: false)
-            guard let error = error else {
-                return
-            }
-            print("error while saving image \(error)")
-        }
     }
     
     func dismiss() {
