@@ -45,16 +45,25 @@ class ImageCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
+    override func prepareForReuse() {
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("This view is not designed to be used with xib or storyboard files")
     }
     
-    func update(with image: ImageViewState) {
-        imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
-        backgroundColor = image.colors.imageColor
-        descriptionLabel.text = image.description
-        hoverView.backgroundColor = image.colors.imageColor
-        showDescriptionIfHighlighted(isHighlighted)
+    func update(with image: ImageViewModel) {
+        image.imageDelegate = { [weak self] imageState in
+            DispatchQueue.main.async {
+                switch imageState {
+                case .loading: self?.setLoadingPlaceHolder()
+                case .image(let image): self?.setupImage(image)
+                default: return
+                }
+            }
+        }
+        image.requestImage()
     }
     
     private func setup() {
@@ -77,5 +86,17 @@ class ImageCollectionViewCell: UICollectionViewCell {
     private func showDescriptionIfHighlighted(_ isHighlighted: Bool) {
         descriptionLabel.isHidden = !isHighlighted
         hoverView.isHidden = !isHighlighted
+    }
+    
+    private func setupImage(_ image: ImageViewState) {
+        imageView.image = image.image
+        backgroundColor = image.colors.imageColor
+        descriptionLabel.text = image.description
+        hoverView.backgroundColor = image.colors.imageColor
+        showDescriptionIfHighlighted(isHighlighted)
+    }
+    
+    private func setLoadingPlaceHolder() {
+        
     }
 }

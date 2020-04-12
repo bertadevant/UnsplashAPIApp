@@ -84,7 +84,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = viewModel.image(at: indexPath.row)
+        let image = viewModel.image(at: indexPath.row).image
         let imageFullController = ImageFullViewController(image: image)
         present(imageFullController, animated: true, completion: nil)
     }
