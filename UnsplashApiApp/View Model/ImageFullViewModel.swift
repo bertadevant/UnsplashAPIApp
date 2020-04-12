@@ -10,12 +10,21 @@ import Foundation
 import UIKit
 
 class ImageFullViewModel: NSObject {
-    
-    let image: ImageViewState
+    let image: Image
     var imageSavedDelegate: ((_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) -> ())?
     
-    init(image: ImageViewState) {
+    init(image: Image) {
         self.image = image
+    }
+    
+    func fetchImage(completion: @escaping (ImageViewState) -> ()) {
+        let request = APIRequest.loadRequest(imageURL: image.urls.regular)
+        let resource = Resource<Data>(get: request)
+        Dependencies.enviroment.session.download(resource) { [weak self] imageData, _ in
+            guard let self = self else { return }
+            let imageSmall = imageData.map(UIImage.init(data:))!!
+            completion(ImageViewState(image: self.image, downloadedImage: imageSmall))
+        }
     }
     
     func download() {
@@ -35,7 +44,7 @@ class ImageFullViewModel: NSObject {
     }
     
     private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
-        let imageRequest = APIRequest.loadRequest(imageURL: image.imageFull)
+        let imageRequest = APIRequest.loadRequest(imageURL: image.urls.full)
         let imageResource = Resource<Data>(get: imageRequest)
         Dependencies.enviroment.session.download(imageResource) { imageData, error in
             guard let data = imageData,

@@ -16,22 +16,22 @@ protocol ImageActionsDelegate: class {
 
 class ImageFullViewController: UIViewController {
     private let imageView = ImageFullScreenView()
-    private let imageFullViewModel: ImageFullViewModel
+    private let viewModel: ImageFullViewModel
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(image: ImageViewState) {
-        self.imageFullViewModel = ImageFullViewModel(image: image)
+    init(image: Image) {
+        self.viewModel = ImageFullViewModel(image: image)
         super.init(nibName: nil, bundle: nil)
         setupImageView()
+        fetchImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.pinToSuperviewEdges()
-        imageView.bind(imageFullViewModel.image)
     }
     
     private func setupImageView() {
@@ -39,11 +39,17 @@ class ImageFullViewController: UIViewController {
         view.addSubview(imageView)
         imageView.pinToSuperviewEdges()
     }
+    
+    private func fetchImage() {
+        viewModel.fetchImage() { [weak self] viewState in
+            self?.imageView.bind(viewState)
+        }
+    }
 }
 
 extension ImageFullViewController: ImageActionsDelegate {
     func shareImage() {
-        imageFullViewModel.share() { image, _ in
+        viewModel.share() { image, _ in
             guard let image = image else {
                 return
             }
@@ -54,9 +60,9 @@ extension ImageFullViewController: ImageActionsDelegate {
     }
     
     func download() {
-        imageFullViewModel.download()
+        viewModel.download()
         imageView.downloadButton(isLoading: true)
-        imageFullViewModel.imageSavedDelegate = { [weak self] _, error, _ in
+        viewModel.imageSavedDelegate = { [weak self] _, error, _ in
             self?.imageView.downloadButton(isLoading: false)
             guard let error = error else {
                 return
