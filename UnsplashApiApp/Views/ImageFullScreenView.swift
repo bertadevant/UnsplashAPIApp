@@ -29,7 +29,7 @@ class ImageFullScreenView: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = Fonts.regular
-        label.textColor = .gray
+        label.textColor = Color.darkGray
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .left
         return label
@@ -50,7 +50,7 @@ class ImageFullScreenView: UIView {
     var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "share-icon"), for: .normal)
-        button.tintColor = .gray
+        button.tintColor = Color.darkGray
         button.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
@@ -59,7 +59,7 @@ class ImageFullScreenView: UIView {
     private var downloadButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "download-icon"), for: .normal)
-        button.tintColor = .gray
+        button.tintColor = Color.darkGray
         button.addTarget(self, action: #selector(downloadButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
