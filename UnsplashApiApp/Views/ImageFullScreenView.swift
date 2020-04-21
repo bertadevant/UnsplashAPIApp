@@ -25,6 +25,13 @@ class ImageFullScreenView: UIView {
         return view
     }()
     
+    private var loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.color = Color.darkGray
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     private var authorLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
@@ -84,6 +91,7 @@ class ImageFullScreenView: UIView {
     }
     
     func bind(_ image: ImageViewState) {
+        loadingView.stopAnimating()
         self.image = image
         imageView.imageFromServerURL(image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
         backgroundColor = image.colors.textColor
@@ -96,12 +104,17 @@ class ImageFullScreenView: UIView {
         closeButton.tintColor = image.colors.textColor
     }
     
+    func loading() {
+        loadingView.startAnimating()
+    }
+    
     func downloadButton(isLoading: Bool) {
         downloadButton.loadingIndicator(isLoading)
     }
     
     private func setup() {
         addSubview(backgroundView)
+        addSubview(loadingView)
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
         imageView.addGestureRecognizer(pinch)
         imageView.isUserInteractionEnabled = true
@@ -117,6 +130,7 @@ class ImageFullScreenView: UIView {
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
         
+        loadingView.pinToSuperviewEdges()
         imageView.pinToSuperview(edges: [.left, .right], constant: 8)
         imageView.pinToSuperview(edges: [.top, .bottom], constant: 8 + screenSafeAreaInsets.top)
         
