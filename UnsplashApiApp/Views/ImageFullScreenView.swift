@@ -80,7 +80,7 @@ class ImageFullScreenView: UIView {
         button.contentMode = .scaleAspectFit
         return button
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -129,9 +129,26 @@ class ImageFullScreenView: UIView {
     
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
-        
         loadingView.pinToSuperviewEdges()
         imageView.pinToSuperview(edges: [.left, .right], constant: 8)
+        
+        if #available(iOS 13.0, *) {
+            setupiOS13Layout()
+        } else {
+            setupiOS12Layout()
+        }
+        containerView.pinToSuperview(edges: [.left, .right, .bottom])
+        setupContainerViewChildren()
+    }
+    
+    private func setupiOS13Layout() {
+        closeButton.isHidden = true
+        imageView.pinToSuperview(edges: [.top, .bottom], constant: 8)
+        containerView.addHeightConstraint(with: 50)
+    }
+    
+    private func setupiOS12Layout() {
+        //FOR iOS 12 under the push is full screen and we need screen safe area insets
         imageView.pinToSuperview(edges: [.top, .bottom], constant: 8 + screenSafeAreaInsets.top)
         
         closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
@@ -139,9 +156,10 @@ class ImageFullScreenView: UIView {
         closeButton.addWidthConstraint(with: 35)
         closeButton.addHeightConstraint(with: 35)
         
-        containerView.pinToSuperview(edges: [.left, .right, .bottom])
         containerView.addHeightConstraint(with: 50 + screenSafeAreaInsets.bottom)
-        
+    }
+    
+    private func setupContainerViewChildren() {
         authorLabel.pinToSuperviewLeft(constant: 16)
         authorLabel.pinToSuperviewTop(constant: 8)
         authorLabel.pin(edge: .right, to: .left, of: downloadButton, constant: 16, relatedBy: .greaterThanOrEqual)
