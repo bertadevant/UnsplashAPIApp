@@ -79,7 +79,12 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             return collectionView.dequeueReusableCell(withReuseIdentifier: imageCellStyle.reuseIdentifier, for: indexPath)
         }
         let image = viewModel.image(at: indexPath.row)
-        cell.update(with: image)
+        if let imageViewState = image.imageViewState {
+            cell.setupImage(imageViewState)
+        } else {
+            cell.setLoadingPlaceHolder()
+            image.fetchImage(ofSize: .small)
+        }
         return cell
     }
     

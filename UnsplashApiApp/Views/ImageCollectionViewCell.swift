@@ -47,17 +47,20 @@ class ImageCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
-    override func prepareForReuse() {
-        
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("This view is not designed to be used with xib or storyboard files")
     }
     
-    func update(with image: ImageViewModel) {
-        self.viewModel = image
-        image.fetchImage(ofSize: .small)
+    func setLoadingPlaceHolder() {
+        //TODO: loading
+    }
+    
+    func setupImage(_ image: ImageViewState) {
+        imageView.image = image.image
+        backgroundColor = image.colors.imageColor
+        descriptionLabel.text = image.description
+        hoverView.backgroundColor = image.colors.imageColor
+        showDescriptionIfHighlighted(isHighlighted)
     }
     
     private func setup() {
@@ -81,31 +84,4 @@ class ImageCollectionViewCell: UICollectionViewCell {
         descriptionLabel.isHidden = !isHighlighted
         hoverView.isHidden = !isHighlighted
     }
-    
-    private func setupImage(_ image: ImageViewState) {
-        imageView.image = image.image
-        backgroundColor = image.colors.imageColor
-        descriptionLabel.text = image.description
-        hoverView.backgroundColor = image.colors.imageColor
-        showDescriptionIfHighlighted(isHighlighted)
-    }
-    
-    private func setLoadingPlaceHolder() {
-        //TODO: loading
-    }
-}
-
-extension ImageCollectionViewCell: ImageDelegate {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {}
-    
-    func imageState(_ state: ImageState) {
-        switch state {
-        case .loading: self.setLoadingPlaceHolder()
-        case .image(let imageViewState): setupImage(imageViewState)
-            //TODO: error handeling
-        case .error: break
-        }
-    }
-    
-    
 }
