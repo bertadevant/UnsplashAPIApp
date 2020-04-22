@@ -128,6 +128,12 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         viewModel.fetchNextPage(nextPageSearch)
         self.searchParameters = nextPageSearch
     }
+    
+    private func scrollToTop() {
+        guard viewModel.currentCount > 0 else { return }
+        let firstIndex = IndexPath(row: 0, section: 0)
+        collectionView.scrollToItem(at: firstIndex, at: .top, animated: true)
+    }
 }
 
 extension ImageListViewController: UICollectionViewDelegateFlowLayout {
@@ -158,6 +164,7 @@ extension ImageListViewController: SearchDelegate {
         let newSearch = SearchParameters(query: query.lowercased())
         viewModel.fetchNewQuery(newSearch)
         self.searchParameters = newSearch
+        scrollToTop()
     }
 }
 
