@@ -130,33 +130,31 @@ class ImageFullScreenView: UIView {
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
         loadingView.pinToSuperviewEdges()
-        imageView.pinToSuperview(edges: [.left, .right], constant: 8)
-        
+        imageView.pinToSuperview(edges: [.left, .right])
+        containerView.pinToSuperview(edges: [.left, .right, .bottom])
+        containerView.addHeightConstraint(with: 50 + screenSafeAreaInsets.bottom)
+        imageView.pin(edge: .bottom, to: .top, of: containerView)
         if #available(iOS 13.0, *) {
             setupiOS13Layout()
         } else {
             setupiOS12Layout()
         }
-        containerView.pinToSuperview(edges: [.left, .right, .bottom])
         setupContainerViewChildren()
     }
     
     private func setupiOS13Layout() {
         closeButton.isHidden = true
-        imageView.pinToSuperview(edges: [.top, .bottom], constant: 8)
-        containerView.addHeightConstraint(with: 50)
+        imageView.pinToSuperview(edges: [.top], constant: 8)
     }
     
     private func setupiOS12Layout() {
         //FOR iOS 12 under the push is full screen and we need screen safe area insets
-        imageView.pinToSuperview(edges: [.top, .bottom], constant: 8 + screenSafeAreaInsets.top)
+        imageView.pinToSuperview(edges: [.top], constant: 8 + screenSafeAreaInsets.top)
         
-        closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
-        closeButton.pinToSuperviewLeft(constant: 16)
+        closeButton.pinToSuperviewTop(constant: 8 + screenSafeAreaInsets.top)
+        closeButton.pinToSuperviewRight()
         closeButton.addWidthConstraint(with: 35)
         closeButton.addHeightConstraint(with: 35)
-        
-        containerView.addHeightConstraint(with: 50 + screenSafeAreaInsets.bottom)
     }
     
     private func setupContainerViewChildren() {
@@ -165,7 +163,7 @@ class ImageFullScreenView: UIView {
         authorLabel.pin(edge: .right, to: .left, of: downloadButton, constant: 16, relatedBy: .greaterThanOrEqual)
         
         shareButton.pinToSuperview(edges: [.top], constant: 8)
-        shareButton.pinToSuperviewRight(constant: -16)
+        shareButton.pinToSuperviewRight(constant: -8)
         shareButton.addHeightConstraint(with: 35)
         shareButton.addWidthConstraint(with: 35)
         
