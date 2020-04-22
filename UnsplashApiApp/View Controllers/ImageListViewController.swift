@@ -105,7 +105,6 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.setupImage(imageViewState)
         } else {
             setLoadingPlaceHolder()
-            image.fetchImage(ofSize: .small)
         }
         return cell
     }

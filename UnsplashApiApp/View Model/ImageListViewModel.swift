@@ -57,6 +57,7 @@ final class ImageListViewModel {
             }
             let images = response.results.map(ImageViewModel.init(image:))
             images.forEach{ $0.delegate = self }
+            images.forEach{ $0.fetchImage(ofSize: .small) }
             completion(images)
         }
     }
