@@ -54,10 +54,8 @@ extension ImageFullViewController: ImageDelegate {
     
     func imageState(_ state: ImageState) {
         switch state {
-        case .loading:
-            break
-            //TODO: Placeholder
-        case .image(let imageViewState): self.imageView.bind(imageViewState)
+        case .loading: imageView.loading()
+        case .image(let imageViewState): imageView.bind(imageViewState)
         case .error:
             break
             //TODO: Error handeling

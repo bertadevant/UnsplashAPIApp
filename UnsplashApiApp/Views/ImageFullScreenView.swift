@@ -25,8 +25,14 @@ class ImageFullScreenView: UIView {
     }()
     
     private var loadingView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
+       let view: UIActivityIndicatorView
+        if #available(iOS 13.0, *) {
+            view = UIActivityIndicatorView(style: .large)
+        } else {
+            view = UIActivityIndicatorView()
+        }
         view.color = Color.systemGray
+        view.backgroundColor = Color.systemGray4
         view.hidesWhenStopped = true
         return view
     }()
