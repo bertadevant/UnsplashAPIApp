@@ -92,8 +92,6 @@ class SearchBarView: UIView {
         categoryView.addSubview(borderView)
         addSubview(categoryView)
         setupLayout()
-        categoryScrollView.setBorder()
-        searchBar.setBorder()
     }
     
     private func setupLayout() {
@@ -125,23 +123,9 @@ extension SearchBarView: UISearchBarDelegate {
             return
         }
         searchBar.endEditing(true)
+        let categoryButtons = stackView.arrangedSubviews.map{ $0 as? UIButton }
+        categoryButtons.forEach{ $0?.isSelected = false }
         delegate?.searchQuery(searchText)
-    }
-}
-
-private extension UIView {
-    func setShadowForView() {
-        self.layer.shadowColor = Color.systemGray.cgColor
-        self.layer.shadowOpacity = 1
-        self.layer.shadowOffset = .zero
-        self.layer.shadowRadius = 10
-        self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.main.scale
-    }
-    
-    func setBorder() {
-        self.layer.borderColor = Color.systemGray4.cgColor
-        self.layer.borderWidth = 0.2
     }
 }
 
