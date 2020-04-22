@@ -23,7 +23,6 @@
 		0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EF82300D14200810484 /* UIColor+HexInit.swift */; };
 		0E134F002300E0DC00810484 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E134EFF2300E0DC00810484 /* CellStyle.swift */; };
 		0E57708522FAFA2F004F78DE /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E57708422FAFA2F004F78DE /* Resource.swift */; };
-		0E6432A1230B677000B2A027 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6432A0230B677000B2A027 /* Colors.swift */; };
 		0E7435922305FC27007C1EA5 /* UIColorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */; };
 		0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E743596230AEE1C007C1EA5 /* SearchParameters.swift */; };
 		0E74359D230B3D8F007C1EA5 /* ImageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */; };
@@ -70,7 +69,6 @@
 		0E134EF82300D14200810484 /* UIColor+HexInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexInit.swift"; sourceTree = "<group>"; };
 		0E134EFF2300E0DC00810484 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		0E57708422FAFA2F004F78DE /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
-		0E6432A0230B677000B2A027 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0E7435912305FC27007C1EA5 /* UIColorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensionsTests.swift; sourceTree = "<group>"; };
 		0E743596230AEE1C007C1EA5 /* SearchParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParameters.swift; sourceTree = "<group>"; };
 		0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModel.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 				0EB6D390245056AA00D7F3B5 /* Constants.swift */,
 				0EB6D391245056AA00D7F3B5 /* Style.swift */,
 				0E134EDA22FC620300810484 /* Dependencies.swift */,
-				0E6432A0230B677000B2A027 /* Colors.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -252,7 +249,6 @@
 			children = (
 				0ED74636243253F500E8E625 /* ImageList */,
 				0EDA92992305FB780044F35A /* Helpers */,
-				0EDA9290230184810044F35A /* Model */,
 				0E134ED422FC5D6B00810484 /* Network Layer */,
 				0E134ED822FC5DB800810484 /* TestDoubles */,
 				0E134ED722FC5DAF00810484 /* TestData */,
@@ -267,13 +263,6 @@
 				0ED746372432541100E8E625 /* ImageListViewModelTests.swift */,
 			);
 			path = ImageList;
-			sourceTree = "<group>";
-		};
-		0EDA9290230184810044F35A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		0EDA92992305FB780044F35A /* Helpers */ = {
@@ -396,7 +385,6 @@
 				0EB6D38D2450565200D7F3B5 /* ImageViewModel.swift in Sources */,
 				0E74359F230B5621007C1EA5 /* SearchBarView.swift in Sources */,
 				0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */,
-				0E6432A1230B677000B2A027 /* Colors.swift in Sources */,
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewState.swift in Sources */,
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
