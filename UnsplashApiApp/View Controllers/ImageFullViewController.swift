@@ -45,11 +45,13 @@ class ImageFullViewController: UIViewController {
 extension ImageFullViewController: ImageDelegate {
     func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
         imageView.downloadButton(isLoading: false)
-        guard let error = error else {
-            return
+        var alert: AlertController
+        if let error = error {
+            alert = AlertController(error: error, handler: nil)
+        } else {
+            alert = AlertController(message: "Download completed successful", title: "Download Completed", handler: nil)
         }
-        //TODO: Error handeling
-        print("error while saving image \(error)")
+        present(alert.actionAlert, animated: true, completion: nil)
     }
     
     func imageState(_ state: ImageState) {
