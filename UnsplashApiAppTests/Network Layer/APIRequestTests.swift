@@ -13,20 +13,20 @@ class APIRequestTests: XCTestCase {
 
     func testURLRequestIsCorrectForCuratedSearchType() {
         let searchParameters = SearchParameters.testData(searchType: .curated)
-        let apiRequest = ImageAPIRequest(search: searchParameters)
-        XCTAssertEqual(apiRequest.urlRequest.url?.description, "https://api.unsplash.com/curated?page=0")
+        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=1")
     }
     
     func testURLRequestIsCorrectForQuery() {
         let searchParameters = SearchParameters.testData(query: "office")
-        let apiRequest = ImageAPIRequest(search: searchParameters)
-        XCTAssertEqual(apiRequest.urlRequest.url?.description, "https://api.unsplash.com/curated?query=office&page=0")
+        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=1&query=office")
     }
     
     func testURLRquestIsCorrectForPage() {
         let searchParameters = SearchParameters.testData(page: 5)
-        let apiRequest = ImageAPIRequest(search: searchParameters)
-        XCTAssertEqual(apiRequest.urlRequest.url?.description, "https://api.unsplash.com/curated?page=5")
+        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=5")
     }
     
     func testURLRequestIsCorrectForLoading() {

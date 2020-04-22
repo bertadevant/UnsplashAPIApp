@@ -24,13 +24,3 @@ extension CellStyle {
                                 insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16),
                                 itemsPerRow: 2)
 }
-
-extension ImageViewState {
-    func sizeFor(collectionWidth: CGFloat, cellStyle: CellStyle) -> CGSize {
-        let padding: CGFloat = cellStyle.insets.left + cellStyle.insets.right
-        let width = collectionWidth / cellStyle.itemsPerRow
-        let imageAspect = width /  self.size.width
-        let height = self.size.height * imageAspect
-        return CGSize(width: width - padding, height: height - padding)
-    }
-}

@@ -8,24 +8,26 @@
 
 import UIKit
 
+enum ImageState {
+    case loading
+    case image(ImageViewState)
+    case error
+}
+
 struct ImageViewState {
     let id: String
     let colors: Colors
     let size: CGSize
     let description: String?
-    let imageSmall: String
-    let imageRegular: String
-    let imageFull: String
+    let image: UIImage
     let author: AuthorViewState
     
-    init(image: Image) {
+    init(image: Image, downloadedImage: UIImage) {
         self.id = image.id
         self.colors = Colors(imageColor: UIColor(hexString: image.color))
         self.size = CGSize(width: image.width, height: image.height)
         self.description = image.description
-        self.imageSmall = image.urls.small
-        self.imageRegular = image.urls.regular
-        self.imageFull = image.urls.full
+        self.image = downloadedImage
         self.author = AuthorViewState(author: image.user)
     }
 }
