@@ -21,7 +21,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = Fonts.regular
-        label.textColor = .white
+        label.textColor = Color.label
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .right
         return label
@@ -69,7 +69,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         addSubview(hoverView)
         addSubview(descriptionLabel)
         setupLayout()
-        backgroundColor = .white
+        backgroundColor = Color.background
     }
     
     private func setupLayout() {

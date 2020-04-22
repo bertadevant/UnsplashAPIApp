@@ -20,7 +20,7 @@ class ImageListViewController: UIViewController {
         viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Color.background
         viewModel.fetchNewQuery(searchParameters)
     }
     
@@ -47,7 +47,7 @@ class ImageListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isUserInteractionEnabled = true
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Color.background
         self.view.addSubview(collectionView)
         collectionView.pinToSuperview(edges: [.bottom, .left, .right])
         collectionView.pin(edge: .top, to: .bottom, of: searchBarView)

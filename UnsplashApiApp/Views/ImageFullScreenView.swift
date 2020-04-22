@@ -28,7 +28,7 @@ class ImageFullScreenView: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = Fonts.regular
-        label.textColor = .gray
+        label.textColor = Color.darkGray
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .left
         return label
@@ -49,7 +49,7 @@ class ImageFullScreenView: UIView {
     var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "share-icon"), for: .normal)
-        button.tintColor = .gray
+        button.tintColor = Color.darkGray
         button.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
