@@ -126,6 +126,7 @@ extension SearchBarView: UISearchBarDelegate {
         let categoryButtons = stackView.arrangedSubviews.map{ $0 as? UIButton }
         categoryButtons.forEach{ $0?.isSelected = false }
         delegate?.searchQuery(searchText)
+        endEditing(true)
     }
 }
 
