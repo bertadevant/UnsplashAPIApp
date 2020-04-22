@@ -19,11 +19,11 @@ class SearchBarView: UIView {
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.barStyle = .default
-        bar.barTintColor = Colors.darkGray
-        bar.tintColor = Colors.darkGray
+        bar.barTintColor = Color.systemGray
+        bar.tintColor = Color.systemGray
         bar.backgroundImage = UIImage()
-        bar.textField?.backgroundColor = Colors.lightGray
-        bar.textField?.textColor = Colors.darkGray
+        bar.textField?.backgroundColor = Color.systemGray4
+        bar.textField?.textColor = Color.systemGray
         return bar
     }()
     
@@ -60,7 +60,7 @@ class SearchBarView: UIView {
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
-            button.setTitleColor(Colors.darkGray, for: .normal)
+            button.setTitleColor(Color.systemGray, for: .normal)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
             stackView.addArrangedSubview(button)
         }
@@ -113,7 +113,7 @@ extension SearchBarView: UISearchBarDelegate {
 
 private extension UIView {
     func setShadowForView() {
-        self.layer.shadowColor = Colors.darkGray.cgColor
+        self.layer.shadowColor = Color.systemGray.cgColor
         self.layer.shadowOpacity = 1
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 10
@@ -122,7 +122,7 @@ private extension UIView {
     }
     
     func setBorder() {
-        self.layer.borderColor = Colors.lightGray.cgColor
+        self.layer.borderColor = Color.systemGray4.cgColor
         self.layer.borderWidth = 0.2
     }
 }
