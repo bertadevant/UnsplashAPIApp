@@ -34,6 +34,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private var viewModel: ImageViewModel?
+    
     override var isHighlighted: Bool {
         didSet {
             showDescriptionIfHighlighted(isHighlighted)
@@ -49,8 +51,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("This view is not designed to be used with xib or storyboard files")
     }
     
-    func update(with image: ImageViewState) {
-        imageView.imageFromServerURL(image.imageSmall, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
+    func setLoadingPlaceHolder() {
+        //TODO: loading
+    }
+    
+    func setupImage(_ image: ImageViewState) {
+        imageView.image = image.image
         backgroundColor = image.colors.imageColor
         descriptionLabel.text = image.description
         hoverView.backgroundColor = image.colors.imageColor

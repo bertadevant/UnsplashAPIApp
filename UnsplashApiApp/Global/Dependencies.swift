@@ -12,7 +12,7 @@ struct Dependencies {
     var session: Session
     static var enviroment = Dependencies()
     
-    init(session: Session = NetworkSession()) {
+    init(session: Session = NetworkSession(apiKey: Constants.apiAccessKey)) {
         self.session = session
     }
 }

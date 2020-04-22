@@ -20,14 +20,14 @@ class URLSessionSpy: URLSession, Session, TestSpy {
 
     func load<A>(_ resource: Resource<A>, completion: @escaping (A?) -> ()) {
         record(.load)
-        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
+        if let urlString = resource.apiRequest.components.url?.absoluteString {
           recordParameters(urlString)
         }
     }
     
     func download<A>(_ resource: Resource<A>, completion: @escaping (Data?, Error?) -> ()) {
         record(.download)
-        if let urlString = resource.apiRequest.urlRequest.url?.absoluteString {
+        if let urlString = resource.apiRequest.components.url?.absoluteString {
           recordParameters(urlString)
         }
     }
