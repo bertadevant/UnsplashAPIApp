@@ -67,7 +67,7 @@ class ImageViewModel {
     private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
         let imageRequest = APIRequest.loadRequest(imageURL: image.urls.full)
         let imageResource = Resource<Data>(get: imageRequest)
-        Dependencies.enviroment.session.download(imageResource) { imageData, error in
+        Dependencies.enviroment.mainSession.download(imageResource) { imageData, error in
             guard let data = imageData,
                 let image = UIImage(data: data) else {
                     completion(nil, error)
@@ -84,13 +84,13 @@ class ImageViewModel {
     private func sendDownloadEndPointToAPI() {
         let downloadRequest = APIRequest.downloadRequest(imageID: image.id)
         let downloadResource = Resource<Data>(get: downloadRequest)
-        Dependencies.enviroment.session.download(downloadResource) { _, _ in }
+        Dependencies.enviroment.mainSession.download(downloadResource) { _, _ in }
     }
     
     private func fetchImage(_ imageURL: String, completion: @escaping (UIImage) -> ()) {
         let request = APIRequest.loadRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
-        Dependencies.enviroment.session.download(resource) { (data, _) in
+        Dependencies.enviroment.mainSession.download(resource) { (data, _) in
             //TODO: Error handeling
             guard let imageData = data else { return }
             guard let image = UIImage(data: imageData) else { return }

@@ -49,7 +49,7 @@ final class ImageListViewModel {
         let request = APIRequest.imageRequest(searchParameters: searchParameters)
         let resource = Resource<Pagination>(get: request)
         loading = true
-        Dependencies.enviroment.session.load(resource) { [weak self] response in
+        Dependencies.enviroment.mainSession.load(resource) { [weak self] response, error in
             self?.loading = false
             guard let response = response, !response.results.isEmpty else {
                 self?.delegate?.onFetchFailed(error: "No response found")

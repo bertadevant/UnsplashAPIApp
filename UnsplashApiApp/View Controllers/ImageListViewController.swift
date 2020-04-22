@@ -62,9 +62,8 @@ class ImageListViewController: UIViewController {
     }
     
     private func reloadData(on pathsToReload: [IndexPath]?) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+        collectionView.reloadData()
+    }
     }
 }
 
