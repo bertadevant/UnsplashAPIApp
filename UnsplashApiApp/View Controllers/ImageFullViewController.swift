@@ -26,8 +26,7 @@ class ImageFullViewController: UIViewController {
         self.viewModel = ImageViewModel(image: image)
         super.init(nibName: nil, bundle: nil)
         setupImageView()
-        viewModel.delegate = self
-        viewModel.fetchImage(ofSize: .regular)
+        setupImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +38,18 @@ class ImageFullViewController: UIViewController {
         imageView.delegate = self
         view.addSubview(imageView)
         imageView.pinToSuperviewEdges()
+    }
+    
+    private func setupImage() {
+        viewModel.delegate = self
+        viewModel.fetchImage(ofSize: .regular){ [weak self] state in
+            switch state {
+            case .image(let viewState):
+                self?.imageView.bind(viewState)
+            case .error: break //TODO: ERROR handeling
+            }
+        }
+        imageView.loading()
     }
 }
 
@@ -52,16 +63,6 @@ extension ImageFullViewController: ImageDelegate {
             alert = AlertController(message: "Download completed successful", title: "Download Completed", handler: nil)
         }
         present(alert.actionAlert, animated: true, completion: nil)
-    }
-    
-    func imageState(_ state: ImageState) {
-        switch state {
-        case .loading: imageView.loading()
-        case .image(let imageViewState): imageView.bind(imageViewState)
-        case .error:
-            break
-            //TODO: Error handeling
-        }
     }
 }
 

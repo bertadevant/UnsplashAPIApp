@@ -50,32 +50,27 @@ final class ImageListViewModel {
         let resource = Resource<Pagination>(get: request)
         loading = true
         Dependencies.enviroment.mainSession.load(resource) { [weak self] response, error in
-            self?.loading = false
+            guard let self = self else { return }
+            self.loading = false
             guard let response = response, !response.results.isEmpty else {
-                self?.delegate?.onFetchFailed(error: "No response found")
+                self.delegate?.onFetchFailed(error: "No response found")
                 return
             }
             let images = response.results.map(ImageViewModel.init(image:))
-            images.forEach{ $0.delegate = self }
-            images.forEach{ $0.fetchImage(ofSize: .small) }
+            images.forEach(self.fetchImages)
             completion(images)
         }
     }
-}
-
-extension ImageListViewModel: ImageDelegate {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {}
     
-    func imageState(_ state: ImageState) {
-        switch state {
-        case .loading: break
-        case .image: delegate?.onFetchCompleted(reloadIndexPaths: [])
-        //TODO: error handeling
-        case .error: break
+    private func fetchImages(_ image: ImageViewModel) {
+        image.fetchImage(ofSize: .small) { [weak self] state in
+            if case ImageState.error = state {
+                //TODO: error handeling
+            }
+            self?.delegate?.onFetchCompleted(reloadIndexPaths: [])
         }
     }
 }
-
 
 private extension Pagination {
     static var initalResults = Pagination(total_pages: 1, total: 1, results: [])

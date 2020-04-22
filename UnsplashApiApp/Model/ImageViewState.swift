@@ -9,7 +9,6 @@
 import UIKit
 
 enum ImageState {
-    case loading
     case image(ImageViewState)
     case error
 }

@@ -11,7 +11,6 @@ import UIKit
 
 protocol ImageDelegate: class {
     func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?)
-    func imageState(_ state: ImageState)
 }
 
 enum ImageSize {
@@ -20,7 +19,7 @@ enum ImageSize {
     case full
 }
 
-class ImageViewModel {
+class ImageViewModel: NSObject {
     let image: Image
     var imageViewState: ImageViewState?
     var delegate: ImageDelegate?
@@ -29,14 +28,13 @@ class ImageViewModel {
         self.image = image
     }
     
-    func fetchImage(ofSize size: ImageSize) {
+    func fetchImage(ofSize size: ImageSize, completion: @escaping (ImageState) -> Void) {
         let imageURL = (size == .small) ? image.urls.small : image.urls.regular
-        delegate?.imageState(.loading)
         fetchImage(imageURL) { [weak self] uiimage in
             guard let self = self else { return }
             let viewState = ImageViewState(image: self.image, downloadedImage: uiimage)
             self.imageViewState = viewState
-            self.delegate?.imageState(.image(viewState))
+            completion(.image(viewState))
         }
     }
     
