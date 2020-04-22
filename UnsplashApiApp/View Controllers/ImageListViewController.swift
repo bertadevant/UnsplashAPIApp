@@ -15,13 +15,27 @@ class ImageListViewController: UIViewController {
     private let searchBarView = SearchBarView()
     private var searchParameters: SearchParameters = .initialParameters
     
+    private var loadingView: UIActivityIndicatorView = {
+        let view: UIActivityIndicatorView
+        if #available(iOS 13.0, *) {
+            view = UIActivityIndicatorView(style: .large)
+        } else {
+            view = UIActivityIndicatorView()
+        }
+        view.color = Color.systemGray
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
-        self.view.backgroundColor = Color.background
+        setupLoadingView()
+        view.backgroundColor = Color.background
         viewModel.fetchNewQuery(searchParameters)
+        searchBarView.highlight(searchParameters.query.capitalized)
     }
     
     override func viewWillLayoutSubviews() {
@@ -48,22 +62,30 @@ class ImageListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.isUserInteractionEnabled = true
         collectionView.backgroundColor = Color.background
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
         collectionView.pinToSuperview(edges: [.bottom, .left, .right])
         collectionView.pin(edge: .top, to: .bottom, of: searchBarView)
     }
     
     private func setupSearchBar() {
         searchBarView.delegate = self
-        self.view.addSubview(searchBarView)
+        view.addSubview(searchBarView)
         searchBarView.pinToSuperviewTop(constant: UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 30)
         searchBarView.pinToSuperview(edges: [.left, .right])
-        searchBarView.setSearchBar(with: [.barcelona, .architecture, .wallpaper, .experimental, .textures])
+        searchBarView.setSearchBar(with: [.barcelona, .covid19, .technology, .architecture, .nature, .experimental])
+    }
+    
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.pinToSuperviewEdges()
     }
     
     private func reloadData(on pathsToReload: [IndexPath]?) {
         collectionView.reloadData()
     }
+    
+    private func setLoadingPlaceHolder() {
+        loadingView.startAnimating()
     }
 }
 
@@ -79,9 +101,10 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         let image = viewModel.image(at: indexPath.row)
         if let imageViewState = image.imageViewState {
+            loadingView.stopAnimating()
             cell.setupImage(imageViewState)
         } else {
-            cell.setLoadingPlaceHolder()
+            setLoadingPlaceHolder()
             image.fetchImage(ofSize: .small)
         }
         return cell
