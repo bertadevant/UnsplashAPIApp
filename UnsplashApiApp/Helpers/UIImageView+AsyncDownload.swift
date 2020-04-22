@@ -11,29 +11,15 @@ import Foundation
 
 extension UIImageView {
     func imageFromServerURL(_ imageURL: String, placeHolder: UIImage?) {
-        func setPlaceHolder() {
-            DispatchQueue.main.async {
-                self.image = placeHolder
-            }
-        }
-        func setImage(_ downloadedImage: UIImage) {
-            DispatchQueue.main.async {
-                self.image = downloadedImage
-            }
-        }
         self.image = nil
-        let request = LoadAPIRequest(imageURL: imageURL)
+        let request = APIRequest.loadRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
         Dependencies.enviroment.session.download(resource) { imageData, _ in
-            guard let data = imageData,
-                let image = UIImage(data: data) else {
-                setPlaceHolder()
-                    return
+            let image = imageData.map(UIImage.init(data:))
+            DispatchQueue.main.async {
+                self.image = image ?? placeHolder!
             }
-            setImage(image)
         }
-        
-        
     }
 }
 

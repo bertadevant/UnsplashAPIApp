@@ -79,18 +79,23 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             return collectionView.dequeueReusableCell(withReuseIdentifier: imageCellStyle.reuseIdentifier, for: indexPath)
         }
         let image = viewModel.image(at: indexPath.row)
-        cell.update(with: image)
+        if let imageViewState = image.imageViewState {
+            cell.setupImage(imageViewState)
+        } else {
+            cell.setLoadingPlaceHolder()
+            image.fetchImage(ofSize: .small)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = viewModel.image(at: indexPath.row)
+        let image = viewModel.image(at: indexPath.row).image
         let imageFullController = ImageFullViewController(image: image)
         present(imageFullController, animated: true, completion: nil)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingresults else {
+        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingResults else {
             return
         }
         fetchNextPage()

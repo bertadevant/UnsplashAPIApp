@@ -9,7 +9,6 @@
 import UIKit
 
 class ImageFullScreenView: UIView {
-    
     private var image: ImageViewState?
     weak var delegate: ImageActionsDelegate?
     
@@ -56,15 +55,6 @@ class ImageFullScreenView: UIView {
         return button
     }()
     
-    private var downloadButton: UIButton = {
-        let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "download-icon"), for: .normal)
-        button.tintColor = Color.darkGray
-        button.addTarget(self, action: #selector(downloadButtonTapped(_:)), for: .touchUpInside)
-        button.contentMode = .scaleAspectFit
-        return button
-    }()
-    
     private var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "close-icon"), for: .normal)
@@ -73,6 +63,8 @@ class ImageFullScreenView: UIView {
         button.contentMode = .scaleAspectFit
         return button
     }()
+    
+    private var downloadButton = LoadingButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,7 +77,7 @@ class ImageFullScreenView: UIView {
     
     func bind(_ image: ImageViewState) {
         self.image = image
-        imageView.imageFromServerURL(image.imageRegular, placeHolder: #imageLiteral(resourceName: "placeholder-square"))
+        imageView.image = image.image
         backgroundColor = image.colors.textColor
         backgroundView.backgroundColor = image.colors.imageColor
         containerView.backgroundColor = image.colors.containerColor
@@ -97,7 +89,7 @@ class ImageFullScreenView: UIView {
     }
     
     func downloadButton(isLoading: Bool) {
-        downloadButton.loadingIndicator(isLoading)
+        downloadButton.load(isLoading)
     }
     
     private func setup() {
@@ -110,6 +102,9 @@ class ImageFullScreenView: UIView {
         containerView.addSubview(authorLabel)
         containerView.addSubview(shareButton)
         containerView.addSubview(downloadButton)
+        downloadButton.downloadButtonAction = { [weak self] in
+            self?.delegate?.download()
+        }
         addSubview(containerView)
         setupLayout()
     }
@@ -145,10 +140,6 @@ class ImageFullScreenView: UIView {
     
     @objc func shareButtonTapped(_ sender: UIButton) {
         delegate?.shareImage()
-    }
-    
-    @objc func downloadButtonTapped(_ sender: UIButton) {
-        delegate?.download()
     }
     
     @objc func closeButtonTapped(_ sender: UIButton) {
