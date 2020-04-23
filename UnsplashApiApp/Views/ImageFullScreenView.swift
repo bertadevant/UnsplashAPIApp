@@ -102,7 +102,7 @@ class ImageFullScreenView: UIView {
         closeButton.tintColor = image.colors.textColor
     }
     
-    func loading() {
+    func showLoadingState() {
         loadingView.startAnimating()
     }
     
