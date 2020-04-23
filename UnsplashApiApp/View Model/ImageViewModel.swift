@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-protocol ImageDelegate: class {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?)
-}
-
 enum ImageSize {
     case small
     case regular
@@ -22,7 +18,7 @@ enum ImageSize {
 class ImageViewModel: NSObject {
     let image: Image
     var imageViewState: ImageViewState?
-    var delegate: ImageDelegate?
+    var downloadImageSaved: ((_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) -> ())?
     
     init(image: Image) {
         self.image = image
@@ -76,7 +72,7 @@ class ImageViewModel: NSObject {
     }
     
     @objc private func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
-        delegate?.imageSaved(image, error, context)
+        downloadImageSaved?(image, error, context)
     }
     
     private func sendDownloadEndPointToAPI() {

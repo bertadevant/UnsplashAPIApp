@@ -41,7 +41,6 @@ class ImageFullViewController: UIViewController {
     }
     
     private func setupImage() {
-        viewModel.delegate = self
         viewModel.fetchImage(ofSize: .regular){ [weak self] state in
             switch state {
             case .image(let viewState):
@@ -49,12 +48,13 @@ class ImageFullViewController: UIViewController {
             case .error: break //TODO: ERROR handeling
             }
         }
-        imageView.loading()
+        imageView.showLoadingState()
+        viewModel.downloadImageSaved = { [weak self] _, error, _ in
+            self?.imageFinishedDownloading(error)
+        }
     }
-}
-
-extension ImageFullViewController: ImageDelegate {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
+    
+    private func imageFinishedDownloading(_ error: Error?) {
         imageView.downloadButton(isLoading: false)
         var alert: AlertController
         if let error = error {
