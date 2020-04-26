@@ -32,6 +32,8 @@
 		0E7435A1230B5889007C1EA5 /* SearchCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7435A0230B5889007C1EA5 /* SearchCategory.swift */; };
 		0E7605BE22FAE77200125CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7605BD22FAE77200125CDB /* AppDelegate.swift */; };
 		0E7605C522FAE77500125CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E7605C422FAE77500125CDB /* Assets.xcassets */; };
+		0E9EC5F824562C2600224DC1 /* ImageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EC5F724562C2600224DC1 /* ImageMapViewController.swift */; };
+		0E9EC5FA24562CBB00224DC1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EC5F924562CBB00224DC1 /* TabBarViewController.swift */; };
 		0EB6D38B2450561100D7F3B5 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D38A2450560D00D7F3B5 /* LoadingButton.swift */; };
 		0EB6D38D2450565200D7F3B5 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D38C2450565200D7F3B5 /* ImageViewModel.swift */; };
 		0EB6D38F2450568100D7F3B5 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D38E2450568100D7F3B5 /* Session.swift */; };
@@ -84,6 +86,8 @@
 		0E7605C922FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E7605CE22FAE77500125CDB /* UnsplashApiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashApiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E7605D422FAE77500125CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E9EC5F724562C2600224DC1 /* ImageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewController.swift; sourceTree = "<group>"; };
+		0E9EC5F924562CBB00224DC1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0EB6D38A2450560D00D7F3B5 /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		0EB6D38C2450565200D7F3B5 /* ImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		0EB6D38E2450568100D7F3B5 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			children = (
 				0E134EEB2300CDEA00810484 /* ImageListViewController.swift */,
 				0EDA92972304874A0044F35A /* ImageFullViewController.swift */,
+				0E9EC5F724562C2600224DC1 /* ImageMapViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 		0E7605BC22FAE77200125CDB /* UnsplashApiApp */ = {
 			isa = PBXGroup;
 			children = (
+				0E9EC5FB2456318B00224DC1 /* Navigation */,
 				0E134EF32300CF8F00810484 /* Helpers */,
 				0E134ED922FC61F700810484 /* Global */,
 				0E57708322FAFA1E004F78DE /* Network Layer */,
@@ -262,6 +268,14 @@
 				0E7605D422FAE77500125CDB /* Info.plist */,
 			);
 			path = UnsplashApiAppTests;
+			sourceTree = "<group>";
+		};
+		0E9EC5FB2456318B00224DC1 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				0E9EC5F924562CBB00224DC1 /* TabBarViewController.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		0ED74636243253F500E8E625 /* ImageList */ = {
@@ -395,6 +409,8 @@
 				0EB6D392245056AA00D7F3B5 /* Constants.swift in Sources */,
 				0EB6D393245056AA00D7F3B5 /* Style.swift in Sources */,
 				0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */,
+				0E9EC5F824562C2600224DC1 /* ImageMapViewController.swift in Sources */,
+				0E9EC5FA24562CBB00224DC1 /* TabBarViewController.swift in Sources */,
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
 				0EB6D38D2450565200D7F3B5 /* ImageViewModel.swift in Sources */,
 				0E74359F230B5621007C1EA5 /* SearchBarView.swift in Sources */,
