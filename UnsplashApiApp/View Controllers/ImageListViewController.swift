@@ -29,13 +29,13 @@ class ImageListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
         setupLoadingView()
         view.backgroundColor = Color.background
-        viewModel.fetchNewQuery(searchParameters)
+        viewModel.fetchNewQuery(searchParameters, completion: reloadData(_:))
         searchBarView.highlight(searchParameters.query.capitalized)
+        listenToImageDownloaded()
     }
     
     override func viewWillLayoutSubviews() {
@@ -80,13 +80,19 @@ class ImageListViewController: UIViewController {
         loadingView.pinToSuperviewEdges()
     }
     
-    private func reloadData(on pathsToReload: [IndexPath]?) {
-        collectionView.reloadData()
+    private func reloadData(_ result: Result<[IndexPath], Error>) {
+        switch result {
+        case .success: collectionView.reloadData()
+        default: break
+        }
     }
     
-    private func setLoadingPlaceHolder() {
-        loadingView.startAnimating()
+    private func listenToImageDownloaded() {
+        viewModel.imageFinishedDownloading = { [weak self] _ in
+            self?.collectionView.reloadData()
+        }
     }
+    
 }
 
 extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -104,7 +110,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             loadingView.stopAnimating()
             cell.setupImage(imageViewState)
         } else {
-            setLoadingPlaceHolder()
+            loadingView.startAnimating()
         }
         return cell
     }
@@ -116,7 +122,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingResults else {
+        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) else {
             return
         }
         fetchNextPage()
@@ -124,7 +130,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     private func fetchNextPage() {
         let nextPageSearch = searchParameters.nextPage()
-        viewModel.fetchNextPage(nextPageSearch)
+        viewModel.fetchNextPage(nextPageSearch, completion: reloadData(_:))
         self.searchParameters = nextPageSearch
     }
     
@@ -150,18 +156,10 @@ extension ImageListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ImageListViewController: ImageListViewModelDelegate {
-    func onFetchCompleted(reloadIndexPaths newIndexPathsToReload: [IndexPath]?) {
-        reloadData(on: newIndexPathsToReload)
-    }
-    
-    func onFetchFailed(error reason: String) { }
-}
-
 extension ImageListViewController: SearchDelegate {
     func searchQuery(_ query: String) {
         let newSearch = SearchParameters(query: query.lowercased())
-        viewModel.fetchNewQuery(newSearch)
+        viewModel.fetchNewQuery(newSearch, completion: reloadData(_:))
         self.searchParameters = newSearch
         scrollToTop()
     }
