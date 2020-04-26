@@ -9,10 +9,10 @@
 import Foundation
 
 struct Dependencies {
-    var session: Session
+    var mainSession: Session
     static var enviroment = Dependencies()
     
     init(session: Session = NetworkSession(apiKey: Constants.apiAccessKey)) {
-        self.session = session
+        self.mainSession = session
     }
 }

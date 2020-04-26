@@ -24,11 +24,24 @@ class ImageFullScreenView: UIView {
         return view
     }()
     
+    private var loadingView: UIActivityIndicatorView = {
+       let view: UIActivityIndicatorView
+        if #available(iOS 13.0, *) {
+            view = UIActivityIndicatorView(style: .large)
+        } else {
+            view = UIActivityIndicatorView()
+        }
+        view.color = Color.systemGray
+        view.backgroundColor = Color.systemGray4
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     private var authorLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = Fonts.regular
-        label.textColor = Color.darkGray
+        label.textColor = Color.systemGray
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .left
         return label
@@ -49,7 +62,7 @@ class ImageFullScreenView: UIView {
     var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "share-icon"), for: .normal)
-        button.tintColor = Color.darkGray
+        button.tintColor = Color.systemGray
         button.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
         button.contentMode = .scaleAspectFit
         return button
@@ -76,6 +89,7 @@ class ImageFullScreenView: UIView {
     }
     
     func bind(_ image: ImageViewState) {
+        loadingView.stopAnimating()
         self.image = image
         imageView.image = image.image
         backgroundColor = image.colors.textColor
@@ -88,12 +102,17 @@ class ImageFullScreenView: UIView {
         closeButton.tintColor = image.colors.textColor
     }
     
+    func showLoadingState() {
+        loadingView.startAnimating()
+    }
+    
     func downloadButton(isLoading: Bool) {
         downloadButton.load(isLoading)
     }
     
     private func setup() {
         addSubview(backgroundView)
+        addSubview(loadingView)
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
         imageView.addGestureRecognizer(pinch)
         imageView.isUserInteractionEnabled = true
@@ -111,24 +130,41 @@ class ImageFullScreenView: UIView {
     
     private func setupLayout() {
         backgroundView.pinToSuperviewEdges()
-        
-        imageView.pinToSuperview(edges: [.left, .right], constant: 8)
-        imageView.pinToSuperview(edges: [.top, .bottom], constant: 8 + screenSafeAreaInsets.top)
-        
-        closeButton.pinToSuperviewTop(constant: 16 + screenSafeAreaInsets.top)
-        closeButton.pinToSuperviewLeft(constant: 16)
-        closeButton.addWidthConstraint(with: 35)
-        closeButton.addHeightConstraint(with: 35)
-        
+        loadingView.pinToSuperviewEdges()
+        imageView.pinToSuperview(edges: [.left, .right])
         containerView.pinToSuperview(edges: [.left, .right, .bottom])
         containerView.addHeightConstraint(with: 50 + screenSafeAreaInsets.bottom)
+        imageView.pin(edge: .bottom, to: .top, of: containerView)
+        if #available(iOS 13.0, *) {
+            setupiOS13Layout()
+        } else {
+            setupiOS12Layout()
+        }
+        setupContainerViewChildren()
+    }
+    
+    private func setupiOS13Layout() {
+        closeButton.isHidden = true
+        imageView.pinToSuperview(edges: [.top], constant: 8)
+    }
+    
+    private func setupiOS12Layout() {
+        //FOR iOS 12 under the push is full screen and we need screen safe area insets
+        imageView.pinToSuperview(edges: [.top], constant: 8 + screenSafeAreaInsets.top)
         
+        closeButton.pinToSuperviewTop(constant: 8 + screenSafeAreaInsets.top)
+        closeButton.pinToSuperviewRight()
+        closeButton.addWidthConstraint(with: 35)
+        closeButton.addHeightConstraint(with: 35)
+    }
+    
+    private func setupContainerViewChildren() {
         authorLabel.pinToSuperviewLeft(constant: 16)
         authorLabel.pinToSuperviewTop(constant: 8)
         authorLabel.pin(edge: .right, to: .left, of: downloadButton, constant: 16, relatedBy: .greaterThanOrEqual)
         
         shareButton.pinToSuperview(edges: [.top], constant: 8)
-        shareButton.pinToSuperviewRight(constant: -16)
+        shareButton.pinToSuperviewRight(constant: -8)
         shareButton.addHeightConstraint(with: 35)
         shareButton.addWidthConstraint(with: 35)
         

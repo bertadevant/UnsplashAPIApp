@@ -19,11 +19,11 @@ class SearchBarView: UIView {
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.barStyle = .default
-        bar.barTintColor = Colors.darkGray
-        bar.tintColor = Colors.darkGray
+        bar.barTintColor = Color.systemGray
+        bar.tintColor = Color.systemGray
         bar.backgroundImage = UIImage()
-        bar.textField?.backgroundColor = Colors.lightGray
-        bar.textField?.textColor = Colors.darkGray
+        bar.textField?.backgroundColor = Color.systemGray4
+        bar.textField?.textColor = Color.systemGray
         return bar
     }()
     
@@ -33,8 +33,16 @@ class SearchBarView: UIView {
         return view
     }()
     
+    //Small border to seperate the categories from the collectionView
+    private var borderView: UIView = {
+       let view = UIView()
+        view.backgroundColor = Color.systemGray4
+        return view
+    }()
+    
     private var categoryScrollView: UIScrollView = {
         let view = UIScrollView()
+        view.showsHorizontalScrollIndicator = false
         return view
     }()
     
@@ -60,20 +68,18 @@ class SearchBarView: UIView {
         for category in categories {
             let button = UIButton()
             button.setTitle(category.name, for: .normal)
-            button.setTitleColor(Colors.darkGray, for: .normal)
+            button.setTitleColor(Color.systemGray, for: .normal)
+            button.setTitleColor(Color.label, for: .selected)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
             stackView.addArrangedSubview(button)
         }
     }
     
     @objc func categoryButtonTapped(_ sender: UIButton) {
-        guard let searchText = sender.currentTitle else {
-            return
-        }
+        guard let searchText = sender.currentTitle else { return }
         let categories = searchCategories.filter{ $0.name == searchText }
-        guard let category = categories.first else {
-            return
-        }
+        guard let category = categories.first else { return }
+        highlight(category.name)
         delegate?.searchQuery(category.query)
     }
     
@@ -83,10 +89,9 @@ class SearchBarView: UIView {
         addSubview(searchBar)
         categoryScrollView.addSubview(stackView)
         categoryView.addSubview(categoryScrollView)
+        categoryView.addSubview(borderView)
         addSubview(categoryView)
         setupLayout()
-        categoryScrollView.setBorder()
-        searchBar.setBorder()
     }
     
     private func setupLayout() {
@@ -98,6 +103,17 @@ class SearchBarView: UIView {
         let estimatedHeight = "testText".estimateHeightForText(width: 50)
         categoryView.addHeightConstraint(with: estimatedHeight + 16)
         categoryView.pin(edge: .top, to: .bottom, of: searchBar, constant: 8)
+        
+        borderView.addHeightConstraint(with: 1)
+        borderView.pinToSuperview(edges: [.bottom, .left, .right])
+    }
+    
+    func highlight(_ categoryName: String) {
+        let categoryButtons = stackView.arrangedSubviews.map{ $0 as? UIButton }
+        categoryButtons.forEach{ $0?.isSelected = false }
+        let selectedButton = categoryButtons.filter{ $0?.titleLabel?.text == categoryName }
+        guard let button = selectedButton.first else { return }
+        button?.isSelected = true
     }
 }
 
@@ -107,23 +123,10 @@ extension SearchBarView: UISearchBarDelegate {
             return
         }
         searchBar.endEditing(true)
+        let categoryButtons = stackView.arrangedSubviews.map{ $0 as? UIButton }
+        categoryButtons.forEach{ $0?.isSelected = false }
         delegate?.searchQuery(searchText)
-    }
-}
-
-private extension UIView {
-    func setShadowForView() {
-        self.layer.shadowColor = Colors.darkGray.cgColor
-        self.layer.shadowOpacity = 1
-        self.layer.shadowOffset = .zero
-        self.layer.shadowRadius = 10
-        self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.main.scale
-    }
-    
-    func setBorder() {
-        self.layer.borderColor = Colors.lightGray.cgColor
-        self.layer.borderWidth = 0.2
+        endEditing(true)
     }
 }
 

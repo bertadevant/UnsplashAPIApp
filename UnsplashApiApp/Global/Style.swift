@@ -7,12 +7,55 @@
 //
 
 import UIKit
-
-enum Colors {
-    static let darkGray: UIColor = UIColor(hexString: "#999999") ?? .gray
-    static let lightGray: UIColor = UIColor(hexString: "#EEEEEE") ?? .gray
-}
-
 enum Fonts {
     static let regular = UIFont(name: "HelveticaNeue", size: 16)
+}
+
+enum Color {
+    static var systemGray: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray
+        } else {
+            return .darkGray
+        }
+    }
+    static var systemGray4: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray4
+        } else {
+            return .lightGray
+        }
+    }
+    
+    static var background: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
+    }
+    
+    static var label: UIColor {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
+    }
+    
+    static var secondaryLabel: UIColor {
+        if #available(iOS 13.0, *) {
+            return .secondaryLabel
+        } else {
+            return .white
+        }
+    }
+    
+    static var systemGray6: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray6
+        } else {
+            return .darkGray
+        }
+    }
 }

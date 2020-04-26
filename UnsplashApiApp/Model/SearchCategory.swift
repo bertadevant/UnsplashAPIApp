@@ -15,8 +15,10 @@ struct SearchCategory {
 
 extension SearchCategory {
     static let barcelona = SearchCategory(name: "Barcelona", query: "barcelona")
+    static let covid19 = SearchCategory(name: "COVID-19", query: "covid-19")
+    static let nature = SearchCategory(name: "Nature", query: "nature")
     static let wallpaper = SearchCategory(name: "Wallpaper", query: "wallpaper")
     static let architecture = SearchCategory(name: "Architecture", query: "architecture")
     static let experimental = SearchCategory(name: "Experimental", query: "experimental")
-    static let textures = SearchCategory(name: "Textures & Patterns", query: "textures-patterns")
+    static let technology = SearchCategory(name: "Technology", query: "technology")
 }

@@ -9,72 +9,62 @@
 import Foundation
 import UIKit
 
-protocol ImageListViewModelDelegate: class {
-    func onFetchCompleted(reloadIndexPaths: [IndexPath]?)
-    func onFetchFailed(error: String)
-}
-
 final class ImageListViewModel {
-    weak var delegate: ImageListViewModelDelegate?
     private var images: [ImageViewModel] = []
-    private var loading: Bool = false
+    var imageFinishedDownloading: ((Result<ImageViewState, Error>) -> ())?
     
     var currentCount: Int {
         return images.count
-    }
-    
-    var isFetchingResults: Bool {
-        return loading
     }
     
     func image(at index: Int) -> ImageViewModel {
         return images[index]
     }
     
-    func fetchNextPage(_ searchParameters: SearchParameters) {
-        fetchImageList(searchParameters: searchParameters) { [weak self] images in
-            self?.images += images
-            self?.delegate?.onFetchCompleted(reloadIndexPaths: [])
+    func fetchNextPage(_ searchParameters: SearchParameters, completion: @escaping (Result<[IndexPath], Error>) -> ()) {
+        fetchImageList(searchParameters: searchParameters) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let images):
+                self.images += images
+                images.forEach(self.fetchImages(_:))
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
     
-    func fetchNewQuery(_ searchParameters: SearchParameters) {
-        fetchImageList(searchParameters: searchParameters) { [weak self] images in
-            self?.images = images
-            self?.delegate?.onFetchCompleted(reloadIndexPaths: [])
+    func fetchNewQuery(_ searchParameters: SearchParameters, completion: @escaping (Result<[IndexPath], Error>) -> ()) {
+        fetchImageList(searchParameters: searchParameters) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let images):
+                self.images = images
+                images.forEach(self.fetchImages(_:))
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
     
-    private func fetchImageList(searchParameters: SearchParameters, completion: @escaping ([ImageViewModel]) -> ()) {
+    private func fetchImageList(searchParameters: SearchParameters, completion: @escaping (Result<[ImageViewModel], Error>) -> ()) {
         let request = APIRequest.imageRequest(searchParameters: searchParameters)
         let resource = Resource<Pagination>(get: request)
-        loading = true
-        Dependencies.enviroment.session.load(resource) { [weak self] response in
-            self?.loading = false
-            guard let response = response, !response.results.isEmpty else {
-                self?.delegate?.onFetchFailed(error: "No response found")
-                return
+        Dependencies.enviroment.mainSession.load(resource) { result in
+            switch result {
+            case .success(let pagination):
+                let images = pagination.results.map(ImageViewModel.init(image:))
+                completion(.success(images))
+            case .failure(let error): completion(.failure(error))
             }
-            let images = response.results.map(ImageViewModel.init(image:))
-            images.forEach{ $0.delegate = self }
-            completion(images)
         }
     }
-}
-
-extension ImageListViewModel: ImageDelegate {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {}
     
-    func imageState(_ state: ImageState) {
-        switch state {
-        case .loading: break
-        case .image: delegate?.onFetchCompleted(reloadIndexPaths: [])
-        //TODO: error handeling
-        case .error: break
+    private func fetchImages(_ image: ImageViewModel) {
+        image.fetchImage(ofSize: .small) { [weak self] result in
+            //TODO: Error handeling, retry the image
+            self?.imageFinishedDownloading?(result)
         }
     }
 }
-
 
 private extension Pagination {
     static var initalResults = Pagination(total_pages: 1, total: 1, results: [])

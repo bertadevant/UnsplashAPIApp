@@ -19,7 +19,7 @@ class ImageListViewModelTests: XCTestCase {
     
     private func fetchForSearch(search: SearchParameters, file: StaticString = #file, line: UInt = #line) {
         let session = URLSessionSpy()
-        Dependencies.enviroment.session = session
+        Dependencies.enviroment.mainSession = session
         let delegate = ImageListViewModelDelegateSpy()
         let viewModel = ImageListViewModel()
         let urlString = APIRequest.imageRequest(searchParameters: search).components.url?.absoluteString
