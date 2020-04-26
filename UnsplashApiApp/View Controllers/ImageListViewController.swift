@@ -15,13 +15,27 @@ class ImageListViewController: UIViewController {
     private let searchBarView = SearchBarView()
     private var searchParameters: SearchParameters = .initialParameters
     
+    private var loadingView: UIActivityIndicatorView = {
+        let view: UIActivityIndicatorView
+        if #available(iOS 13.0, *) {
+            view = UIActivityIndicatorView(style: .large)
+        } else {
+            view = UIActivityIndicatorView()
+        }
+        view.color = Color.systemGray
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
         setupSearchBar()
         setupCollectionView()
-        self.view.backgroundColor = Color.background
-        viewModel.fetchNewQuery(searchParameters)
+        setupLoadingView()
+        view.backgroundColor = Color.background
+        viewModel.fetchNewQuery(searchParameters, completion: reloadData(_:))
+        searchBarView.highlight(searchParameters.query.capitalized)
+        listenToImageDownloaded()
     }
     
     override func viewWillLayoutSubviews() {
@@ -48,24 +62,37 @@ class ImageListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.isUserInteractionEnabled = true
         collectionView.backgroundColor = Color.background
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
         collectionView.pinToSuperview(edges: [.bottom, .left, .right])
         collectionView.pin(edge: .top, to: .bottom, of: searchBarView)
     }
     
     private func setupSearchBar() {
         searchBarView.delegate = self
-        self.view.addSubview(searchBarView)
+        view.addSubview(searchBarView)
         searchBarView.pinToSuperviewTop(constant: UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 30)
         searchBarView.pinToSuperview(edges: [.left, .right])
-        searchBarView.setSearchBar(with: [.barcelona, .architecture, .wallpaper, .experimental, .textures])
+        searchBarView.setSearchBar(with: [.barcelona, .covid19, .technology, .architecture, .nature, .experimental])
     }
     
-    private func reloadData(on pathsToReload: [IndexPath]?) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.pinToSuperviewEdges()
+    }
+    
+    private func reloadData(_ result: Result<[IndexPath], Error>) {
+        switch result {
+        case .success: collectionView.reloadData()
+        default: break
         }
     }
+    
+    private func listenToImageDownloaded() {
+        viewModel.imageFinishedDownloading = { [weak self] _ in
+            self?.collectionView.reloadData()
+        }
+    }
+    
 }
 
 extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -80,10 +107,10 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         let image = viewModel.image(at: indexPath.row)
         if let imageViewState = image.imageViewState {
+            loadingView.stopAnimating()
             cell.setupImage(imageViewState)
         } else {
-            cell.setLoadingPlaceHolder()
-            image.fetchImage(ofSize: .small)
+            loadingView.startAnimating()
         }
         return cell
     }
@@ -95,7 +122,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) && !viewModel.isFetchingResults else {
+        guard scrollView.isNearBottomEdge(padding: imageCellStyle.insets.bottom) else {
             return
         }
         fetchNextPage()
@@ -103,8 +130,14 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     private func fetchNextPage() {
         let nextPageSearch = searchParameters.nextPage()
-        viewModel.fetchNextPage(nextPageSearch)
+        viewModel.fetchNextPage(nextPageSearch, completion: reloadData(_:))
         self.searchParameters = nextPageSearch
+    }
+    
+    private func scrollToTop() {
+        guard viewModel.currentCount > 0 else { return }
+        let firstIndex = IndexPath(row: 0, section: 0)
+        collectionView.scrollToItem(at: firstIndex, at: .top, animated: true)
     }
 }
 
@@ -123,19 +156,12 @@ extension ImageListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ImageListViewController: ImageListViewModelDelegate {
-    func onFetchCompleted(reloadIndexPaths newIndexPathsToReload: [IndexPath]?) {
-        reloadData(on: newIndexPathsToReload)
-    }
-    
-    func onFetchFailed(error reason: String) { }
-}
-
 extension ImageListViewController: SearchDelegate {
     func searchQuery(_ query: String) {
         let newSearch = SearchParameters(query: query.lowercased())
-        viewModel.fetchNewQuery(newSearch)
+        viewModel.fetchNewQuery(newSearch, completion: reloadData(_:))
         self.searchParameters = newSearch
+        scrollToTop()
     }
 }
 

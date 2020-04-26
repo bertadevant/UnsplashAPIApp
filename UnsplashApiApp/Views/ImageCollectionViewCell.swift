@@ -34,8 +34,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private var viewModel: ImageViewModel?
-    
     override var isHighlighted: Bool {
         didSet {
             showDescriptionIfHighlighted(isHighlighted)
@@ -49,10 +47,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("This view is not designed to be used with xib or storyboard files")
-    }
-    
-    func setLoadingPlaceHolder() {
-        //TODO: loading
     }
     
     func setupImage(_ image: ImageViewState) {

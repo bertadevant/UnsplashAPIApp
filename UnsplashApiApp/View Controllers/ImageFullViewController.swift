@@ -26,8 +26,7 @@ class ImageFullViewController: UIViewController {
         self.viewModel = ImageViewModel(image: image)
         super.init(nibName: nil, bundle: nil)
         setupImageView()
-        viewModel.delegate = self
-        viewModel.fetchImage(ofSize: .regular)
+        setupImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,45 +39,52 @@ class ImageFullViewController: UIViewController {
         view.addSubview(imageView)
         imageView.pinToSuperviewEdges()
     }
-}
-
-extension ImageFullViewController: ImageDelegate {
-    func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
-        imageView.downloadButton(isLoading: false)
-        guard let error = error else {
-            return
+    
+    private func setupImage() {
+        viewModel.fetchImage(ofSize: .regular){ [weak self] result in
+            switch result {
+            case .success(let viewState):
+                self?.imageView.bind(viewState)
+            case .failure: break //TODO: ERROR handeling
+            }
         }
-        //TODO: Error handeling
-        print("error while saving image \(error)")
+        imageView.showLoadingState()
+        viewModel.downloadImageSaved = { [weak self] _, error, _ in
+            self?.imageFinishedDownloading(error)
+        }
     }
     
-    func imageState(_ state: ImageState) {
-        switch state {
-        case .loading:
-            break
-            //TODO: Placeholder
-        case .image(let imageViewState): self.imageView.bind(imageViewState)
-        case .error:
-            break
-            //TODO: Error handeling
+    private func imageFinishedDownloading(_ error: Error?) {
+        imageView.downloadButton(isLoading: false)
+        var alert: AlertController
+        if let error = error {
+            alert = AlertController(error: error, handler: nil)
+        } else {
+            alert = AlertController(message: "Download completed successful", title: "Download Completed", handler: nil)
         }
+        present(alert.actionAlert, animated: true, completion: nil)
     }
 }
 
 extension ImageFullViewController: ImageActionsDelegate {
     func shareImage() {
-        viewModel.share() { image, _ in
-            guard let image = image else {
-                return
+        viewModel.share() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.imageView.shareButton
+                self.present(activityViewController, animated: true, completion: nil)
+            case .failure: break //TODO: Error handeling
             }
-            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.imageView.shareButton
-            self.present(activityViewController, animated: true, completion: nil)
         }
     }
     
     func download() {
-        viewModel.download()
+        viewModel.download() { [weak self] _ in
+            guard let self = self else { return }
+            //TODO: Error Handeling
+        }
         imageView.downloadButton(isLoading: true)
     }
     
