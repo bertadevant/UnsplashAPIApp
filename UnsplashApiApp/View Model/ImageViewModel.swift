@@ -15,6 +15,10 @@ enum ImageSize {
     case full
 }
 
+enum ImageError: String, Error {
+    case imageCreationError = "There was a problem while creating UIImage"
+}
+
 class ImageViewModel: NSObject {
     let image: Image
     var imageViewState: ImageViewState?
@@ -24,29 +28,33 @@ class ImageViewModel: NSObject {
         self.image = image
     }
     
-    func fetchImage(ofSize size: ImageSize, completion: @escaping (ImageState) -> Void) {
+    func fetchImage(ofSize size: ImageSize, completion: @escaping (Result<ImageViewState, Error>) -> Void) {
         let imageURL = (size == .small) ? image.urls.small : image.urls.regular
-        fetchImage(imageURL) { [weak self] uiimage in
+        fetchImage(imageURL) { [weak self] result in
             guard let self = self else { return }
-            let viewState = ImageViewState(image: self.image, downloadedImage: uiimage)
-            self.imageViewState = viewState
-            completion(.image(viewState))
+            switch result {
+            case .success(let image):
+                let viewState = ImageViewState(image: self.image, downloadedImage: image)
+                self.imageViewState = viewState
+                completion(.success(viewState))
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
     
-    func download() {
-        downloadImageFile() { image, error in
-            guard let image = image else {
-                return
+    func download(completion: @escaping (Error?) -> ()) {
+        fetchImage(image.urls.full) { result in
+            switch result {
+            case .success(let image): UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
+            case .failure(let error): completion(error)
             }
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
         }
         sendDownloadEndPointToAPI()
     }
     
-    func share(completion: @escaping (UIImage?, Error?) -> ()) {
-        downloadImageFile(){ image, error in
-            completion(image, error)
+    func share(completion: @escaping (Result<UIImage, Error>) -> ()) {
+        fetchImage(image.urls.full) { result in
+            completion(result)
         }
     }
     
@@ -58,19 +66,6 @@ class ImageViewModel: NSObject {
         return CGSize(width: width - padding, height: height - padding)
     }
     
-    private func downloadImageFile(completion: @escaping (UIImage?, Error?) -> ()) {
-        let imageRequest = APIRequest.loadRequest(imageURL: image.urls.full)
-        let imageResource = Resource<Data>(get: imageRequest)
-        Dependencies.enviroment.mainSession.download(imageResource) { imageData, error in
-            guard let data = imageData,
-                let image = UIImage(data: data) else {
-                    completion(nil, error)
-                    return
-            }
-            completion(image, nil)
-        }
-    }
-    
     @objc private func imageSaved(_ image: UIImage, _ error: Error?, _ context: UnsafeMutableRawPointer?) {
         downloadImageSaved?(image, error, context)
     }
@@ -78,17 +73,21 @@ class ImageViewModel: NSObject {
     private func sendDownloadEndPointToAPI() {
         let downloadRequest = APIRequest.downloadRequest(imageID: image.id)
         let downloadResource = Resource<Data>(get: downloadRequest)
-        Dependencies.enviroment.mainSession.download(downloadResource) { _, _ in }
+        Dependencies.enviroment.mainSession.download(downloadResource) { _ in }
     }
     
-    private func fetchImage(_ imageURL: String, completion: @escaping (UIImage) -> ()) {
+    private func fetchImage(_ imageURL: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
         let request = APIRequest.loadRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
-        Dependencies.enviroment.mainSession.download(resource) { (data, _) in
-            //TODO: Error handeling
-            guard let imageData = data else { return }
-            guard let image = UIImage(data: imageData) else { return }
-            completion(image)
+        Dependencies.enviroment.mainSession.download(resource) { result in
+            switch result {
+            case .success(let data):  guard let image = UIImage(data: data) else {
+                completion(.failure(ImageError.imageCreationError))
+                return
+            }
+            completion(.success(image))
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
 }
