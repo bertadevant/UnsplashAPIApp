@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum ImageState {
-    case image(ImageViewState)
-    case error
-}
-
 struct ImageViewState {
     let id: String
     let colors: Colors

@@ -41,11 +41,11 @@ class ImageFullViewController: UIViewController {
     }
     
     private func setupImage() {
-        viewModel.fetchImage(ofSize: .regular){ [weak self] state in
-            switch state {
-            case .image(let viewState):
+        viewModel.fetchImage(ofSize: .regular){ [weak self] result in
+            switch result {
+            case .success(let viewState):
                 self?.imageView.bind(viewState)
-            case .error: break //TODO: ERROR handeling
+            case .failure: break //TODO: ERROR handeling
             }
         }
         imageView.showLoadingState()
@@ -68,18 +68,23 @@ class ImageFullViewController: UIViewController {
 
 extension ImageFullViewController: ImageActionsDelegate {
     func shareImage() {
-        viewModel.share() { image, _ in
-            guard let image = image else {
-                return
+        viewModel.share() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.imageView.shareButton
+                self.present(activityViewController, animated: true, completion: nil)
+            case .failure: break //TODO: Error handeling
             }
-            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.imageView.shareButton
-            self.present(activityViewController, animated: true, completion: nil)
         }
     }
     
     func download() {
-        viewModel.download()
+        viewModel.download() { [weak self] _ in
+            guard let self = self else { return }
+            //TODO: Error Handeling
+        }
         imageView.downloadButton(isLoading: true)
     }
     
