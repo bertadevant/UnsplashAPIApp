@@ -13,19 +13,19 @@ class APIRequestTests: XCTestCase {
 
     func testURLRequestIsCorrectForCuratedSearchType() {
         let searchParameters = SearchParameters.testData(searchType: .curated)
-        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        let apiRequest = APIRequest.listImagesRequest(searchParameters: searchParameters)
         XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=1")
     }
     
     func testURLRequestIsCorrectForQuery() {
         let searchParameters = SearchParameters.testData(query: "office")
-        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        let apiRequest = APIRequest.listImagesRequest(searchParameters: searchParameters)
         XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=1&query=office")
     }
     
     func testURLRquestIsCorrectForPage() {
         let searchParameters = SearchParameters.testData(page: 5)
-        let apiRequest = APIRequest.imageRequest(searchParameters: searchParameters)
+        let apiRequest = APIRequest.listImagesRequest(searchParameters: searchParameters)
         XCTAssertEqual(apiRequest.components.url?.description, "https://api.unsplash.com/photos/curated?page=5")
     }
     
