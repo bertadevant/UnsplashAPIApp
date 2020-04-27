@@ -43,6 +43,9 @@
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
 		0EDA929623018F3F0044F35A /* ImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */; };
 		0EDA92982304874B0044F35A /* ImageFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA92972304874A0044F35A /* ImageFullViewController.swift */; };
+		0EE8856D2456410B00D5741D /* ImageMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8856C2456410B00D5741D /* ImageMapViewModel.swift */; };
+		0EE8856F2456426100D5741D /* ImageMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8856E2456426100D5741D /* ImageMapView.swift */; };
+		0EE885712456BCF100D5741D /* ImageFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE885702456BCF100D5741D /* ImageFull.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +99,9 @@
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
 		0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullScreenView.swift; sourceTree = "<group>"; };
 		0EDA92972304874A0044F35A /* ImageFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFullViewController.swift; sourceTree = "<group>"; };
+		0EE8856C2456410B00D5741D /* ImageMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapViewModel.swift; sourceTree = "<group>"; };
+		0EE8856E2456426100D5741D /* ImageMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapView.swift; sourceTree = "<group>"; };
+		0EE885702456BCF100D5741D /* ImageFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFull.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 				0E134EF62300D0F000810484 /* ImageViewState.swift */,
 				0E134ECE22FAFE9A00810484 /* Image.swift */,
 				0E7435A0230B5889007C1EA5 /* SearchCategory.swift */,
+				0EE885702456BCF100D5741D /* ImageFull.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -182,6 +189,7 @@
 				0E134EF02300CF3200810484 /* ImageCollectionViewCell.swift */,
 				0EDA929523018F3F0044F35A /* ImageFullScreenView.swift */,
 				0E74359E230B5621007C1EA5 /* SearchBarView.swift */,
+				0EE8856E2456426100D5741D /* ImageMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 			children = (
 				0EB6D38C2450565200D7F3B5 /* ImageViewModel.swift */,
 				0E74359C230B3D8F007C1EA5 /* ImageListViewModel.swift */,
+				0EE8856C2456410B00D5741D /* ImageMapViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -402,13 +411,16 @@
 				0E9EC5F824562C2600224DC1 /* ImageMapViewController.swift in Sources */,
 				0E9EC5FA24562CBB00224DC1 /* TabBarViewController.swift in Sources */,
 				0E134ED322FAFF2300810484 /* APIRequest.swift in Sources */,
+				0EE8856F2456426100D5741D /* ImageMapView.swift in Sources */,
 				0EB6D38D2450565200D7F3B5 /* ImageViewModel.swift in Sources */,
 				0E74359F230B5621007C1EA5 /* SearchBarView.swift in Sources */,
 				0E134ECC22FAFE7600810484 /* HttpMethod.swift in Sources */,
+				0EE8856D2456410B00D5741D /* ImageMapViewModel.swift in Sources */,
 				0E743597230AEE1C007C1EA5 /* SearchParameters.swift in Sources */,
 				0E134EF72300D0F000810484 /* ImageViewState.swift in Sources */,
 				0E57708522FAFA2F004F78DE /* Resource.swift in Sources */,
 				0E134EDB22FC620300810484 /* Dependencies.swift in Sources */,
+				0EE885712456BCF100D5741D /* ImageFull.swift in Sources */,
 				0E134EEC2300CDEA00810484 /* ImageListViewController.swift in Sources */,
 				0E134EF92300D14200810484 /* UIColor+HexInit.swift in Sources */,
 				0EB6D38F2450568100D7F3B5 /* Session.swift in Sources */,
