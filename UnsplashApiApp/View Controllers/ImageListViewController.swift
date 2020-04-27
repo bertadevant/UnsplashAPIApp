@@ -171,7 +171,7 @@ private extension UIScrollView {
     }
 }
 
-private extension SearchParameters {
+extension SearchParameters {
     static var initialParameters: SearchParameters {
         return SearchParameters(searchType: .photos,
                                 query: "barcelona",
