@@ -38,6 +38,7 @@ class ImageMapView: MKMapView {
 class ImagePin: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     private let image: ImageViewState
+    let identifier = "ImagePin"
     
     var title: String? {
         return image.location?.title

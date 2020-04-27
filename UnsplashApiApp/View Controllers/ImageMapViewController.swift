@@ -84,10 +84,31 @@ class ImageMapViewController: UIViewController {
     }
 }
 
-extension ImageMapViewController: MKMapViewDelegate { }
+extension ImageMapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+    }
+    
+    //MapView works similary to tableView, this will get called every time an annotation is added to the map
+    //Here we can return our own "cell" which would be a MKAnnotationView for a specific annotation type
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? ImagePin else { return nil }
+        //we check if we can use a reusable View instead of creating a new one of the same identifier
+        if let dequequeView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.identifier) as? MKMarkerAnnotationView {
+            dequequeView.annotation = annotation
+            return dequequeView
+        }
+        //TODO: Create our own MKMarkerAnnotationView to handle this and show images
+        let view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: annotation.identifier)
+        view.canShowCallout = true
+        view.calloutOffset = CGPoint(x: -5, y: 5)
+        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        return view
+    }
+}
 
 extension ImageMapViewController: CLLocationManagerDelegate {
-    //every time location updates
+    //every time location of user updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //We do not do anything if last location is not known
 //        guard let location = locations.last else { return }
