@@ -28,9 +28,9 @@ class ImageViewModel: NSObject {
         self.image = image
     }
     
-    func fetchImage(ofSize size: ImageSize, completion: @escaping (Result<ImageViewState, Error>) -> Void) {
+    func fetchImageFile(ofSize size: ImageSize, completion: @escaping (Result<ImageViewState, Error>) -> Void) {
         let imageURL = (size == .small) ? image.urls.small : image.urls.regular
-        fetchImage(imageURL) { [weak self] result in
+        fetchImageFile(imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -43,7 +43,7 @@ class ImageViewModel: NSObject {
     }
     
     func download(completion: @escaping (Error?) -> ()) {
-        fetchImage(image.urls.full) { result in
+        fetchImageFile(image.urls.full) { result in
             switch result {
             case .success(let image): UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
             case .failure(let error): completion(error)
@@ -53,7 +53,7 @@ class ImageViewModel: NSObject {
     }
     
     func share(completion: @escaping (Result<UIImage, Error>) -> ()) {
-        fetchImage(image.urls.full) { result in
+        fetchImageFile(image.urls.full) { result in
             completion(result)
         }
     }
@@ -76,7 +76,7 @@ class ImageViewModel: NSObject {
         Dependencies.enviroment.mainSession.download(downloadResource) { _ in }
     }
     
-    private func fetchImage(_ imageURL: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
+    private func fetchImageFile(_ imageURL: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
         let request = APIRequest.loadRequest(imageURL: imageURL)
         let resource = Resource<Data>(get: request)
         Dependencies.enviroment.mainSession.download(resource) { result in

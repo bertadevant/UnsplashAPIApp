@@ -59,7 +59,7 @@ final class ImageListViewModel {
     }
     
     private func fetchImages(_ image: ImageViewModel) {
-        image.fetchImage(ofSize: .small) { [weak self] result in
+        image.fetchImageFile(ofSize: .small) { [weak self] result in
             //TODO: Error handeling, retry the image
             self?.imageFinishedDownloading?(result)
         }

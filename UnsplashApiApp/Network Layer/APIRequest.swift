@@ -13,7 +13,7 @@ struct APIRequest {
 }
 
 extension APIRequest {
-    static func imageRequest(searchParameters: SearchParameters) -> APIRequest {
+    static func listImagesRequest(searchParameters: SearchParameters) -> APIRequest {
         var queryItems: [URLQueryItem] = []
         let page: String = searchParameters.page == 0 ? "1" : searchParameters.page.description
         queryItems.append(URLQueryItem(name: "page", value: page))
@@ -22,6 +22,11 @@ extension APIRequest {
         }
         let components = unsplashComponent(path: searchParameters.searchType.rawValue, queryItems: queryItems)
         return APIRequest(components: components)
+    }
+    
+    static func imageRequest(imageId: String) -> APIRequest {
+        let component = unsplashComponent(path: SearchType.download.rawValue + "/\(imageId)")
+        return APIRequest(components: component)
     }
     
     //Unsplash API demands that we trigger a download count when downloading a picture, this request is created to handle that

@@ -41,7 +41,7 @@ class ImageFullViewController: UIViewController {
     }
     
     private func setupImage() {
-        viewModel.fetchImage(ofSize: .regular){ [weak self] result in
+        viewModel.fetchImageFile(ofSize: .regular){ [weak self] result in
             switch result {
             case .success(let viewState):
                 self?.imageView.bind(viewState)
