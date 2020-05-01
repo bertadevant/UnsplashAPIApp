@@ -40,7 +40,7 @@ class ImageFullScreenView: UIView {
     private var authorLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = Fonts.regular
+        label.font = Font.regular
         label.textColor = Color.systemGray
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .left

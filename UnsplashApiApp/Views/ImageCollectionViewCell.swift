@@ -20,7 +20,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = Fonts.regular
+        label.font = Font.regular
         label.textColor = Color.label
         label.lineBreakMode = .byTruncatingHead
         label.textAlignment = .right

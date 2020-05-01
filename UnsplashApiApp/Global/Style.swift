@@ -7,7 +7,7 @@
 //
 
 import UIKit
-enum Fonts {
+enum Font {
     static let regular = UIFont(name: "HelveticaNeue", size: 16)
 }
 
