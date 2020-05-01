@@ -35,7 +35,7 @@
 		0EB6D38F2450568100D7F3B5 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D38E2450568100D7F3B5 /* Session.swift */; };
 		0EB6D392245056AA00D7F3B5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D390245056AA00D7F3B5 /* Constants.swift */; };
 		0EB6D393245056AA00D7F3B5 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D391245056AA00D7F3B5 /* Style.swift */; };
-		0EB6D3952450B83400D7F3B5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D3942450B83300D7F3B5 /* AlertController.swift */; };
+		0EB6D3952450B83400D7F3B5 /* UIAlertController+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6D3942450B83300D7F3B5 /* UIAlertController+init.swift */; };
 		0ED746382432541100E8E625 /* ImageListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746372432541100E8E625 /* ImageListViewModelTests.swift */; };
 		0ED7463A2432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */; };
 		0ED7463C243255A300E8E625 /* TestSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7463B243255A300E8E625 /* TestSpy.swift */; };
@@ -86,7 +86,7 @@
 		0EB6D38E2450568100D7F3B5 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		0EB6D390245056AA00D7F3B5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EB6D391245056AA00D7F3B5 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		0EB6D3942450B83300D7F3B5 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		0EB6D3942450B83300D7F3B5 /* UIAlertController+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+init.swift"; sourceTree = "<group>"; };
 		0ED746372432541100E8E625 /* ImageListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelTests.swift; sourceTree = "<group>"; };
 		0ED746392432554F00E8E625 /* ImageListViewModelDelegateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModelDelegateTestDouble.swift; sourceTree = "<group>"; };
 		0ED7463B243255A300E8E625 /* TestSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpy.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				0E134EF42300CFBD00810484 /* UIView+AutoLayout.swift */,
 				0E134EF82300D14200810484 /* UIColor+HexInit.swift */,
 				0E134EFF2300E0DC00810484 /* CellStyle.swift */,
-				0EB6D3942450B83300D7F3B5 /* AlertController.swift */,
+				0EB6D3942450B83300D7F3B5 /* UIAlertController+init.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -379,7 +379,7 @@
 				0E134EF52300CFBD00810484 /* UIView+AutoLayout.swift in Sources */,
 				0E134F002300E0DC00810484 /* CellStyle.swift in Sources */,
 				0E7435A1230B5889007C1EA5 /* SearchCategory.swift in Sources */,
-				0EB6D3952450B83400D7F3B5 /* AlertController.swift in Sources */,
+				0EB6D3952450B83400D7F3B5 /* UIAlertController+init.swift in Sources */,
 				0E74359D230B3D8F007C1EA5 /* ImageListViewModel.swift in Sources */,
 				0E134EF12300CF3200810484 /* ImageCollectionViewCell.swift in Sources */,
 				0EB6D392245056AA00D7F3B5 /* Constants.swift in Sources */,
