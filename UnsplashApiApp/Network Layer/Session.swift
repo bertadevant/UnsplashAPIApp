@@ -8,9 +8,10 @@
 
 import Foundation
 
+typealias Completion<A> = (Result<A,Error>) -> Void
 protocol Session {
-    func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A, Error>) -> ())
-    func download<A>(_ resource: Resource<A>, completion: @escaping (Result<Data, Error>) -> ())
+    func load<A>(_ resource: Resource<A>, completion: @escaping Completion<A>)
+    func download<A>(_ resource: Resource<A>, completion: @escaping Completion<Data>)
 }
 
 enum FetchError: String, Error {
@@ -19,49 +20,35 @@ enum FetchError: String, Error {
 }
 
 class NetworkSession: Session {
-    private let urlSession: URLSession = .shared
-    private let authorizationKey: String
     private let completionQueue: DispatchQueue
     
-    init(apiKey: String, completionQueue: DispatchQueue = DispatchQueue.main) {
-        self.authorizationKey = apiKey
+    init(completionQueue: DispatchQueue = DispatchQueue.main) {
         self.completionQueue = completionQueue
     }
     
-    func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A, Error>) -> ()) {
-        let request = urlRequest(apiRequest: resource.apiRequest)
+    func load<A>(_ resource: Resource<A>, completion: @escaping Completion<A>) {
+        let request = resource.apiRequest.urlRequest
         print("👾 resource URL \(request.url?.absoluteString ?? "nil")")
-        urlSession.dataTask(with: request) { data, _, error in
-            guard let _ = data else {
-                self.completionQueue.async { completion(.failure(FetchError.noResponseFound)) }
-                return
-            }
-            guard let parseData = data.flatMap(resource.parse) else {
-                self.completionQueue.async { completion(.failure(FetchError.parsedFailed)) }
-                return
-            }
-            self.completionQueue.async { completion(.success(parseData)) }
-        }.resume()
-    }
-    
-    func download<A>(_ resource: Resource<A>, completion: @escaping (Result<Data, Error>) -> ()) {
-        let request = urlRequest(apiRequest: resource.apiRequest)
-        urlSession.dataTask(with: request) { data, _, error in
+        Fetcher(request: request).get() { data, error in
             guard let data = data else {
                 self.completionQueue.async { completion(.failure(FetchError.noResponseFound)) }
                 return
             }
-            self.completionQueue.async { completion(.success(data)) }
-        }.resume()
+            guard let parseData = resource.parse(data) else {
+                return
+            }
+            self.completionQueue.async { completion(.success(parseData)) }
+        }
     }
     
-    private func urlRequest(apiRequest: APIRequest) -> URLRequest {
-        guard let urlString = apiRequest.components.url?.absoluteString.removingPercentEncoding,
-            let url = URL(string: urlString) else {
-                preconditionFailure("We should have a valid URL \(apiRequest.components.url?.absoluteString.removingPercentEncoding ?? "nil"))")
+    func download<A>(_ resource: Resource<A>, completion: @escaping Completion<Data>) {
+        let request = resource.apiRequest.urlRequest
+        Fetcher(request: request).get(){ data, error in
+            guard let data = data else {
+                self.completionQueue.async { completion(.failure(FetchError.noResponseFound)) }
+                return
+            }
+            self.completionQueue.async { completion(.success(data))}
         }
-        var request = URLRequest(url: url)
-        request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
-        return request
     }
 }
