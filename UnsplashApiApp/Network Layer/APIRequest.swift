@@ -10,6 +10,16 @@ import Foundation
 
 struct APIRequest {
     let components: URLComponents
+    let authorizationKey: String = Constants.apiAccessKey
+    var urlRequest: URLRequest {
+        guard let urlString = components.url?.absoluteString.removingPercentEncoding,
+            let url = URL(string: urlString) else {
+                preconditionFailure("We should have a valid URL \(components.url?.absoluteString.removingPercentEncoding ?? "nil")")
+        }
+        var request = URLRequest(url: url)
+        request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
+        return request
+    }
 }
 
 extension APIRequest {
