@@ -12,6 +12,7 @@ typealias Completion<A> = (Result<A,Error>) -> Void
 protocol Session {
     func load<A>(_ resource: Resource<A>, completion: @escaping Completion<A>)
     func download<A>(_ resource: Resource<A>, completion: @escaping Completion<Data>)
+    func cancel(_ request: URLRequest)
 }
 
 enum FetchError: String, Error {
@@ -50,5 +51,9 @@ class NetworkSession: Session {
             }
             self.completionQueue.async { completion(.success(data))}
         }
+    }
+    
+    func cancel(_ request: URLRequest) {
+        Fetcher(request: request).cancel()
     }
 }

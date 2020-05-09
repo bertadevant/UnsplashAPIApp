@@ -23,4 +23,8 @@ class Fetcher {
             completion(data, error)
         }.resume()
     }
+    
+    func cancel() {
+        urlSession.dataTask(with: request).cancel()
+    }
 }
