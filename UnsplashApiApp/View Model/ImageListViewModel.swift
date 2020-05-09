@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 final class ImageListViewModel {
+    typealias ImageDownloadCompetion = ((Result<ImageViewState, Error>) -> ())
     private var images: [ImageViewModel] = []
-    var imageFinishedDownloading: ((Result<ImageViewState, Error>) -> ())?
+    var imageFinishedDownloading: ImageDownloadCompetion?
     private var pendingRequests: [APIRequest] = []
     private let session: Session = Dependencies.enviroment.mainSession
     

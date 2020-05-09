@@ -22,6 +22,14 @@ struct APIRequest {
     }
 }
 
+extension APIRequest: Equatable {
+    static func == (lhs: APIRequest, rhs: APIRequest) -> Bool {
+        return lhs.authorizationKey == rhs.authorizationKey &&
+            lhs.components == rhs.components &&
+            lhs.urlRequest.url?.absoluteString == rhs.urlRequest.url?.absoluteString
+    }
+}
+
 extension APIRequest {
     static func imageRequest(searchParameters: SearchParameters) -> APIRequest {
         var queryItems: [URLQueryItem] = []
