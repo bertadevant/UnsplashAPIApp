@@ -59,7 +59,7 @@ class ImageFullViewController: UIViewController {
     private func imageFinishedDownloading(_ error: Error?) {
         //TODO: Take this presentation out of the VC -> Coordinator
         //presentation should be on navigation Controller
-        imageView.downloadButton(isLoading: false)
+        imageView.downloadButtonState(isLoading: false)
         var alert: UIAlertController
         if let error = error {
             alert = UIAlertController(error: error, handler: nil)
@@ -90,7 +90,7 @@ extension ImageFullViewController: ImageActionsDelegate {
             guard let self = self else { return }
             //TODO: Error Handeling
         }
-        imageView.downloadButton(isLoading: true)
+        imageView.downloadButtonState(isLoading: true)
     }
     
     func dismiss() {

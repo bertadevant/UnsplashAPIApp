@@ -106,7 +106,7 @@ class ImageFullScreenView: UIView {
         loadingView.startAnimating()
     }
     
-    func downloadButton(isLoading: Bool) {
+    func downloadButtonState(isLoading: Bool) {
         downloadButton.load(isLoading)
     }
     
