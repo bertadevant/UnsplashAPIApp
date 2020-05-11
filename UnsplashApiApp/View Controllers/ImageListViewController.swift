@@ -92,7 +92,6 @@ class ImageListViewController: UIViewController {
             self?.collectionView.reloadData()
         }
     }
-    
 }
 
 extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -158,10 +157,10 @@ extension ImageListViewController: UICollectionViewDelegateFlowLayout {
 
 extension ImageListViewController: SearchDelegate {
     func searchQuery(_ query: String) {
-        let newSearch = SearchParameters(query: query.lowercased())
-        viewModel.fetchNewQuery(newSearch, completion: reloadData(_:))
-        self.searchParameters = newSearch
         scrollToTop()
+        let newSearch = SearchParameters(query: query.lowercased())
+        self.searchParameters = newSearch
+        viewModel.fetchNewQuery(newSearch, completion: reloadData(_:))
     }
 }
 
@@ -174,7 +173,7 @@ private extension UIScrollView {
 private extension SearchParameters {
     static var initialParameters: SearchParameters {
         return SearchParameters(searchType: .photos,
-                                query: "barcelona",
+                                query: SearchCategory.barcelona.name,
                                 page: 1)
     }
 }
