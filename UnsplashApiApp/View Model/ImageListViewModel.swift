@@ -30,7 +30,7 @@ final class ImageListViewModel {
             switch result {
             case .success(let images):
                 self.images += images
-                images.forEach(self.fetchImages(_:))
+                images.forEach(self.fetchImage(_:))
             case .failure(let error): completion(.failure(error))
             }
         }
@@ -43,7 +43,7 @@ final class ImageListViewModel {
             switch result {
             case .success(let images):
                 self.images = images
-                images.forEach(self.fetchImages(_:))
+                images.forEach(self.fetchImage(_:))
             case .failure(let error): completion(.failure(error))
             }
         }
@@ -69,7 +69,7 @@ final class ImageListViewModel {
         }
     }
     
-    private func fetchImages(_ image: ImageViewModel) {
+    private func fetchImage(_ image: ImageViewModel) {
         image.fetchImage(ofSize: .small) { [weak self] result in
             //TODO: Error handeling, retry the image
             self?.imageFinishedDownloading?(result)
