@@ -45,7 +45,9 @@ class ImageViewModel: NSObject {
     func download(completion: @escaping (Error?) -> ()) {
         fetchImage(image.urls.full) { result in
             switch result {
-            case .success(let image): UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
+            case .success(let image):
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved), nil)
+                completion(nil)
             case .failure(let error): completion(error)
             }
         }
